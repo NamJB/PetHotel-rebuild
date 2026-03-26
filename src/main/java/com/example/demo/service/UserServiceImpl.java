@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService{
 		userMapper.postMember(memberDto);
 	}
 	
+	public MemberDto loginUser(MemberDto memberDto) {
+		
+		return userMapper.loginUser(memberDto);
+	}
+	
 }

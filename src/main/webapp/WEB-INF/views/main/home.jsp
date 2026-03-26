@@ -9,9 +9,14 @@
 <body>
 
   메인화면
-
+${user.userid }
 
 <a href = "/user/login">로그인</a>
+
 <a href = "/user/member">회원가입</a>
+
+<form method = "post" action ="/user/logout">
+  <input type = "submit" value = "로그아웃">
+</form>
 </body>
 </html>

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 
 public class UserController {
@@ -43,9 +45,26 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/user/loginUser")
-	public String loginUser() {
+	public String loginUser(MemberDto memberDto,HttpSession session) {
 	
-				
+		MemberDto user =userService.loginUser(memberDto);
+		
+		if(user != null) {
+			
+			session.setAttribute("user", user);
+			
+			return "redirect:/main/home";
+		}
+		
+		return "redirect:/user/login";
+	}
+	
+	//로그아웃 요청
+	@PostMapping("/user/logout")
+	public String logOut(HttpSession session) {
+		
+		session.invalidate();
+		
 		return "redirect:/main/home";
 	}
 	
