@@ -35,4 +35,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getView(id);
 	}
 	
+	@Override
+	public void postUpdate(BoardDto bDto) {
+		
+		boardMapper.postUpdate(bDto);
+	}
+	
 }

@@ -58,4 +58,24 @@ public class BoardController {
 		
 		return "board/view";
 	}
+	
+	//게시판 수정 뷰 반환
+	@GetMapping("/board/update")
+	public String update(@RequestParam int id,Model model) {
+		
+		BoardDto board = boardService.getView(id);
+		
+		model.addAttribute("board",board);
+		
+		return "board/update";
+	}
+	
+	//게시판 수정 요청
+	@PostMapping("/board/update")
+	public String postUpdate(BoardDto bDto) {
+		
+		boardService.postUpdate(bDto);
+		
+		return "redirect:/board/view?id="+bDto.getId();
+	}
 }

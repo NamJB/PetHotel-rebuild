@@ -12,4 +12,6 @@ public interface BoardService {
 	
 	public BoardDto getView(int id);
 	
+	public void postUpdate(BoardDto bDto);
+	
 }

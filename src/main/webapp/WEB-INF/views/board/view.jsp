@@ -13,5 +13,7 @@
 <div>내용  ${board.content}</div>
 
 
+<div><a href = "/board/update?id=${board.id}">글수정</a></div>
+<div><a href = "/board/delete">글삭제</a></div>
 </body>
 </html>

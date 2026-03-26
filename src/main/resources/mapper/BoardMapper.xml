@@ -15,5 +15,11 @@
       select * from board
       where id = #{id}
    </select>
+   
+   <update id = "postUpdate">
+      update board 
+      set title = #{title}, content = #{content}
+      where id = #{id}    
+   </update>
 
 </mapper>
