@@ -17,4 +17,6 @@ public interface BoardMapper {
 	public BoardDto getView(int id);
 	
 	public void postUpdate(BoardDto bDto);
+	
+	public void postDelete(int id);
 }

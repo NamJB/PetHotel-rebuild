@@ -14,4 +14,6 @@ public interface BoardService {
 	
 	public void postUpdate(BoardDto bDto);
 	
+	public void postDelete(int id);
+	
 }

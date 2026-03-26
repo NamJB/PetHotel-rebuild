@@ -21,5 +21,10 @@
       set title = #{title}, content = #{content}
       where id = #{id}    
    </update>
+   
+   <delete id = "postDelete">
+      delete from board
+      where id = #{id}
+   </delete>
 
 </mapper>

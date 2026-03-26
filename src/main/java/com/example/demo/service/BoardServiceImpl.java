@@ -41,4 +41,11 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.postUpdate(bDto);
 	}
 	
+	@Override
+	public void postDelete(int id) {
+		
+		boardMapper.postDelete(id);
+	}
+	
+	
 }

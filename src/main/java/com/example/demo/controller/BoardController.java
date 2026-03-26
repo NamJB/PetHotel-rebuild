@@ -22,14 +22,14 @@ public class BoardController {
 	}
 	
 	//게시판 뷰 반환
-	@GetMapping("/board/question")
+	@GetMapping("/board/list")
 	public String question(Model model) {
         
 		List<BoardDto> list = boardService.getList();
 		
 		model.addAttribute("list",list);
 		
-		return "board/question";
+		return "board/list";
 	}
 	
 	//게시판 글쓰기 뷰 반환
@@ -45,7 +45,7 @@ public class BoardController {
 		
 		boardService.postWrite(bDto);
 		
-		return "redirect:/board/question";
+		return "redirect:/board/list";
 	}
 	
 	//게시판 글보기 뷰 반환
@@ -77,5 +77,14 @@ public class BoardController {
 		boardService.postUpdate(bDto);
 		
 		return "redirect:/board/view?id="+bDto.getId();
+	}
+	//게시판 삭제 요청
+	@PostMapping("/board/delete")
+	public String postDelete(int id) {
+		
+		boardService.postDelete(id);
+		
+		return "redirect:/board/list";
+			
 	}
 }

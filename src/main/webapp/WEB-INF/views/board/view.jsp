@@ -14,6 +14,11 @@
 
 
 <div><a href = "/board/update?id=${board.id}">글수정</a></div>
-<div><a href = "/board/delete">글삭제</a></div>
+<div>
+   <form method = "post" action = "/board/delete">
+     <input type = "hidden" value = "${board.id}" name = "id">
+     <input type = "submit" value = "글 삭제">
+   </form>
+</div>
 </body>
 </html>

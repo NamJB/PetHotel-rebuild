@@ -10,7 +10,7 @@
 
   메인화면
   
-  <div><a href = "/board/question">질문게시판</a></div>
+  <div><a href = "/board/list">질문게시판</a></div>
 ${user}
 
 <a href = "/user/login">로그인</a>
