@@ -1,0 +1,11 @@
+package com.example.demo.dto;
+
+import lombok.Data;
+
+@Data
+public class MemberDto {
+
+	String userid;
+	
+	String pwd;
+}
