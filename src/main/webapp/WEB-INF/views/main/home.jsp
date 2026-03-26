@@ -9,7 +9,9 @@
 <body>
 
   메인화면
-${user.userid }
+  
+  <div><a href = "/board/question">질문게시판</a></div>
+${user}
 
 <a href = "/user/login">로그인</a>
 
@@ -18,5 +20,7 @@ ${user.userid }
 <form method = "post" action ="/user/logout">
   <input type = "submit" value = "로그아웃">
 </form>
+
+
 </body>
 </html>

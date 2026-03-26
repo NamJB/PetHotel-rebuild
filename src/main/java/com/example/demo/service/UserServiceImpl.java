@@ -15,11 +15,13 @@ public class UserServiceImpl implements UserService{
 		this.userMapper = userMapper;
 	}
 	
+	@Override
 	public void postMember(MemberDto memberDto) {
 		
 		userMapper.postMember(memberDto);
 	}
 	
+	@Override
 	public MemberDto loginUser(MemberDto memberDto) {
 		
 		return userMapper.loginUser(memberDto);

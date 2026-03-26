@@ -51,7 +51,7 @@ public class UserController {
 		
 		if(user != null) {
 			
-			session.setAttribute("user", user);
+			session.setAttribute("user", user.getUserid());
 			
 			return "redirect:/main/home";
 		}
