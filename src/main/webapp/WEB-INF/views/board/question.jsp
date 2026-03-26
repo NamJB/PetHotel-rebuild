@@ -21,7 +21,7 @@
 <c:forEach var = "b" items = "${list}">
    <tr>
       <td>${b.id }</td>
-      <td>${b.title}</td>
+      <td><a href = "/board/view?id=${b.id}">${b.title}</a></td>
       <td>${b.userid}</td>,
    </tr>
    </c:forEach>

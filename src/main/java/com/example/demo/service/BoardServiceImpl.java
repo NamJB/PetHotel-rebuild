@@ -29,4 +29,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getList();
 	}
 	
+	@Override
+	public BoardDto getView(int id) {
+		
+		return boardMapper.getView(id);
+	}
+	
 }

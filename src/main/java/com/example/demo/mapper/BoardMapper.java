@@ -13,4 +13,6 @@ public interface BoardMapper {
 	public void postWrite(BoardDto bdto);
 	
 	public List<BoardDto> getList();
+	
+	public BoardDto getView(int id);
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.BoardDto;
 import com.example.demo.service.BoardService;
@@ -35,8 +36,6 @@ public class BoardController {
 	@GetMapping("/board/write")
 	public String write() {
 		
-		
-		
 		return "board/write";
 	}
 	
@@ -47,5 +46,16 @@ public class BoardController {
 		boardService.postWrite(bDto);
 		
 		return "redirect:/board/question";
+	}
+	
+	//게시판 글보기 뷰 반환
+	@GetMapping("/board/view")
+	public String getView(@RequestParam int id,Model model) {
+		
+		BoardDto board = boardService.getView(id);
+		
+		model.addAttribute("board",board);
+		
+		return "board/view";
 	}
 }

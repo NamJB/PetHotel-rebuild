@@ -10,5 +10,10 @@
       select * from board 
       order by id desc
    </select>
+   
+   <select id = "getView" resultType = "com.example.demo.dto.BoardDto">
+      select * from board
+      where id = #{id}
+   </select>
 
 </mapper>

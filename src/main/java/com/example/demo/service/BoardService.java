@@ -10,4 +10,6 @@ public interface BoardService {
 	
 	public List<BoardDto> getList();
 	
+	public BoardDto getView(int id);
+	
 }
