@@ -1,12 +1,12 @@
-package com.example.demo.controller;
+package com.pethotel.controller;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.dto.MemberDto;
-import com.example.demo.service.UserService;
+import com.pethotel.dto.MemberDto;
+import com.pethotel.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -68,6 +68,8 @@ public class UserController {
 		
 		return "redirect:/main/home";
 	}
+	
+
 	
 	
 	

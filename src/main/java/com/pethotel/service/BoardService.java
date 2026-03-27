@@ -1,15 +1,11 @@
-package com.example.demo.mapper;
+package com.pethotel.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.pethotel.dto.BoardDto;
 
-import com.example.demo.dto.BoardDto;
+public interface BoardService {
 
-@Mapper
-public interface BoardMapper {
-
-	
 	public void postWrite(BoardDto bdto);
 	
 	public List<BoardDto> getList();
@@ -19,4 +15,5 @@ public interface BoardMapper {
 	public void postUpdate(BoardDto bDto);
 	
 	public void postDelete(int id);
+	
 }

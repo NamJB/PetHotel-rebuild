@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.UserMapper">
+<mapper namespace="com.pethotel.mapper.UserMapper">
    
    <insert id = "postMember">     
      insert into member(userid,pwd) 
      values (#{userid},#{pwd})
    </insert>
    
-   <select id = "loginUser" resultType = "com.example.demo.dto.MemberDto">
+   <select id = "loginUser" resultType = "com.pethotel.dto.MemberDto">
       select * from member 
       where userid = #{userid} 
       and pwd = #{pwd}

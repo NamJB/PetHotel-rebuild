@@ -1,10 +1,10 @@
-package com.example.demo.dto;
+package com.pethotel.dto;
 
 import lombok.Data;
 
 @Data
 public class ResDto {
-
+    //동물 타입으로 바꾸기
 	String check_in;
 	
 	String check_out;
@@ -16,4 +16,10 @@ public class ResDto {
 	int large_cnt;
 	
 	int member_id;
+	
+	int id;
+	
+	
+	
+	
 }

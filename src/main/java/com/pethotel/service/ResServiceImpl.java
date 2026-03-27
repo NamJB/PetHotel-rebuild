@@ -1,13 +1,15 @@
-package com.example.demo.service;
+package com.pethotel.service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dto.ResDto;
-import com.example.demo.mapper.ResMapper;
+import com.pethotel.dto.PetInfoDto;
+import com.pethotel.dto.ResDto;
+import com.pethotel.mapper.ResMapper;
 
 @Service
 public class ResServiceImpl implements ResService {
@@ -74,10 +76,49 @@ public class ResServiceImpl implements ResService {
 	    return result;
 	}
 	
+	
+	//
 	@Override
+	@Transactional
     public void save(ResDto RDto) {
 		
 		resMapper.save(RDto);
+		
+		int res_id = RDto.getId();
+		
+		
+		if(RDto.getSmall_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("small");
+			pdto.setCount(RDto.getSmall_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+        if(RDto.getMedium_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("medium");
+			pdto.setCount(RDto.getMedium_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+        if(RDto.getLarge_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("large");
+			pdto.setCount(RDto.getLarge_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+		
+		
 		
 	}
 	

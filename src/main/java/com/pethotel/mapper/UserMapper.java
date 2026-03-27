@@ -1,8 +1,8 @@
-package com.example.demo.mapper;
+package com.pethotel.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.demo.dto.MemberDto;
+import com.pethotel.dto.MemberDto;
 
 @Mapper
 public interface UserMapper {

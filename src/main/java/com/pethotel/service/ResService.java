@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.pethotel.service;
 
 import java.util.Map;
 
-import com.example.demo.dto.ResDto;
+import com.pethotel.dto.ResDto;
 
 public interface ResService {
 

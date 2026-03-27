@@ -1,9 +1,9 @@
-package com.example.demo.service;
+package com.pethotel.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.MemberDto;
-import com.example.demo.mapper.UserMapper;
+import com.pethotel.dto.MemberDto;
+import com.pethotel.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService{

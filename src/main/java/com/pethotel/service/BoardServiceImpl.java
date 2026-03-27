@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.pethotel.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.BoardDto;
-import com.example.demo.mapper.BoardMapper;
+import com.pethotel.dto.BoardDto;
+import com.pethotel.mapper.BoardMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {

@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.pethotel.service;
 
-import com.example.demo.dto.MemberDto;
+import com.pethotel.dto.MemberDto;
 
 public interface UserService {
 
