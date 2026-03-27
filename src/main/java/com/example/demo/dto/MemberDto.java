@@ -8,4 +8,6 @@ public class MemberDto {
 	String userid;
 	
 	String pwd;
+	
+	int id;
 }

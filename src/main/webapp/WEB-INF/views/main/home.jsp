@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+${user}
   메인화면
   
   <div><a href = "/board/list">질문게시판</a></div>
-${user}
+  <div><a href = "/reservation/main">예약 게시판</a></div>
+
 
 <a href = "/user/login">로그인</a>
 
