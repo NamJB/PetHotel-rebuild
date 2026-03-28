@@ -10,7 +10,7 @@
 게시판 글쓰기
 
 <form method = "post" action = "/board/write">
-   <input type = "hidden" value = "${user}" name = "userid">
+   <input type = "hidden" value = "${member_id}" name = "member_id">
    <div>제목<input type = "text" name = "title"></div>
    <div>내용<textarea name = "content"></textarea></div>
    <div><input type = "submit" value = "글쓰기"></div>

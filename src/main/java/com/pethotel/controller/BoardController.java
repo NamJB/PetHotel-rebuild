@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pethotel.dto.BoardDto;
 import com.pethotel.service.BoardService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class BoardController {
 
@@ -41,7 +43,11 @@ public class BoardController {
 	
 	//게시판 글쓰기 요청
 	@PostMapping("/board/write")
-	public String postWrite(BoardDto bDto) {
+	public String postWrite(BoardDto bDto,HttpSession session) {
+		
+		Integer member_id = (Integer) session.getAttribute("member_id");
+		
+		bDto.setMember_id(member_id);
 		
 		boardService.postWrite(bDto);
 		

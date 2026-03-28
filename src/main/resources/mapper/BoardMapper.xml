@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pethotel.mapper.BoardMapper">
    <insert id = "postWrite">
-      insert into board(title,content,userid)
-      values(#{title},#{content},#{userid})      
+      insert into board(title,content,member_id)
+      values(#{title},#{content},#{member_id})      
    </insert>
    
    <select id = "getList" resultType = "com.pethotel.dto.BoardDto">
-      select * from board 
-      order by id desc
+      select 
+      b.id,
+      b.title,
+      b.content,
+      b.created_at,
+      m.user_id
+      from board b inner join member m on b.member_id = m.id
+      order by b.id desc
    </select>
    
    <select id = "getView" resultType = "com.pethotel.dto.BoardDto">

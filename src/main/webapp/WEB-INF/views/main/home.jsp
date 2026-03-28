@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href = "/user/mypage">${user}</a>
+<a href = "/mypage/main">${user}</a>	
   메인화면
   
   <div><a href = "/board/list">질문게시판</a></div>

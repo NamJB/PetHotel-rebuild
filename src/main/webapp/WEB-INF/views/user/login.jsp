@@ -12,7 +12,7 @@
 로그인화면
 
 <form method = "post" action = "/user/loginUser">
-   <div>아이디<input type= "text" name = "userid"></div>
+   <div>아이디<input type= "text" name = "user_id"></div>
    <div>비밀번호<input type = "password" name = "pwd"></div>
    <div><input type = "submit" value = "로그인"></div>
    

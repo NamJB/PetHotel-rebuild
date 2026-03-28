@@ -10,7 +10,7 @@
 회원가입 화면
 
 <form method = "post" action = "/user/member">
-   <div>아이디<input type = "text" name = userid></div>
+   <div>아이디<input type = "text" name = user_id></div>
    <div>비밀번호<input type = "password" name = "pwd"></div>
    <div><input type = "submit" value = "회원가입"></div>
 </form>

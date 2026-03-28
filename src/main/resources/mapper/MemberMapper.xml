@@ -3,13 +3,13 @@
 <mapper namespace="com.pethotel.mapper.UserMapper">
    
    <insert id = "postMember">     
-     insert into member(userid,pwd) 
-     values (#{userid},#{pwd})
+     insert into member(user_id,pwd) 
+     values (#{user_id},#{pwd})
    </insert>
    
    <select id = "loginUser" resultType = "com.pethotel.dto.MemberDto">
       select * from member 
-      where userid = #{userid} 
+      where user_id = #{user_id} 
       and pwd = #{pwd}
    </select>
 </mapper>
