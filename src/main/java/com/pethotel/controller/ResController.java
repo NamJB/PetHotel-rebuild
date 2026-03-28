@@ -2,6 +2,7 @@ package com.pethotel.controller;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pethotel.dto.MyResDto;
+import com.pethotel.dto.PetInfoDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.service.ResService;
 
@@ -76,6 +80,29 @@ public class ResController {
 		
 		return "reservation/complete";
 	}
+	
+	//마이페이지 예약글 상세보기 뷰반환
+    @GetMapping("/mypage/resview")
+	public String rescontent(@RequestParam int id,Model model,HttpSession session) {
+			
+	   Integer member_id = (Integer) session.getAttribute("member_id");
+	   
+			
+	   if(member_id == null) {
+		   
+		   return "redirect:/user/login";			
+			
+	   }
+	   
+	   MyResDto myResDto = resService.getView(id);
+	   List<PetInfoDto> plist=resService.resPet(id);
+			
+	   model.addAttribute("res",myResDto);
+	   model.addAttribute("plist",plist);
+			
+	   return "mypage/resview";
+		
+    }
 	
 	
 	

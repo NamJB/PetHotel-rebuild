@@ -2,11 +2,13 @@ package com.pethotel.service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pethotel.dto.MyResDto;
 import com.pethotel.dto.PetInfoDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.mapper.ResMapper;
@@ -121,6 +123,19 @@ public class ResServiceImpl implements ResService {
 		
 		
 	}
+	@Override
+	public List<PetInfoDto> resPet(int id) {
+		
+		
+		return resMapper.resPet(id);
+	}
+	
+	@Override
+	public MyResDto getView(int id) {
+		
+		return resMapper.getView(id);
+	}
+	
 	
 	
 	

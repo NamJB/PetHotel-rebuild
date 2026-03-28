@@ -41,11 +41,13 @@
      </tr>
   <c:forEach var = "r" items = "${reslist }">
      <tr>
-        <td>${r.id }</td>
+        <td>${r.id }
+        </td>
         <td>${r.check_in}</td>
         <td>${r.check_out}</td>
         <td>${r.status}</td>
         <td>${r.created_at }</td>
+        <td><a href = "/mypage/resview?id=${r.id }">상세보기</a></td>
      </tr>
      </c:forEach>
  </table>

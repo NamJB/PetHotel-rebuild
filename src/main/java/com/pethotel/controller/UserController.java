@@ -1,11 +1,16 @@
 package com.pethotel.controller;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -67,6 +72,26 @@ public class UserController {
 		session.invalidate();
 		
 		return "redirect:/main/home";
+	}
+	
+	//마이페이지 뷰반환
+	@GetMapping("/user/mypage")
+	public String mypage(HttpSession session,Model model) {
+		
+		Integer member_id = (Integer) session.getAttribute("member_id");
+		
+		if(member_id == null) {
+			
+			return "redirect:/user/login";			
+		}
+		
+		List<BoardDto> Blist =userService.myList(member_id);
+		List<MyResDto> Rlist = userService.myRes(member_id);
+		
+		model.addAttribute("boardlist",Blist);
+		model.addAttribute("reslist",Rlist);
+		
+		return "user/mypage";
 	}
 	
 

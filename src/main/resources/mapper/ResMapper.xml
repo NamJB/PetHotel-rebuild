@@ -13,4 +13,20 @@
       reservation_pet(res_id,dog_type,count)
       values(#{res_id},#{dog_type},#{count})
    </insert>
+   
+   <select id = "resPet" resultType = "com.pethotel.dto.PetInfoDto">
+       select 
+       dog_type,
+       count
+       from reservation_pet
+       where res_id = #{id}      
+   </select>
+   
+   <select id = "getView">
+      select 
+      * 
+      from 
+      reservation
+      where id = #{id} 
+   </select>
 </mapper>
