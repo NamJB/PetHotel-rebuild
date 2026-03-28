@@ -9,7 +9,7 @@
 <body>
 글쓴 화면
 
-<div>${board.id} 제목  ${board.title}    작성자${board.userid}</div>
+<div>${board.id} 제목  ${board.title}    작성자${board.user_id}</div>
 <div>내용  ${board.content}</div>
 
 

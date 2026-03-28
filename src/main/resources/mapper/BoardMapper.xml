@@ -10,7 +10,6 @@
       select 
       b.id,
       b.title,
-      b.content,
       b.created_at,
       m.user_id
       from board b inner join member m on b.member_id = m.id
@@ -18,8 +17,14 @@
    </select>
    
    <select id = "getView" resultType = "com.pethotel.dto.BoardDto">
-      select * from board
-      where id = #{id}
+      select  
+      b.id,
+      b.title,
+      b.content,
+      b.created_at,
+      m.user_id      
+      from board b inner join member m on b.member_id = m.id
+      where b.id = #{id}
    </select>
    
    <update id = "postUpdate">

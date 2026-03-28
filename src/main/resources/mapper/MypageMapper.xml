@@ -12,4 +12,12 @@
       where member_id = #{member_id} 
       order by b.id desc
    </select>
+   
+   <select id = "myRes">
+      select * 
+      from reservation 
+      where member_id = #{member_id}
+      order by id desc
+      
+   </select>
 </mapper>

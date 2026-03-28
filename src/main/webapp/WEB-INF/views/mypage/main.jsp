@@ -23,11 +23,31 @@
  <c:forEach var = "b" items ="${boardlist}">
     <tr>
        <td>${b.id}</td>
-       <td>${b.title}</td>
+       <td><a href = "/board/view?id=${b.id }">${b.title}</a></td>
        <td>${b.user_id }</td>
        <td>${b.created_at }</td>
     </tr>
  </c:forEach>
 </table>
+
+ <div>나의 예약</div>
+ <table>
+     <tr>
+        <td>번호</td>
+        <td>체크인</td>
+        <td>체크아웃</td>
+        <td>예약 상태</td>
+        <td>예약한 날짜</td>
+     </tr>
+  <c:forEach var = "r" items = "${reslist }">
+     <tr>
+        <td>${r.id }</td>
+        <td>${r.check_in}</td>
+        <td>${r.check_out}</td>
+        <td>${r.status}</td>
+        <td>${r.created_at }</td>
+     </tr>
+     </c:forEach>
+ </table>
 </body>
 </html>
