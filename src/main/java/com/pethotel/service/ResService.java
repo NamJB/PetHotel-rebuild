@@ -18,4 +18,10 @@ public interface ResService {
 	public MyResDto getView(int id);
 	
 	public void resDelete(int id);
+	
+	public int getResMember_id(int id);
+	
+	public ResDto getUpdate(int id);
+	
+	public void postUpdate(ResDto rdto);
 }

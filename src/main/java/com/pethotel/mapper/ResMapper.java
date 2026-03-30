@@ -20,4 +20,13 @@ public interface ResMapper {
 	public MyResDto getView(int id);
 	
 	public void resDelete(int id);
+	
+	public int getResMember_id(int id);
+		
+	public ResDto getResById(int id);
+	
+	public void petDelete(int id);
+	
+	public void postUpdate(ResDto rdto);
+	
 }

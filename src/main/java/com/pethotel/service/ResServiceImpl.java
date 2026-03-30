@@ -142,8 +142,81 @@ public class ResServiceImpl implements ResService {
 		resMapper.resDelete(id);
 	}
 	
+	@Override
+	public int getResMember_id(int id) {
+		
+		return resMapper.getResMember_id(id);
+	}
+	
+	@Override
+	public ResDto getUpdate(int id) {
+		
+		ResDto resdto = resMapper.getResById(id);
+		
+		List<PetInfoDto> pet_list =resMapper.resPet(id);
+		
+		resdto.setSmall_cnt(0);
+		resdto.setMedium_cnt(0);
+		resdto.setLarge_cnt(0);
+
+		for (PetInfoDto pet : pet_list) {
+		    if ("small".equals(pet.getDog_type())) {
+		        resdto.setSmall_cnt(pet.getCount());
+		    } 
+		    else if ("medium".equals(pet.getDog_type())) {
+		        resdto.setMedium_cnt(pet.getCount());
+		    } 
+		    else if ("large".equals(pet.getDog_type())) {
+		        resdto.setLarge_cnt(pet.getCount());
+		    }
+		}
+		return resdto;
+	}
 	
 	
 	
+    @Override
+    @Transactional
+    public void postUpdate(ResDto rdto) {
+    	
+		resMapper.postUpdate(rdto);
+		
+		int res_id = rdto.getId();
+		
+		resMapper.petDelete(res_id);
+		
+		
+		if(rdto.getSmall_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("small");
+			pdto.setCount(rdto.getSmall_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+        if(rdto.getMedium_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("medium");
+			pdto.setCount(rdto.getMedium_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+        if(rdto.getLarge_cnt() > 0) {
+			
+			PetInfoDto pdto = new PetInfoDto();
+			pdto.setRes_id(res_id);
+			pdto.setDog_type("large");
+			pdto.setCount(rdto.getLarge_cnt());
+			
+			resMapper.savePet(pdto);
+			
+		}
+        
+    }
 	
 }

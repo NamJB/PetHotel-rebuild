@@ -17,6 +17,7 @@
    <div>상태:${res.status}</div>
    <div>예약한 날짜 ${res.created_at}</div>
   
+  
    <c:forEach var="p" items="${plist}">
        <c:choose>
           <c:when test="${p.dog_type == 'small'}">소형견</c:when>
@@ -25,8 +26,11 @@
       </c:choose>
     : ${p.count}마리 <br>
    </c:forEach>
+     
+   <c:if test = "${res.status != '예약 취소' }">
+      <div> <a href = "/reservation/update?id=${res.id}">수정하기</a></div>
+   </c:if>
    
-   <div> <a href = "/reservation/update">수정하기</a></div>
    <div>
     <c:if test = "${res.status != '예약 취소'}">
       <form method ="post" action = "/reservation/delete">

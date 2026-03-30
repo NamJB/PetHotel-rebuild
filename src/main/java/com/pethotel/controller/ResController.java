@@ -74,6 +74,7 @@ public class ResController {
 		return "redirect:/reservation/complete";
 	}
 	
+	//예약후 성공한 화면 뷰반환
 	@GetMapping("reservation/complete")
 	public String complete() {
 		
@@ -94,28 +95,80 @@ public class ResController {
 			
 	   }
 	   
-	   MyResDto myResDto = resService.getView(id);
 	   
-	   if(!member_id.equals(myResDto.getMember_id())) {
+	   int resMember_id = resService.getResMember_id(id);
+	   
+	   if(!member_id.equals(resMember_id)) {
 		   
 		   return "redirect:/user/mypage";
 	   }
 	   
 	   List<PetInfoDto> plist=resService.resPet(id);
-			
+	   MyResDto myResDto = resService.getView(id);
+	   
+	   
 	   model.addAttribute("res",myResDto);
 	   model.addAttribute("plist",plist);
 			
 	   return "reservation/resview";
 		
     }
-    
+    //예약 취소 요청
     @PostMapping("/reservation/delete")
-    public String resDelete(int id) {
+    public String resDelete(int id,HttpSession session) {
+    	
+    	Integer member_id = (Integer) session.getAttribute("member_id");
+    	
+    	if(member_id == null) {
+    		
+    		return "redirect:/user/login";
+    	}
+    	
+    	int resMember_id = resService.getResMember_id(id);
+    	
+    	if(!member_id.equals(resMember_id)) {
+    		
+    		return "redirect:/user/mypage";
+    	}
     	
     	resService.resDelete(id);
     	
     	return "redirect:/user/mypage";
+    }
+    
+    //예약 업데이트 뷰반환
+    @GetMapping("/reservation/update")
+    public String resUpdate(@RequestParam int id,HttpSession session,Model model) {
+    	
+    	Integer member_id = (Integer) session.getAttribute("member_id");
+        
+    	
+    	if(member_id == null) {
+    		
+    		return "redirect:/user/login";
+    	}
+    	
+    	int resMember_id = resService.getResMember_id(id);
+    	
+    	if(!member_id.equals(resMember_id)) {
+    		
+    		return "redirect:/user/mypage";
+    	}
+    	
+    	ResDto resdto =resService.getUpdate(id);  
+    	
+    	model.addAttribute("res",resdto);
+    	
+    	return "reservation/update";
+    
+    }
+    
+    @PostMapping("/reservation/update")
+    public String postUpdate(ResDto rdto) {
+    	
+    	resService.postUpdate(rdto);
+    	
+    	return "redirect:/reservation/resview?id="+rdto.getId();
     }
 	
 	

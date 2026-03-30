@@ -36,4 +36,35 @@
       status ="예약 취소"
       where id = #{id} 
    </select>
+   
+   <select id = "getResMember_id" resultType = "int">
+      select
+      member_id from
+      reservation
+      where id = #{id}
+   </select>
+   
+   <select id = "getResById">
+      select 
+      * 
+      from
+      reservation
+      where id = #{id}
+   </select>
+   
+   <delete id = "petDelete">
+     delete from reservation_pet where res_id = #{id}
+   </delete>
+   
+   <update id = "postUpdate">
+      update reservation 
+      set 
+      check_in = #{check_in},
+      check_out = #{check_out}
+      where id = #{id}
+      
+       
+   </update>
+   
+   
 </mapper>
