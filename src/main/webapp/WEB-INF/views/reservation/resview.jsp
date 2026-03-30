@@ -26,5 +26,15 @@
     : ${p.count}마리 <br>
    </c:forEach>
    
+   <div> <a href = "/reservation/update">수정하기</a></div>
+   <div>
+    <c:if test = "${res.status != '예약 취소'}">
+      <form method ="post" action = "/reservation/delete">
+         <input type = "hidden" value = "${res.id}" name = "id">
+         <input type = "submit" value = "예악 취소">
+      </form>
+    </c:if>
+   </div>
+   
 </body>
 </html>

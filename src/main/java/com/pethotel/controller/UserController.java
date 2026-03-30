@@ -85,6 +85,7 @@ public class UserController {
 			return "redirect:/user/login";			
 		}
 		
+		
 		List<BoardDto> Blist =userService.myList(member_id);
 		List<MyResDto> Rlist = userService.myRes(member_id);
 		

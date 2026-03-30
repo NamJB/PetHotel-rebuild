@@ -136,6 +136,12 @@ public class ResServiceImpl implements ResService {
 		return resMapper.getView(id);
 	}
 	
+	@Override
+	public void resDelete(int id) {
+		
+		resMapper.resDelete(id);
+	}
+	
 	
 	
 	

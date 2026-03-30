@@ -16,4 +16,6 @@ public interface ResService {
 	public List<PetInfoDto> resPet(int id);
 	
 	public MyResDto getView(int id);
+	
+	public void resDelete(int id);
 }

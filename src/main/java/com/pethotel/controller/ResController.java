@@ -82,7 +82,7 @@ public class ResController {
 	}
 	
 	//마이페이지 예약글 상세보기 뷰반환
-    @GetMapping("/mypage/resview")
+    @GetMapping("/reservation/resview")
 	public String rescontent(@RequestParam int id,Model model,HttpSession session) {
 			
 	   Integer member_id = (Integer) session.getAttribute("member_id");
@@ -95,13 +95,27 @@ public class ResController {
 	   }
 	   
 	   MyResDto myResDto = resService.getView(id);
+	   
+	   if(!member_id.equals(myResDto.getMember_id())) {
+		   
+		   return "redirect:/user/mypage";
+	   }
+	   
 	   List<PetInfoDto> plist=resService.resPet(id);
 			
 	   model.addAttribute("res",myResDto);
 	   model.addAttribute("plist",plist);
 			
-	   return "mypage/resview";
+	   return "reservation/resview";
 		
+    }
+    
+    @PostMapping("/reservation/delete")
+    public String resDelete(int id) {
+    	
+    	resService.resDelete(id);
+    	
+    	return "redirect:/user/mypage";
     }
 	
 	

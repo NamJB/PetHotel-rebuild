@@ -29,4 +29,11 @@
       reservation
       where id = #{id} 
    </select>
+   
+   <select id = "resDelete">
+      update 
+      reservation set
+      status ="예약 취소"
+      where id = #{id} 
+   </select>
 </mapper>
