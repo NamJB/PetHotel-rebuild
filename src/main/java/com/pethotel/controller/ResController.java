@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,18 +41,18 @@ public class ResController {
 	
 	
 	//아작스 요일,펫카운트
-	@PostMapping("/reservation/check")
+	/*@PostMapping("/reservation/check")
 	@ResponseBody
 	public Map<String, Object> check(@RequestBody ResDto RDto) {
 	    	   
 	        return resService.check(RDto);
-	}
+	}*/
 	
 	//예약 다시 확인
 	@PostMapping("/reservation/postConfirm")
-	public String postConfirm(ResDto Rdto,Model model) {
+	public String postConfirm(@ModelAttribute ResDto rdto,Model model) {
 		
-		model.addAttribute("dto",Rdto);
+		model.addAttribute("rdto",rdto);
 		
 		return "/reservation/confirm";
 	}
@@ -162,7 +163,7 @@ public class ResController {
     	return "reservation/update";
     
     }
-    
+    //예약 업데이트 요청
     @PostMapping("/reservation/update")
     public String postUpdate(ResDto rdto) {
     	

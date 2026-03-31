@@ -3,15 +3,18 @@
 <mapper namespace="com.pethotel.mapper.ResMapper">
    
    <insert id="save" parameterType="com.pethotel.dto.ResDto"
-        useGeneratedKeys="true" keyProperty="id">
+        useGeneratedKeys="true" keyProperty="res_id">
     insert into reservation(member_id, check_in, check_out)
     values(#{member_id}, #{check_in}, #{check_out})
   </insert>
    
    <insert id = "savePet">
-      insert into
-      reservation_pet(res_id,dog_type,count)
-      values(#{res_id},#{dog_type},#{count})
+      insert into 
+      reservation_pet(res_id,name,age,size,content)
+      values
+      <foreach collection = "list" item = "pet" separator = ",">
+         (#{pet.res_id},#{pet.name},#{pet.age},#{pet.size},#{pet.content})
+      </foreach>      
    </insert>
    
    <select id = "resPet" resultType = "com.pethotel.dto.PetInfoDto">
@@ -53,7 +56,10 @@
    </select>
    
    <delete id = "petDelete">
-     delete from reservation_pet where res_id = #{id}
+     delete 
+     from 
+     reservation_pet 
+     where res_id = #{id}
    </delete>
    
    <update id = "postUpdate">
@@ -61,9 +67,7 @@
       set 
       check_in = #{check_in},
       check_out = #{check_out}
-      where id = #{id}
-      
-       
+      where id = #{id}      
    </update>
    
    

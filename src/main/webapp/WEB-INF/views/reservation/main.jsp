@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 
 예약 게시판
-
+<!--  
 <form method = "post" action = "/reservation/postConfirm">
    <div>체크인 날짜 <input type = "date" name = "check_in" id = "check_in"></div>
    <div>체크아웃 날짜 <input type = "date" name = "check_out" id = "check_out"></div>
@@ -91,6 +91,112 @@ document.getElementById("check").addEventListener("click", function() {
     });
 });
 </script>
+-->
 
+   <form method = "post" action ="postConfirm">
+      <div>체크인:<input type = "date" name = "check_in"></div>
+      <div>체크아웃:<input type = "date" name ="check_out"></div>
+      
+      <div id = "pet_area">     
+      </div>
+         
+         <div>
+            <input type = "button"  onclick = "addPet()" value = "펫 추가"></input>                  
+         </div>
+         
+         <div><input type = "submit" value = "예약하기"></div>    
+   </form>
+<script>
+   window.onload=function() {
+	   
+	   addPet();
+   }
+   
+   function ageOption(selectedValue) {
+	    let options = '';
+
+	    for (let i = 1; i <= 15; i++) {
+	        if (i == selectedValue) {
+	            options += '<option value="' + i + '" selected>' + i + '</option>';
+	        } else {
+	            options += '<option value="' + i + '">' + i + '</option>';
+	        }
+	    }
+
+	    return options;
+	}
+   
+   function addPet() {
+	   
+	   let pet_area = document.getElementById("pet_area");
+	   let pet_count = document.querySelectorAll(".pet_box").length;
+	   
+	   let html = ''
+	       + '<div class = "pet_box">'
+	       +   '<div class = "pet_number">' + ( pet_count + 1) + '</div>'
+	       +   '<div>펫 이름 <input type = "text" name = "pets['+ pet_count +'].name"></div>'
+	       +   '<div>펫나이' 
+	       +      '<select name = "pets[' + pet_count+ '].age">' 
+	       +          ageOption(1)
+	       +      '</select>'
+	       +   '</div>'
+	       +   '<div>'
+	       +      '펫사이즈'
+	       +      '<select name="pets[' + pet_count + '].size">'
+	       +         '<option value="small">소형견</option>'
+	       +         '<option value="medium">중형견</option>'
+	       +         '<option value="large">대형견</option>'
+	       +      '</select>'
+	       +   '</div>'
+	       +   '<div>'
+	       +      '주의사항'
+	       +         '<textarea name="pets[' + pet_count + '].content"></textarea>'
+	       +   '</div>'
+	       +      '<button type="button" onclick="removePet(this)">삭제</button>'
+	       +      '<hr>'
+	       +   '</div>';
+
+	    pet_area.insertAdjacentHTML("beforeend", html);
+   }
+   
+   function removePet(btn) {
+	   
+	   let pet_boxes = document.querySelectorAll(".pet_box");
+	   
+	   if(pet_boxes.length == 1 ) {
+		   
+		   alert("펫 한마리 이상");
+		   return;
+		   
+	   }
+	   btn.parentElement.remove();
+	   index_pets();
+   }
+   
+   function index_pets() {
+	     
+	   let pet_boxes = document.querySelectorAll(".pet_box");
+
+	   for (let i = 0; i < pet_boxes.length; i++) {
+	        let pet_box = pet_boxes[i];
+
+	        let titleSpan = pet_box.querySelector(".pet_number");
+	        titleSpan.textContent = i + 1;
+
+	        let nameInput = pet_box.querySelector('input[type="text"]');
+	        nameInput.name = 'pets[' + i + '].name';
+
+	        let ageSelect = pet_box.querySelector('select[name*=".age"]');
+	        ageSelect.name = 'pets[' + i + '].age';
+
+	        let sizeSelect = pet_box.querySelector('select[name*=".size"]');
+	        sizeSelect.name = 'pets[' + i + '].size';
+
+	        let noteTextarea = pet_box.querySelector('textarea');
+	        noteTextarea.name = 'pets[' + i + '].note';
+	    }
+	}
+   
+</script>
 </body>
 </html>

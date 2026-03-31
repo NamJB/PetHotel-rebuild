@@ -11,9 +11,10 @@ import com.pethotel.dto.ResDto;
 @Mapper
 public interface ResMapper {
 
+	//예약저장
 	public void save(ResDto RDto);
-
-	public void savePet(PetInfoDto pdto);
+    //펫예약 저장
+	public void savePet(List<PetInfoDto> list);
     
 	public List<PetInfoDto> resPet(int id);
 	

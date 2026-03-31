@@ -9,9 +9,15 @@ public class PetInfoDto {
 	
 	int res_id;
 	
-	String dog_type;
+	String size;
 	
-	int count;
+	String name;
+	
+	int age;
+	
+	String content;
+	
+	
 	
 	
 }

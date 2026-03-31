@@ -24,7 +24,7 @@ public class ResServiceImpl implements ResService {
 	}
 	
 	
-	@Override
+	/*@Override
 	public Map<String, Object> check(ResDto RDto) {
 		
 		Map<String,Object> result = new HashMap<>();
@@ -76,15 +76,16 @@ public class ResServiceImpl implements ResService {
 		
 	
 	    return result;
+	    
 	}
-	
+	*/
 	
 	//
 	@Override
 	@Transactional
-    public void save(ResDto RDto) {
+    public void save(ResDto rdto) {
 		
-		resMapper.save(RDto);
+		/*resMapper.save(RDto);
 		
 		int res_id = RDto.getId();
 		
@@ -116,13 +117,26 @@ public class ResServiceImpl implements ResService {
 			pdto.setDog_type("large");
 			pdto.setCount(RDto.getLarge_cnt());
 			
-			resMapper.savePet(pdto);
+			resMapper.savePet(pdto);		
 			
 		}
 		
+		*/
 		
 		
+		resMapper.save(rdto);
+		
+		int res_id = rdto.getRes_id();
+		
+		for(PetInfoDto pet : rdto.getPets()) {
+			pet.setRes_id(res_id);			
+		}
+	    
+		resMapper.savePet(rdto.getPets());
+				
 	}
+	
+	
 	@Override
 	public List<PetInfoDto> resPet(int id) {
 		
@@ -153,12 +167,13 @@ public class ResServiceImpl implements ResService {
 		
 		ResDto resdto = resMapper.getResById(id);
 		
-		List<PetInfoDto> pet_list =resMapper.resPet(id);
-		
+		/*List<PetInfoDto> pet_list =resMapper.resPet(id);
+		//고치기
 		resdto.setSmall_cnt(0);
 		resdto.setMedium_cnt(0);
 		resdto.setLarge_cnt(0);
 
+		
 		for (PetInfoDto pet : pet_list) {
 		    if ("small".equals(pet.getDog_type())) {
 		        resdto.setSmall_cnt(pet.getCount());
@@ -170,6 +185,7 @@ public class ResServiceImpl implements ResService {
 		        resdto.setLarge_cnt(pet.getCount());
 		    }
 		}
+		return resdto;*/
 		return resdto;
 	}
 	
@@ -179,7 +195,7 @@ public class ResServiceImpl implements ResService {
     @Transactional
     public void postUpdate(ResDto rdto) {
     	
-		resMapper.postUpdate(rdto);
+    	/* resMapper.postUpdate(rdto);
 		
 		int res_id = rdto.getId();
 		
@@ -215,8 +231,13 @@ public class ResServiceImpl implements ResService {
 			
 			resMapper.savePet(pdto);
 			
+			
+			
 		}
-        
+        */
     }
 	
 }
+
+
+  
