@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PetInfoDto {
 
-	int id;
+	int pet_id;
 	
 	int res_id;
 	
@@ -16,6 +16,8 @@ public class PetInfoDto {
 	int age;
 	
 	String content;
+	
+	
 	
 	
 	

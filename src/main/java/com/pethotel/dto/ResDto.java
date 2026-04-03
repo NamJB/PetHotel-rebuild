@@ -18,6 +18,10 @@ public class ResDto {
 	String check_out;
 	
 	List<PetInfoDto> pets;
+	
+	String status;
+	
+	LocalDate created_at;
 
 	
 }

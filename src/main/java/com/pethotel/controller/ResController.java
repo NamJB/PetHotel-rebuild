@@ -56,7 +56,7 @@ public class ResController {
 		
 		return "/reservation/confirm";
 	}
-	
+	  
 	//예약 요청
 	@PostMapping("/reservation/save")
 	public String save(ResDto Rdto,HttpSession session) {
@@ -85,7 +85,7 @@ public class ResController {
 	
 	//마이페이지 예약글 상세보기 뷰반환
     @GetMapping("/reservation/resview")
-	public String rescontent(@RequestParam int id,Model model,HttpSession session) {
+	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
 			
 	   Integer member_id = (Integer) session.getAttribute("member_id");
 	   
@@ -96,7 +96,7 @@ public class ResController {
 			
 	   }
 	   
-	   
+	 /*  
 	   int resMember_id = resService.getResMember_id(id);
 	   
 	   if(!member_id.equals(resMember_id)) {
@@ -109,7 +109,12 @@ public class ResController {
 	   
 	   
 	   model.addAttribute("res",myResDto);
-	   model.addAttribute("plist",plist);
+	   model.addAttribute("plist",plist);*/
+	   
+	   ResDto rdto = resService.getMyres(res_id);
+	   
+	   model.addAttribute("rdto",rdto);
+	   
 			
 	   return "reservation/resview";
 		
@@ -117,7 +122,7 @@ public class ResController {
     //예약 취소 요청
     @PostMapping("/reservation/delete")
     public String resDelete(int id,HttpSession session) {
-    	
+    /*	
     	Integer member_id = (Integer) session.getAttribute("member_id");
     	
     	if(member_id == null) {
@@ -132,7 +137,7 @@ public class ResController {
     		return "redirect:/user/mypage";
     	}
     	
-    	resService.resDelete(id);
+    	resService.resDelete(id);*/
     	
     	return "redirect:/user/mypage";
     }
@@ -140,7 +145,7 @@ public class ResController {
     //예약 업데이트 뷰반환
     @GetMapping("/reservation/update")
     public String resUpdate(@RequestParam int id,HttpSession session,Model model) {
-    	
+    	/*
     	Integer member_id = (Integer) session.getAttribute("member_id");
         
     	
@@ -160,7 +165,7 @@ public class ResController {
     	
     	model.addAttribute("res",resdto);
     	
-    	return "reservation/update";
+    	return "reservation/update";*/
     
     }
     //예약 업데이트 요청

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.UserDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.mapper.UserMapper;
 
@@ -20,21 +20,21 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void postMember(MemberDto memberDto) {
+	public void postMember(UserDto memberDto) {
 		
 		userMapper.postMember(memberDto);
 	}
 	
 	@Override
-	public MemberDto loginUser(MemberDto memberDto) {
+	public UserDto loginUser(UserDto memberDto) {
 		
 		return userMapper.loginUser(memberDto);
 	}
 	
 	@Override
-	public List<BoardDto> myList(int member_id){
+	public List<BoardDto> myBoard(int member_id){
 				
-		return userMapper.myList(member_id);
+		return userMapper.myBoard(member_id);
 	}
 	
 	@Override

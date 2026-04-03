@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.UserDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
@@ -34,7 +34,7 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/user/member")
-	public String postMember(MemberDto memberDto) {
+	public String postMember(UserDto memberDto) {
 		
 		userService.postMember(memberDto);
 		
@@ -50,9 +50,9 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/user/loginUser")
-	public String loginUser(MemberDto memberDto,HttpSession session) {
+	public String loginUser(UserDto memberDto,HttpSession session) {
 	
-		MemberDto user =userService.loginUser(memberDto);
+		UserDto user =userService.loginUser(memberDto);
 		
 		if(user != null) {
 			
@@ -86,7 +86,7 @@ public class UserController {
 		}
 		
 		
-		List<BoardDto> Blist =userService.myList(member_id);
+		List<BoardDto> Blist =userService.myBoard(member_id);
 		List<MyResDto> Rlist = userService.myRes(member_id);
 		
 		model.addAttribute("boardlist",Blist);

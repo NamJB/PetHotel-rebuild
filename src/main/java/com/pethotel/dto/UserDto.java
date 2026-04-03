@@ -3,7 +3,7 @@ package com.pethotel.dto;
 import lombok.Data;
 
 @Data
-public class MemberDto {
+public class UserDto {
 
 	String user_id;
 	

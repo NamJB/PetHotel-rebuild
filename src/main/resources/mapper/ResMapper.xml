@@ -17,12 +17,39 @@
       </foreach>      
    </insert>
    
-   <select id = "resPet" resultType = "com.pethotel.dto.PetInfoDto">
-       select 
-       dog_type,
-       count
-       from reservation_pet
-       where res_id = #{id}      
+   
+   <resultMap id = "resMap" type = "com.pethotel.dto.ResDto">
+      <id property = "res_id" column= "res_id"/>
+         <result property = "member_id" column = "member_id"/>
+         <result property = "check_in" column = "check_in"/>
+         <result property = "check_out" column = "check_out"/>
+         <result property = "status" column = "status"/>
+         <result property = "created_at" column = "created_at"/>
+           
+      <collection property = "pets" ofType = "com.pethotel.dto.PetInfoDto">
+         <id property = "pet_id" column = "pet_id"/>
+            <result property = "name" column = "name"/>
+            <result property = "age" column = "age"/>
+            <result property = "size" column = "size"/>
+            <result property = "content" column = "content"/>         
+      </collection>
+   </resultMap>
+   
+   <select id = "getMyres" resultMap = "resMap">
+      select 
+      r.res_id,
+      r.member_id,
+      r.check_in,
+      r.check_out,
+      r.status,
+      r.created_at,
+      p.pet_id,
+      p.name,
+      p.age,
+      p.size,
+      p.content
+      from reservation r inner join reservation_pet p on p.res_id = r.res_id
+      where r.res_id = #{res_id}     
    </select>
    
    <select id = "getView">
@@ -38,13 +65,6 @@
       reservation set
       status ="예약 취소"
       where id = #{id} 
-   </select>
-   
-   <select id = "getResMember_id" resultType = "int">
-      select
-      member_id from
-      reservation
-      where id = #{id}
    </select>
    
    <select id = "getResById">

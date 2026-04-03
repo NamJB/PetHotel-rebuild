@@ -17,11 +17,11 @@ public interface ResService {
 	
 	public MyResDto getView(int id);
 	
-	public void resDelete(int id);
-	
-	public int getResMember_id(int id);
+	public void resDelete(int id);	
 	
 	public ResDto getUpdate(int id);
 	
 	public void postUpdate(ResDto rdto);
+	//사용자의 예약정보와 펫정보 가져오기
+	public ResDto getMyres(int res_id);
 }

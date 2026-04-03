@@ -136,14 +136,6 @@ public class ResServiceImpl implements ResService {
 				
 	}
 	
-	
-	@Override
-	public List<PetInfoDto> resPet(int id) {
-		
-		
-		return resMapper.resPet(id);
-	}
-	
 	@Override
 	public MyResDto getView(int id) {
 		
@@ -156,11 +148,14 @@ public class ResServiceImpl implements ResService {
 		resMapper.resDelete(id);
 	}
 	
+	
 	@Override
-	public int getResMember_id(int id) {
+	public ResDto getMyres(int res_id) {
 		
-		return resMapper.getResMember_id(id);
+		return resMapper.getMyres(res_id);
+		
 	}
+	
 	
 	@Override
 	public ResDto getUpdate(int id) {

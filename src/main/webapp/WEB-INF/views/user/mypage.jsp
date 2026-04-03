@@ -47,7 +47,7 @@
         <td>${r.check_out}</td>
         <td>${r.status}</td>
         <td>${r.created_at }</td>
-        <td><a href = "/reservation/resview?id=${r.id }">상세보기</a></td>
+        <td><a href = "/reservation/resview?res_id=${r.res_id }">상세보기</a></td>
      </tr>
      </c:forEach>
  </table>

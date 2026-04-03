@@ -7,13 +7,13 @@
      values (#{user_id},#{pwd})
    </insert>
    
-   <select id = "loginUser" resultType = "com.pethotel.dto.MemberDto">
+   <select id = "loginUser" resultType = "com.pethotel.dto.UserDto">
      select * from member 
      where user_id = #{user_id} 
      and pwd = #{pwd}
    </select>
    
-   <select id = "myList" resultType = "com.pethotel.dto.BoardDto">   
+   <select id = "myBoard" resultType = "com.pethotel.dto.BoardDto">   
      select 
      b.id,
      b.title,
@@ -29,7 +29,7 @@
      select * 
      from reservation 
      where member_id = #{member_id}
-     order by id desc
+     order by res_id desc
       
    </select>
    

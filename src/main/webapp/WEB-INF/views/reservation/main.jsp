@@ -193,7 +193,7 @@ document.getElementById("check").addEventListener("click", function() {
 	        sizeSelect.name = 'pets[' + i + '].size';
 
 	        let noteTextarea = pet_box.querySelector('textarea');
-	        noteTextarea.name = 'pets[' + i + '].note';
+	        noteTextarea.name = 'pets[' + i + '].content';
 	    }
 	}
    
