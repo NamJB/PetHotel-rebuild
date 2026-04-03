@@ -113,6 +113,11 @@ public class ResController {
 	   
 	   ResDto rdto = resService.getMyres(res_id);
 	   
+	   if(rdto.getMember_id()!= member_id) {
+		   
+		   return "redirect:/user/mypage";
+	   }
+	   
 	   model.addAttribute("rdto",rdto);
 	   
 			
@@ -121,8 +126,8 @@ public class ResController {
     }
     //예약 취소 요청
     @PostMapping("/reservation/delete")
-    public String resDelete(int id,HttpSession session) {
-    /*	
+    public String resDelete(int res_id,HttpSession session) {
+    	
     	Integer member_id = (Integer) session.getAttribute("member_id");
     	
     	if(member_id == null) {
@@ -130,14 +135,15 @@ public class ResController {
     		return "redirect:/user/login";
     	}
     	
-    	int resMember_id = resService.getResMember_id(id);
+    	/*int resMember_id = resService.getResMember_id(id);
     	
     	if(!member_id.equals(resMember_id)) {
     		
     		return "redirect:/user/mypage";
     	}
+    	*/
     	
-    	resService.resDelete(id);*/
+    	resService.resDelete(res_id);
     	
     	return "redirect:/user/mypage";
     }

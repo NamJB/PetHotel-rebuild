@@ -52,19 +52,11 @@
       where r.res_id = #{res_id}     
    </select>
    
-   <select id = "getView">
-      select 
-      * 
-      from 
-      reservation
-      where id = #{id} 
-   </select>
-   
    <select id = "resDelete">
       update 
       reservation set
       status ="예약 취소"
-      where id = #{id} 
+      where res_id = #{res_id} 
    </select>
    
    <select id = "getResById">

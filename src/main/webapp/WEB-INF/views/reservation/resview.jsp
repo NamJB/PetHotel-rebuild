@@ -41,14 +41,14 @@
       <hr>
    </c:forEach>
      
-   <c:if test = "${res.status != '예약 취소' }">
+   <c:if test = "${rdto.status != '예약 취소' }">
       <div> <a href = "/reservation/update?id=${res.id}">수정하기</a></div>
    </c:if>
    
    <div>
-    <c:if test = "${res.status != '예약 취소'}">
+    <c:if test = "${rdto.status != '예약 취소'}">
       <form method ="post" action = "/reservation/delete">
-         <input type = "hidden" value = "${res.id}" name = "id">
+         <input type = "hidden" value = "${rdto.res_id}" name = "res_id">
          <input type = "submit" value = "예악 취소">
       </form>
     </c:if>
