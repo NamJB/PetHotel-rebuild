@@ -120,7 +120,7 @@ document.getElementById("check").addEventListener("click", function() {
          </select>
       </div>
       <div>주의사항
-         <textarea name = "pets[${status.index }].content"></textarea>
+         <textarea name = "pets[${status.index }].content">${p.content }</textarea>
       </div>
               
       <button type="button" onclick="removePet(this)">삭제</button>

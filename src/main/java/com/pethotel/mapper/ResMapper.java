@@ -25,7 +25,8 @@ public interface ResMapper {
     
     //펫삭제
     public void petDelete(int res_id);
-       
+      
+    //예약취소
     public void resDelete(int res_id);
 	
 	

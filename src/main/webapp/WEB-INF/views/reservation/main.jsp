@@ -93,7 +93,7 @@ document.getElementById("check").addEventListener("click", function() {
 </script>
 -->
 
-   <form method = "post" action ="postConfirm">
+   <form method = "post" action ="postConfirm" onsubmit = "return resCheck()">
       <div>체크인:<input type = "date" name = "check_in"></div>
       <div>체크아웃:<input type = "date" name ="check_out"></div>
       
@@ -104,12 +104,19 @@ document.getElementById("check").addEventListener("click", function() {
             <input type = "button"  onclick = "addPet()" value = "펫 추가"></input>                  
          </div>
          
-         <div><input type = "submit" value = "예약하기"></div>    
+         <div><input type = "submit" value = "예약하기" ></div>    
    </form>
 <script>
    window.onload=function() {
 	   
 	   addPet();
+	   
+	   let today = new Date().toISOString().split('T')[0];
+	    
+	   
+	   document.querySelector('input[name="check_in"]').min = today;
+	   document.querySelector('input[name="check_out"]').min = today;
+	   
    }
    
    function ageOption(selectedValue) {
@@ -160,7 +167,7 @@ document.getElementById("check").addEventListener("click", function() {
    }
    
    function removePet(btn) {
-	   
+	   //펫 정보칸 삭제
 	   let pet_boxes = document.querySelectorAll(".pet_box");
 	   
 	   if(pet_boxes.length == 1 ) {
@@ -174,7 +181,7 @@ document.getElementById("check").addEventListener("click", function() {
    }
    
    function index_pets() {
-	     
+	    //재정렬
 	   let pet_boxes = document.querySelectorAll(".pet_box");
 
 	   for (let i = 0; i < pet_boxes.length; i++) {
@@ -196,6 +203,48 @@ document.getElementById("check").addEventListener("click", function() {
 	        noteTextarea.name = 'pets[' + i + '].content';
 	    }
 	}
+   
+   function resCheck() {
+	   //체크인,체크아웃 날짜 확인
+	   let check_in = document.querySelector('input[name="check_in"]').value;
+	   let check_out = document.querySelector('input[name="check_out"]').value;
+	   
+	   if(!check_in || !check_out){
+		  
+		  alert("날짜 선택해주세요") 
+		  return false;
+	   }
+	   
+	   let today = new Date().toISOString().split('T')[0];
+	   
+	   if(check_in < today){
+		   
+		   alert("오늘 이전 날짜는 예약할수없습니다")
+		   return false;
+	   }
+	   if(check_in > check_out) {
+		   
+		   alert("날짜를 다시 확인해주세요")
+		   return false;
+	   }
+	   
+	   //펫이름 체크
+	   let petnames = document.querySelectorAll('input[name*=".name"]');
+	   
+	   for(let i = 0; i < petnames.length; i++) {
+		   
+		   let names = petnames[i].value.trim();
+		   
+		   if(names === "") {
+			   
+			   alert((i+1)+"번째 펫의 이름을 입력해주세요");
+			   petnames[i].focus();
+			   return false;
+		   }
+	   }
+	   
+	   return true;
+   }
    
 </script>
 </body>

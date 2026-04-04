@@ -10,10 +10,8 @@ import com.pethotel.dto.ResDto;
 public interface ResService {
 
 	/*Map<String, Object> check(ResDto RDto);*/
-	
+	/*public List<PetInfoDto> resPet(int id);*/
 	public void save(ResDto RDto);
-	
-	public List<PetInfoDto> resPet(int id);
 	
 	public void resDelete(int res_id);		
 	
