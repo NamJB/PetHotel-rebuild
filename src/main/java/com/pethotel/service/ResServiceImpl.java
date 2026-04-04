@@ -150,36 +150,7 @@ public class ResServiceImpl implements ResService {
 		
 		return resMapper.getMyres(res_id);
 		
-	}
-	
-	
-	@Override
-	public ResDto getUpdate(int id) {
-		
-		ResDto resdto = resMapper.getResById(id);
-		
-		/*List<PetInfoDto> pet_list =resMapper.resPet(id);
-		//고치기
-		resdto.setSmall_cnt(0);
-		resdto.setMedium_cnt(0);
-		resdto.setLarge_cnt(0);
-
-		
-		for (PetInfoDto pet : pet_list) {
-		    if ("small".equals(pet.getDog_type())) {
-		        resdto.setSmall_cnt(pet.getCount());
-		    } 
-		    else if ("medium".equals(pet.getDog_type())) {
-		        resdto.setMedium_cnt(pet.getCount());
-		    } 
-		    else if ("large".equals(pet.getDog_type())) {
-		        resdto.setLarge_cnt(pet.getCount());
-		    }
-		}
-		return resdto;*/
-		return resdto;
-	}
-	
+	}	
 	
 	
     @Override

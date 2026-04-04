@@ -37,34 +37,19 @@
    
    <select id = "getMyres" resultMap = "resMap">
       select 
-      r.res_id,
-      r.member_id,
-      r.check_in,
-      r.check_out,
-      r.status,
-      r.created_at,
-      p.pet_id,
-      p.name,
-      p.age,
-      p.size,
-      p.content
-      from reservation r inner join reservation_pet p on p.res_id = r.res_id
+         r.res_id,r.member_id,r.check_in,r.check_out,r.status,r.created_at,
+         p.pet_id,p.name,p.age,p.size,p.content
+      from reservation r 
+      inner join reservation_pet p 
+         on p.res_id = r.res_id
       where r.res_id = #{res_id}     
    </select>
    
    <select id = "resDelete">
       update 
-      reservation set
-      status ="예약 취소"
+         reservation set
+         status ="예약 취소"
       where res_id = #{res_id} 
-   </select>
-   
-   <select id = "getResById">
-      select 
-      * 
-      from
-      reservation
-      where id = #{id}
    </select>
    
    <delete id = "petDelete">
@@ -75,10 +60,10 @@
    </delete>
    
    <update id = "postUpdate">
-      update reservation 
-      set 
-      check_in = #{check_in},
-      check_out = #{check_out}
+      update 
+         reservation set 
+         check_in = #{check_in},
+         check_out = #{check_out}
       where id = #{id}      
    </update>
    

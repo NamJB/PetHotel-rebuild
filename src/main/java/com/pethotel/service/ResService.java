@@ -15,9 +15,7 @@ public interface ResService {
 	
 	public List<PetInfoDto> resPet(int id);
 	
-	public void resDelete(int res_id);	
-	
-	public ResDto getUpdate(int id);
+	public void resDelete(int res_id);		
 	
 	public void postUpdate(ResDto rdto);
 	

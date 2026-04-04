@@ -141,8 +141,7 @@ public class ResController {
     		
     		return "redirect:/user/mypage";
     	}
-    	*/
-    	
+    	*/    	
     	resService.resDelete(res_id);
     	
     	return "redirect:/user/mypage";
@@ -150,7 +149,7 @@ public class ResController {
     
     //예약 업데이트 뷰반환
     @GetMapping("/reservation/update")
-    public String resUpdate(@RequestParam int id,HttpSession session,Model model) {
+    public String resUpdate(@RequestParam int res_id,HttpSession session,Model model) {
     	/*
     	Integer member_id = (Integer) session.getAttribute("member_id");
         
@@ -172,6 +171,13 @@ public class ResController {
     	model.addAttribute("res",resdto);
     	
     	return "reservation/update";*/
+    	
+    	ResDto rdto = resService.getMyres(res_id);
+    	
+    	model.addAttribute("rdto",rdto);
+    	
+    	
+    	return "reservation/update";
     
     }
     //예약 업데이트 요청

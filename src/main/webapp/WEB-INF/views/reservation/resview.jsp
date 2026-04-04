@@ -42,7 +42,7 @@
    </c:forEach>
      
    <c:if test = "${rdto.status != '예약 취소' }">
-      <div> <a href = "/reservation/update?id=${res.id}">수정하기</a></div>
+      <div> <a href = "/reservation/update?res_id=${rdto.res_id}">수정하기</a></div>
    </c:if>
    
    <div>

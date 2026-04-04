@@ -26,7 +26,7 @@ public interface ResMapper {
 	
 	
 			
-	public ResDto getResById(int id);
+	
 	
 	public void petDelete(int id);
 	
