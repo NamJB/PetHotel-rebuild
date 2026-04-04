@@ -186,7 +186,7 @@ public class ResController {
     	
     	resService.postUpdate(rdto);
     	
-    	return "redirect:/reservation/resview?id="+rdto.getId();
+    	return "redirect:/reservation/resview?res_id="+rdto.getRes_id();
     }
 	
 	

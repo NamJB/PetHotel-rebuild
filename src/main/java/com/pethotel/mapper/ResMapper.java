@@ -20,16 +20,16 @@ public interface ResMapper {
 	//사용자의 예약정보와 펫정보 가져오기
     public ResDto getMyres(int res_id);
     
+    //예약 수정
+    public void postUpdate(ResDto rdto);
+    
+    //펫삭제
+    public void petDelete(int res_id);
+       
     public void resDelete(int res_id);
 	
 	
 	
 	
-			
-	
-	
-	public void petDelete(int id);
-	
-	public void postUpdate(ResDto rdto);
 	
 }

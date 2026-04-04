@@ -64,7 +64,7 @@
          reservation set 
          check_in = #{check_in},
          check_out = #{check_out}
-      where id = #{id}      
+      where res_id = #{res_id}      
    </update>
    
    

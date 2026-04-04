@@ -128,8 +128,8 @@ public class ResServiceImpl implements ResService {
 		
 		int res_id = rdto.getRes_id();
 		
-		for(PetInfoDto pet : rdto.getPets()) {
-			pet.setRes_id(res_id);			
+		for(PetInfoDto pdto : rdto.getPets()) {
+			pdto.setRes_id(res_id);			
 		}
 	    
 		resMapper.savePet(rdto.getPets());
@@ -197,6 +197,17 @@ public class ResServiceImpl implements ResService {
 			
 		}
         */
+    	resMapper.postUpdate(rdto);
+    	resMapper.petDelete(rdto.getRes_id());
+    	
+    	int res_id = rdto.getRes_id();
+    	
+    	for(PetInfoDto pdto : rdto.getPets()) {
+    		
+    		pdto.setRes_id(res_id);
+    	}
+    	resMapper.savePet(rdto.getPets());
+    	
     }
 	
 }

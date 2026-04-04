@@ -93,10 +93,10 @@ document.getElementById("check").addEventListener("click", function() {
 </script>
 -->
 
-<form method = "post" action = "">
+<form method = "post" action = "/reservation/update">
    <div>체크인:<input type = "date" name = "check_in" value = "${rdto.check_in }"></div>
-   <div>체크아웃:<input type = "date" name = "check_in" value = "${rdto.check_out }"></div>
-  
+   <div>체크아웃:<input type = "date" name = "check_out" value = "${rdto.check_out }"></div>
+   <div><input type = "hidden" value = "${rdto.res_id}"name = "res_id"></div>
    <div  id = "pet_area">
    <c:forEach var = "p" items = "${rdto.pets }" varStatus = "status">
       <div class="pet_box">
@@ -118,6 +118,9 @@ document.getElementById("check").addEventListener("click", function() {
             <option value = "medium" ${'medium' == p.size ? 'selected = "selected"' : '' }>중형견</option>
             <option value = "large" ${'large' == p.size ? 'selected = "selected"' : '' }>대형견</option>
          </select>
+      </div>
+      <div>주의사항
+         <textarea name = "pets[${status.index }].content"></textarea>
       </div>
               
       <button type="button" onclick="removePet(this)">삭제</button>
@@ -191,9 +194,9 @@ function addPet() {
 	function index_pets() {
 	    let pet_boxes = document.querySelectorAll(".pet_box");
 	    pet_boxes.forEach((box, i) => {
-	        // 번호 업데이트
+	        
 	        box.querySelector(".pet_number").textContent = i + 1;
-	        // name 속성 업데이트 (서버 전송용 인덱스 0, 1, 2...)
+	        
 	        box.querySelector('input[name*=".name"]').name = `pets[${i}].name`;
 	        box.querySelector('select[name*=".age"]').name = `pets[${i}].age`;
 	        box.querySelector('select[name*=".size"]').name = `pets[${i}].size`;
