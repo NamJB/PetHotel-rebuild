@@ -34,16 +34,29 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/user/member")
-	public String postMember(UserDto memberDto) {
+	public String postMember(UserDto memberDto,String p1,String p2,String p3) {
 		
-		userService.postMember(memberDto);
+		String phone = p1 + "-" + p2 + "-" + p3;
 		
-		return "redirect:/user/login";
+		memberDto.setPhone(phone);
+			
+		boolean result =userService.postMember(memberDto);
+			
+		if(result) {
+				
+			return "redirect:/user/login";	
+		}
+		else{
+				
+			return "redirect:/user/member";	
+		}	
+		
 	}
 	
 	//로그인페이지 뷰 반환
 	@GetMapping("/user/login")
 	public String login() {
+		
 		
 		return "user/login";
 	}
@@ -52,12 +65,12 @@ public class UserController {
 	@PostMapping("/user/login")
 	public String loginUser(UserDto memberDto,HttpSession session) {
 	
-		UserDto user =userService.loginUser(memberDto);
+		UserDto user =userService.loginUser(memberDto);	
 		
 		if(user != null) {
 			
-			session.setAttribute("user", user.getUser_id());
-			session.setAttribute("member_id", user.getId());
+			session.setAttribute("nickname", user.getNickname());
+			session.setAttribute("member_id", user.getMember_id());
 			
 			return "redirect:/main/home";
 		}
@@ -80,11 +93,7 @@ public class UserController {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
 		
-		if(member_id == null) {
-			
-			return "redirect:/user/login";			
-		}
-		
+
 		
 		List<BoardDto> Blist =userService.myBoard(member_id);
 		List<MyResDto> Rlist = userService.myRes(member_id);

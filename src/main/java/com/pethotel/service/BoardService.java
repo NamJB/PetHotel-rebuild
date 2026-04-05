@@ -10,10 +10,10 @@ public interface BoardService {
 	
 	public List<BoardDto> getList();
 	
-	public BoardDto getView(int id);
+	public BoardDto getView(int board_id);
 	
 	public void postUpdate(BoardDto bDto);
 	
-	public void postDelete(int id);
+	public void postDelete(int board_id);
 	
 }

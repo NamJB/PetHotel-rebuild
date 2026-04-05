@@ -11,7 +11,7 @@
 
 <form method = "post" action = "/board/update">
    
-   <input type = "hidden" value = "${board.id}" name = "id">
+   <input type = "hidden" value = "${board.board_id}" name = "board_id">
    <div>제목<input type = "text" name = "title" value = "${board.title}"></div>
    <div>내용<textarea name = "content">${board.content }</textarea></div>
    <div><input type = "submit" value = "글 수정"></div>

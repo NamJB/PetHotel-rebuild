@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class BoardDto {
 
-	int id;
+	int board_id;
 	
     int member_id;
     
-    String user_id;
+    String userid;
 	
 	String title;
 	

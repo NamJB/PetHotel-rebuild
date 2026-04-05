@@ -3,6 +3,7 @@ package com.pethotel.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.UserDto;
@@ -20,11 +21,31 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void postMember(UserDto memberDto) {
+	@Transactional	
+	public boolean postMember(UserDto memberDto) {
 		
-		userMapper.postMember(memberDto);
+		int count =userMapper.checkUserid(memberDto.getUserid());
+		
+		if(count > 0) {
+			
+			return false;
+		}
+		else {
+			
+			userMapper.postMember(memberDto);
+			
+			return true;
+			
+		}
+				
+			
 	}
+		
+		
+		
 	
+	
+
 	@Override
 	public UserDto loginUser(UserDto memberDto) {
 		

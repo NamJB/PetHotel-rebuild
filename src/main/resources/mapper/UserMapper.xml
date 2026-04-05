@@ -3,26 +3,28 @@
 <mapper namespace="com.pethotel.mapper.UserMapper">
    
    <insert id = "postMember">     
-     insert into member(user_id,pwd) 
-     values (#{user_id},#{pwd})
+     insert into member(userid,pwd,username,nickname,phone) 
+     values (#{userid},#{pwd},#{username},#{nickname},#{phone})
    </insert>
    
    <select id = "loginUser" resultType = "com.pethotel.dto.UserDto">
      select * from member 
-     where user_id = #{user_id} 
+     where userid = #{userid} 
      and pwd = #{pwd}
    </select>
    
    <select id = "myBoard" resultType = "com.pethotel.dto.BoardDto">   
      select 
-     b.id,
+     b.board_id,
      b.title,
      b.content,
      b.created_at,
-     m.user_id
-     from board b inner join member m on b.member_id = m.id
-     where member_id = #{member_id} 
-     order by b.id desc
+     m.userid
+     from board b inner join member m on b.member_id = m.member_id
+     where m.member_id = #{member_id} 
+        and b.is_deleted = 0
+     order by b.board_id desc
+     
    </select>
    
    <select id = "myRes" resultType = "com.pethotel.dto.MyResDto">
@@ -31,6 +33,12 @@
      where member_id = #{member_id}
      order by res_id desc
       
+   </select>
+   
+   <select id = "checkUserid" resultType = "int">
+      select count(*) 
+      from member 
+      where userid = #{userid}
    </select>
    
 </mapper>

@@ -30,9 +30,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public BoardDto getView(int id) {
+	public BoardDto getView(int board_id) {
 		
-		return boardMapper.getView(id);
+		return boardMapper.getView(board_id);
 	}
 	
 	@Override

@@ -5,9 +5,16 @@ import lombok.Data;
 @Data
 public class UserDto {
 
-	String user_id;
+	String userid;
 	
 	String pwd;
 	
-	int id;
+	int member_id;
+	
+	String phone;
+	
+	String username;
+	
+	String nickname;
+	
 }

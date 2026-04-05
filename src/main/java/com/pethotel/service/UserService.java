@@ -8,7 +8,7 @@ import com.pethotel.dto.MyResDto;
 
 public interface UserService {
 
-	public void postMember(UserDto memberDto);
+	public boolean postMember(UserDto memberDto);
 	
 	public UserDto loginUser(UserDto memberDto);
 	

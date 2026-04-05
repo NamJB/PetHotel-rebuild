@@ -10,34 +10,37 @@
    
    <select id = "getList" resultType = "com.pethotel.dto.BoardDto">
       select 
-      b.id,
+      b.board_id,
       b.title,
       b.created_at,
-      m.user_id
-      from board b inner join member m on b.member_id = m.id
-      order by b.id desc
+      m.userid
+      from board b inner join member m on b.member_id = m.member_id
+      where is_deleted = 0
+      order by b.board_id desc
+      
    </select>
    
    <select id = "getView" resultType = "com.pethotel.dto.BoardDto">
       select  
-      b.id,
+      b.board_id,
       b.title,
       b.content,
       b.created_at,
-      m.user_id      
-      from board b inner join member m on b.member_id = m.id
-      where b.id = #{id}
+      m.userid      
+      from board b inner join member m on b.member_id = m.member_id
+      where b.board_id = #{board_id}
    </select>
    
    <update id = "postUpdate">
       update board 
       set title = #{title}, content = #{content}
-      where id = #{id}    
+      where board_id = #{board_id}    
    </update>
    
    <delete id = "postDelete">
-      delete from board
-      where id = #{id}
+      update board
+      set is_deleted = '1'
+      where board_id = #{board_id}
    </delete>
 
 </mapper>

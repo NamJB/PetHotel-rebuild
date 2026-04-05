@@ -56,9 +56,9 @@ public class BoardController {
 	
 	//게시판 글보기 뷰 반환
 	@GetMapping("/board/view")
-	public String getView(@RequestParam int id,Model model) {
+	public String getView(@RequestParam int board_id,Model model) {
 		
-		BoardDto board = boardService.getView(id);
+		BoardDto board = boardService.getView(board_id);
 		
 		model.addAttribute("board",board);
 		
@@ -67,9 +67,9 @@ public class BoardController {
 	
 	//게시판 수정 뷰 반환
 	@GetMapping("/board/update")
-	public String update(@RequestParam int id,Model model) {
+	public String update(@RequestParam int board_id,Model model) {
 		
-		BoardDto board = boardService.getView(id);
+		BoardDto board = boardService.getView(board_id);
 		
 		model.addAttribute("board",board);
 		
@@ -82,7 +82,7 @@ public class BoardController {
 		
 		boardService.postUpdate(bDto);
 		
-		return "redirect:/board/view?id="+bDto.getId();
+		return "redirect:/board/view?board_id="+bDto.getBoard_id();
 	}
 	//게시판 삭제 요청
 	@PostMapping("/board/delete")

@@ -11,7 +11,12 @@ import com.pethotel.dto.MyResDto;
 @Mapper
 public interface UserMapper {
 
+	
+	//회원가입 요청
 	public void postMember(UserDto memberDto);
+	
+	//아이디 중복체크
+	public int checkUserid(String User_id);
 	
 	public UserDto loginUser(UserDto memberDto);
 	
