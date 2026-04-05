@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.UserDto;
+import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.mapper.UserMapper;
 
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional	
-	public boolean postMember(UserDto memberDto) {
+	public boolean postMember(MemberDto memberDto) {
 		
 		int count =userMapper.checkUserid(memberDto.getUserid());
 		
@@ -40,14 +40,10 @@ public class UserServiceImpl implements UserService{
 				
 			
 	}
-		
-		
-		
-	
-	
+
 
 	@Override
-	public UserDto loginUser(UserDto memberDto) {
+	public MemberDto loginUser(MemberDto memberDto) {
 		
 		return userMapper.loginUser(memberDto);
 	}

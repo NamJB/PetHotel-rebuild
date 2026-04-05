@@ -3,14 +3,14 @@ package com.pethotel.service;
 import java.util.List;
 
 import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.UserDto;
+import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MyResDto;
 
 public interface UserService {
 
-	public boolean postMember(UserDto memberDto);
+	public boolean postMember(MemberDto memberDto);
 	
-	public UserDto loginUser(UserDto memberDto);
+	public MemberDto loginUser(MemberDto memberDto);
 	
 	public List<BoardDto> myBoard(int member_id);
 	

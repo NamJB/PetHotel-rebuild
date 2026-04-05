@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.UserDto;
+import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
@@ -34,13 +34,31 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/user/member")
-	public String postMember(UserDto memberDto,String p1,String p2,String p3) {
+	public String postMember(MemberDto mdto,String p1,String p2,String p3,Model model) {
+		
+		if(mdto.getUserid() == null || mdto.getUserid().trim().isEmpty()) {
+			
+			model.addAttribute("msg","아이디 입력해라");
+			return "user/member";
+		}
+        if(mdto.getPwd() == null || mdto.getPwd().trim().isEmpty()) {
+			
+			model.addAttribute("msg","비번입력해라");
+			return "user/member";
+		}
+        
+        if(mdto.getNickname() == null || mdto.getNickname().trim().isEmpty()) {
+			
+			model.addAttribute("msg","닉네임 입력해라");
+			return "user/member";
+		}
+		
 		
 		String phone = p1 + "-" + p2 + "-" + p3;
 		
-		memberDto.setPhone(phone);
+		mdto.setPhone(phone);
 			
-		boolean result =userService.postMember(memberDto);
+		boolean result =userService.postMember(mdto);
 			
 		if(result) {
 				
@@ -63,9 +81,9 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/user/login")
-	public String loginUser(UserDto memberDto,HttpSession session) {
+	public String loginUser(MemberDto memberDto,HttpSession session) {
 	
-		UserDto user =userService.loginUser(memberDto);	
+		MemberDto user =userService.loginUser(memberDto);	
 		
 		if(user != null) {
 			
