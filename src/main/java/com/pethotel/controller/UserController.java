@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	//로그인 요청
-	@PostMapping("/user/loginUser")
+	@PostMapping("/user/login")
 	public String loginUser(UserDto memberDto,HttpSession session) {
 	
 		UserDto user =userService.loginUser(memberDto);

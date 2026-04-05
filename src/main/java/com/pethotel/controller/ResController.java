@@ -59,20 +59,25 @@ public class ResController {
 	  
 	//예약 요청
 	@PostMapping("/reservation/save")
-	public String save(ResDto Rdto,HttpSession session) {
+	public String save(ResDto Rdto,HttpSession session,Model model) {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
-		
-		if(member_id == null) {
-			
-			return "redirect:/user/login";
-		}		
-		
+				
 		Rdto.setMember_id(member_id);
 		
-		resService.save(Rdto);
+		String msg = resService.save(Rdto);
 		
-		return "redirect:/reservation/complete";
+		if("success".equals(msg)) {
+			
+			return "redirect:/reservation/complete";
+		}
+		else {
+			
+			model.addAttribute("errorMsg", msg);
+			return "redirect:/reservation/main";
+		}
+		
+		
 	}
 	
 	//예약후 성공한 화면 뷰반환
@@ -88,13 +93,6 @@ public class ResController {
 	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
 			
 	   Integer member_id = (Integer) session.getAttribute("member_id");
-	   
-			
-	   if(member_id == null) {
-		   
-		   return "redirect:/user/login";			
-			
-	   }
 	   
 	 /*  
 	   int resMember_id = resService.getResMember_id(id);

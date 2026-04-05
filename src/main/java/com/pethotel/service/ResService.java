@@ -11,7 +11,7 @@ public interface ResService {
 
 	/*Map<String, Object> check(ResDto RDto);*/
 	/*public List<PetInfoDto> resPet(int id);*/
-	public void save(ResDto RDto);
+	public String save(ResDto RDto);
 	
 	public void resDelete(int res_id);		
 	

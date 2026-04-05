@@ -41,7 +41,7 @@
      </tr>
   <c:forEach var = "r" items = "${reslist }">
      <tr>
-        <td>${r.id }
+        <td>${r.res_id }
         </td>
         <td>${r.check_in}</td>
         <td>${r.check_out}</td>

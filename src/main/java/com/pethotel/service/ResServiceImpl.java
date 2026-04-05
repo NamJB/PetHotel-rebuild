@@ -83,7 +83,7 @@ public class ResServiceImpl implements ResService {
 	//
 	@Override
 	@Transactional
-    public void save(ResDto rdto) {
+    public String save(ResDto rdto) {
 		
 		/*resMapper.save(RDto);
 		
@@ -119,22 +119,50 @@ public class ResServiceImpl implements ResService {
 			
 			resMapper.savePet(pdto);		
 			
+		}*/
+		if(rdto.getCheck_in() ==null && rdto.getCheck_out() == null) {
+			
+			return "날짜를 체크해주세요";
 		}
 		
-		*/
 		
-		
-		resMapper.save(rdto);
-		
-		int res_id = rdto.getRes_id();
-		
-		for(PetInfoDto pdto : rdto.getPets()) {
-			pdto.setRes_id(res_id);			
-		}
-	    
-		resMapper.savePet(rdto.getPets());
+        if (rdto.getPets() == null || rdto.getPets().isEmpty()) {
+            
+        	return "반려동물을 최소 한 마리 이상 등록해주세요.";
+        }
+
+        try {
+            
+            resMapper.save(rdto); 
+           
+            int res_id = rdto.getRes_id();
+
+            
+            for (PetInfoDto pet : rdto.getPets()) {
+                
+                if (pet.getName() == null || pet.getName().trim().isEmpty()) {
+                  
+                	throw new RuntimeException("반려동물의 이름이 누락되었습니다.");
+                }
+                               
+                pet.setRes_id(res_id);
+            }
+         
+            resMapper.savePet(rdto.getPets());
+
+            return "success";
+
+        } catch (RuntimeException re) {
+            
+            return re.getMessage(); 
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return "시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+        }
+    }
 				
-	}
+
 	
 	
 	
