@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.dto.MyResDto;
 
 @Mapper
@@ -19,7 +20,7 @@ public interface UserMapper {
 	//아이디 중복체크
 	public int checkUserid(String User_id);
 	
-	public MemberDto loginUser(LoginDto ldto);
+	public MemberResponseDto loginUser(LoginDto ldto);
 	
 	public List<BoardDto> myBoard(int member_id);
 	

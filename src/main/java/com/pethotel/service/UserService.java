@@ -5,13 +5,14 @@ import java.util.List;
 import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.dto.MyResDto;
 
 public interface UserService {
 
 	public boolean postMember(MemberDto memberDto);
 	
-	public MemberDto loginUser(LoginDto ldto);
+	public MemberResponseDto loginUser(LoginDto ldto);
 	
 	public List<BoardDto> myBoard(int member_id);
 	

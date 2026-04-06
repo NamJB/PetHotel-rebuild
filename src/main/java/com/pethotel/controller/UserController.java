@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
@@ -25,7 +26,8 @@ public class UserController {
 	private final UserService userService;
 	
 	public UserController(UserService userService) {
-	    this.userService = userService;
+	   
+		this.userService = userService;
 	}
 	
 	//회원가입페이지 뷰 반환
@@ -33,7 +35,7 @@ public class UserController {
 	public String member() {
 		
 		return "user/member";
-	}
+	}	
 	
 	//회원가입 요청
 	@PostMapping("/user/member")
@@ -46,8 +48,6 @@ public class UserController {
 			
 			return "/user/member";
 		}
-		
-		
 		
 		//휴대폰 조합
 		String phone = mdto.getP1() + "-" + mdto.getP2() + "-" + mdto.getP3();
@@ -86,12 +86,13 @@ public class UserController {
 			return "user/login";
 		}
 		
-		MemberDto user = userService.loginUser(ldto);	
+		MemberResponseDto user = userService.loginUser(ldto);	
 		
 		if(user != null) {
 			
 			session.setAttribute("nickname", user.getNickname());
 			session.setAttribute("member_id", user.getMember_id());
+			
 			
 			return "redirect:/main/home";
 		}
@@ -106,6 +107,7 @@ public class UserController {
 		session.invalidate();
 		
 		return "redirect:/main/home";
+	
 	}
 	
 	//마이페이지 뷰반환
@@ -114,7 +116,6 @@ public class UserController {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
 		
-
 		
 		List<BoardDto> Blist =userService.myBoard(member_id);
 		List<MyResDto> Rlist = userService.myRes(member_id);
