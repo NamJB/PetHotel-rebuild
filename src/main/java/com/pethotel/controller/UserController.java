@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pethotel.dto.BoardDto;
+import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
@@ -39,10 +40,8 @@ public class UserController {
 	public String postMember(@Valid MemberDto mdto,BindingResult br ,Model model) {
 		
 		if(br.hasErrors()) {
-			
-			String message =  br.getFieldError().getDefaultMessage();
-		    
-			model.addAttribute("msg",message);
+				    
+			model.addAttribute("msg",br.getFieldError().getDefaultMessage());
 			model.addAttribute("mdto",mdto);
 			
 			return "/user/member";
@@ -78,9 +77,16 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/user/login")
-	public String loginUser(MemberDto memberDto,HttpSession session) {
+	public String loginUser(@Valid LoginDto ldto,BindingResult br,HttpSession session,Model model) {
 	
-		MemberDto user = userService.loginUser(memberDto);	
+		if(br.hasErrors()) {
+			
+			model.addAttribute("msg",br.getFieldError().getDefaultMessage());
+			
+			return "user/login";
+		}
+		
+		MemberDto user = userService.loginUser(ldto);	
 		
 		if(user != null) {
 			

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.BoardDto;
+import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MyResDto;
 import com.pethotel.mapper.UserMapper;
@@ -43,9 +44,9 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public MemberDto loginUser(MemberDto memberDto) {
+	public MemberDto loginUser(LoginDto ldto) {
 		
-		return userMapper.loginUser(memberDto);
+		return userMapper.loginUser(ldto);
 	}
 	
 	@Override

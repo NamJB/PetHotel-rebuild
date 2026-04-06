@@ -7,7 +7,7 @@
      values (#{userid},#{pwd},#{username},#{nickname},#{phone})
    </insert>
    
-   <select id = "loginUser" resultType = "com.pethotel.dto.MemberDto">
+   <select id = "loginUser" resultType = "com.pethotel.dto.LoginDto">
      select * from member 
      where userid = #{userid} 
      and pwd = #{pwd}
