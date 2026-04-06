@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,6 +15,7 @@ import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 
@@ -34,27 +36,22 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/user/member")
-	public String postMember(MemberDto mdto,String p1,String p2,String p3,Model model) {
+	public String postMember(@Valid MemberDto mdto,BindingResult br ,Model model) {
 		
-		if(mdto.getUserid() == null || mdto.getUserid().trim().isEmpty()) {
+		if(br.hasErrors()) {
 			
-			model.addAttribute("msg","아이디 입력해라");
-			return "user/member";
-		}
-        if(mdto.getPwd() == null || mdto.getPwd().trim().isEmpty()) {
+			String message =  br.getFieldError().getDefaultMessage();
+		    
+			model.addAttribute("msg",message);
+			model.addAttribute("mdto",mdto);
 			
-			model.addAttribute("msg","비번입력해라");
-			return "user/member";
-		}
-        
-        if(mdto.getNickname() == null || mdto.getNickname().trim().isEmpty()) {
-			
-			model.addAttribute("msg","닉네임 입력해라");
-			return "user/member";
+			return "/user/member";
 		}
 		
 		
-		String phone = p1 + "-" + p2 + "-" + p3;
+		
+		//휴대폰 조합
+		String phone = mdto.getP1() + "-" + mdto.getP2() + "-" + mdto.getP3();
 		
 		mdto.setPhone(phone);
 			
@@ -83,7 +80,7 @@ public class UserController {
 	@PostMapping("/user/login")
 	public String loginUser(MemberDto memberDto,HttpSession session) {
 	
-		MemberDto user =userService.loginUser(memberDto);	
+		MemberDto user = userService.loginUser(memberDto);	
 		
 		if(user != null) {
 			
