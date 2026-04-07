@@ -11,8 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class BoardResponseDto {
 
-	private int member_id;
-	
 	private int board_id;
 	
 	private String title;
@@ -24,5 +22,7 @@ public class BoardResponseDto {
     private LocalDate created_at;
     
     private int view_count;
+    
+  
     
 }

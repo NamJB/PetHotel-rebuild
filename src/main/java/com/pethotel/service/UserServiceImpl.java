@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pethotel.dto.BoardDto;
+
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MemberResponseDto;

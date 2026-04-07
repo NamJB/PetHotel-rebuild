@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.pethotel.dto.BoardDto;
-import com.pethotel.dto.BoardListDto;
+import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
-import com.pethotel.dto.BoardUpdateDto;
-import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResListDto;
 import com.pethotel.mapper.BoardMapper;
 
@@ -22,26 +19,29 @@ public class BoardServiceImpl implements BoardService {
 		this.boardMapper = boardMapper;
 	}
 	
+	
 	@Override
-	public void postWrite(BoardDto bdto) {
+	public void postWrite(BoardRequestDto bdto) {
 		
 		boardMapper.postWrite(bdto);
 	}
 	
+	
 	@Override
-	public List<BoardListDto> getList() {
+	public BoardResponseDto getView(BoardRequestDto bdto) {
 		
-		return boardMapper.getList();
+		List<BoardResponseDto> list  = boardMapper.getBoard(bdto);
+		
+		if(list!= null && !list.isEmpty()) {
+			
+			return  list.get(0);
+		}
+		
+		return null;
 	}
 	
 	@Override
-	public BoardResponseDto getView(int board_id) {
-		
-		return boardMapper.getView(board_id);
-	}
-	
-	@Override
-	public void postUpdate(BoardUpdateDto bDto) {
+	public void postUpdate(BoardRequestDto bDto) {
 		
 		boardMapper.postUpdate(bDto);
 	}
@@ -52,16 +52,18 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.postDelete(board_id);
 	}
 	
-	@Override
-	public List<BoardListDto> myBoard(int member_id){
-				
-		return boardMapper.myBoard(member_id);
-	}
+	
 	
 	@Override
 	public List<ResListDto> myRes(int member_id) {
 		
 		return boardMapper.myRes(member_id);
+	}
+	
+	@Override
+	public List<BoardResponseDto> getBoard(BoardRequestDto bdto) {
+		
+		return boardMapper.getBoard(bdto);
 	}
 	
 	

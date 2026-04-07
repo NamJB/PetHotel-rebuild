@@ -3,8 +3,6 @@ package com.pethotel.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
-import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MemberResponseDto;

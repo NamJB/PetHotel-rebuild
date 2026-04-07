@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.pethotel.dto.BoardDto;
+
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MemberResponseDto;
