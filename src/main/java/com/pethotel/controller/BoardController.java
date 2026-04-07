@@ -106,7 +106,8 @@ public class BoardController {
 	public String mypage(HttpSession session,Model model,BoardRequestDto bdto) {
 			
 		Integer member_id = (Integer) session.getAttribute("member_id");
-			
+		
+		bdto.setMember_id(member_id);
 			
 		List<BoardResponseDto> Blist =boardService.getBoard(bdto);
 		List<ResListDto> Rlist = boardService.myRes(member_id);
