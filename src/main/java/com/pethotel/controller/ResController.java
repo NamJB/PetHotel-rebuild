@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pethotel.dto.MyResDto;
+
 import com.pethotel.dto.PetInfoDto;
 import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResResponseDto;
+import com.pethotel.dto.ResupdateDto;
 import com.pethotel.service.ResService;
 
 import jakarta.servlet.http.HttpSession;
@@ -59,24 +61,15 @@ public class ResController {
 	  
 	//예약 요청
 	@PostMapping("/reservation/save")
-	public String save(ResDto Rdto,HttpSession session,Model model) {
+	public String save(ResDto Rdto,HttpSession session) {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
 				
 		Rdto.setMember_id(member_id);
 		
-		String msg = resService.save(Rdto);
+		resService.save(Rdto);
 		
-		if("success".equals(msg)) {
-			
-			return "redirect:/reservation/complete";
-		}
-		else {
-			
-			model.addAttribute("errorMsg", msg);
-			return "redirect:/reservation/main";
-		}
-		
+		return "redirect:/reservation/complete";
 		
 	}
 	
@@ -88,40 +81,7 @@ public class ResController {
 		return "reservation/complete";
 	}
 	
-	//마이페이지 예약글 상세보기 뷰반환
-    @GetMapping("/reservation/resview")
-	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
-			
-	   Integer member_id = (Integer) session.getAttribute("member_id");
-	   
-	 /*  
-	   int resMember_id = resService.getResMember_id(id);
-	   
-	   if(!member_id.equals(resMember_id)) {
-		   
-		   return "redirect:/user/mypage";
-	   }
-	   
-	   List<PetInfoDto> plist=resService.resPet(id);
-	   MyResDto myResDto = resService.getView(id);
-	   
-	   
-	   model.addAttribute("res",myResDto);
-	   model.addAttribute("plist",plist);*/
-	   
-	   ResDto rdto = resService.getMyres(res_id);
-	   
-	   if(rdto.getMember_id()!= member_id) {
-		   
-		   return "redirect:/user/mypage";
-	   }
-	   
-	   model.addAttribute("rdto",rdto);
-	   
-			
-	   return "reservation/resview";
-		
-    }
+	
     //예약 취소 요청
     @PostMapping("/reservation/delete")
     public String resDelete(int res_id,HttpSession session) {
@@ -170,7 +130,7 @@ public class ResController {
     	
     	return "reservation/update";*/
     	
-    	ResDto rdto = resService.getMyres(res_id);
+    	ResResponseDto rdto = resService.getMyres(res_id);
     	
     	model.addAttribute("rdto",rdto);
     	
@@ -180,11 +140,46 @@ public class ResController {
     }
     //예약 업데이트 요청
     @PostMapping("/reservation/update")
-    public String postUpdate(ResDto rdto) {
+    public String postUpdate(ResupdateDto rdto) {
     	
     	resService.postUpdate(rdto);
-    	
+    	System.out.println(rdto);
     	return "redirect:/reservation/resview?res_id="+rdto.getRes_id();
+    }
+    
+	//마이페이지 예약글 상세보기 뷰반환
+    @GetMapping("/reservation/resview")
+	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
+			
+	   Integer member_id = (Integer) session.getAttribute("member_id");
+	   
+	 /*  
+	   int resMember_id = resService.getResMember_id(id);
+	   
+	   if(!member_id.equals(resMember_id)) {
+		   
+		   return "redirect:/user/mypage";
+	   }
+	   
+	   List<PetInfoDto> plist=resService.resPet(id);
+	   MyResDto myResDto = resService.getView(id);
+	   
+	   
+	   model.addAttribute("res",myResDto);
+	   model.addAttribute("plist",plist);*/
+	   
+	   ResResponseDto rdto = resService.getMyres(res_id);
+	   
+	   if(rdto.getMember_id()!= member_id) {
+		   
+		   return "redirect:/user/mypage";
+	   }
+	   
+	   model.addAttribute("rdto",rdto);
+	   
+			
+	   return "reservation/resview";
+		
     }
 	
 	

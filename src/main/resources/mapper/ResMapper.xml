@@ -4,29 +4,31 @@
    
    <insert id="save" parameterType="com.pethotel.dto.ResDto"
         useGeneratedKeys="true" keyProperty="res_id">
-    insert into reservation(member_id, check_in, check_out)
-    values(#{member_id}, #{check_in}, #{check_out})
+    insert into 
+       reservation(member_id, check_in, check_out)
+       values(#{member_id}, #{check_in}, #{check_out})
   </insert>
    
    <insert id = "savePet">
       insert into 
-      reservation_pet(res_id,name,age,size,content)
-      values
+         reservation_pet(res_id,name,age,size,content)
+         values
       <foreach collection = "list" item = "pet" separator = ",">
          (#{pet.res_id},#{pet.name},#{pet.age},#{pet.size},#{pet.content})
       </foreach>      
    </insert>
    
-  <!--  
-   <resultMap id = "resMap" type = "com.pethotel.dto.ResDto">
+    
+   <resultMap id = "resMap" type = "com.pethotel.dto.ResResponseDto">
       <id property = "res_id" column= "res_id"/>
          <result property = "member_id" column = "member_id"/>
          <result property = "check_in" column = "check_in"/>
          <result property = "check_out" column = "check_out"/>
          <result property = "status" column = "status"/>
          <result property = "created_at" column = "created_at"/>
+         <result property = "nickname" column = "nickname"/>
            
-      <collection property = "pets" ofType = "com.pethotel.dto.PetInfoDto">
+      <collection property = "pets" ofType = "com.pethotel.dto.ResPetListDto">
          <id property = "pet_id" column = "pet_id"/>
             <result property = "name" column = "name"/>
             <result property = "age" column = "age"/>
@@ -38,13 +40,14 @@
    <select id = "getMyres" resultMap = "resMap">
       select 
          r.res_id,r.member_id,r.check_in,r.check_out,r.status,r.created_at,
-         p.pet_id,p.name,p.age,p.size,p.content
+         p.pet_id,p.name,p.age,p.size,p.content,
+         m.nickname
       from reservation r 
-      inner join reservation_pet p 
-         on p.res_id = r.res_id
+      inner join reservation_pet p on p.res_id = r.res_id
+      inner join member m on r.member_id = m.member_id
       where r.res_id = #{res_id}     
    </select>
-    -->
+    
    <select id = "resDelete">
       update 
          reservation set
@@ -53,9 +56,8 @@
    </select>
    
    <delete id = "petDelete">
-     delete 
-     from 
-     reservation_pet 
+     delete from 
+        reservation_pet 
      where res_id = #{id}
    </delete>
    

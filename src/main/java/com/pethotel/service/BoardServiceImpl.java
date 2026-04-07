@@ -8,7 +8,8 @@ import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.BoardListDto;
 import com.pethotel.dto.BoardResponseDto;
 import com.pethotel.dto.BoardUpdateDto;
-import com.pethotel.dto.MyResDto;
+import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResListDto;
 import com.pethotel.mapper.BoardMapper;
 
 @Service
@@ -52,16 +53,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardDto> myBoard(int member_id){
+	public List<BoardListDto> myBoard(int member_id){
 				
 		return boardMapper.myBoard(member_id);
 	}
 	
 	@Override
-	public List<MyResDto> myRes(int member_id) {
+	public List<ResListDto> myRes(int member_id) {
 		
 		return boardMapper.myRes(member_id);
 	}
+	
+	
 	
 	
 }

@@ -1,7 +1,8 @@
 package com.pethotel.dto;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,28 +12,17 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PetInfoDto {
+public class ResupdateDto {
 
+	@NotBlank
+	private String check_in;
+	
+	@NotBlank
+	private String check_out;
 	
 	@NotBlank
 	private int res_id;
 	
 	@NotBlank
-	private String size;
-	
-	@NotBlank
-	private String name;
-	
-	@NotBlank
-	private int age;
-	
-	private String content;
-	
-	
-	
-	
-	
-	
-	
-	
+	private List<PetInfoDto> pets;
 }

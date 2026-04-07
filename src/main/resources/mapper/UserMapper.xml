@@ -12,29 +12,7 @@
      where userid = #{userid} 
      and pwd = #{pwd}
    </select>
-   
-   <select id = "myBoard" resultType = "com.pethotel.dto.BoardDto">   
-     select 
-     b.board_id,
-     b.title,
-     b.content,
-     b.created_at,
-     m.userid
-     from board b inner join member m on b.member_id = m.member_id
-     where m.member_id = #{member_id} 
-        and b.is_deleted = 0
-     order by b.board_id desc
-     
-   </select>
-   
-   <select id = "myRes" resultType = "com.pethotel.dto.MyResDto">
-     select * 
-     from reservation 
-     where member_id = #{member_id}
-     order by res_id desc
-      
-   </select>
-   
+  
    <select id = "checkUserid" resultType = "int">
       select count(*) 
       from member 

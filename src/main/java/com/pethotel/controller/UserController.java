@@ -13,7 +13,6 @@ import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
 import com.pethotel.dto.MemberResponseDto;
-import com.pethotel.dto.MyResDto;
 import com.pethotel.service.UserService;
 
 import jakarta.servlet.http.HttpSession;

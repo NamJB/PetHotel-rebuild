@@ -12,7 +12,8 @@ import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.BoardListDto;
 import com.pethotel.dto.BoardResponseDto;
 import com.pethotel.dto.BoardUpdateDto;
-import com.pethotel.dto.MyResDto;
+import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResListDto;
 import com.pethotel.service.BoardService;
 
 import jakarta.servlet.http.HttpSession;
@@ -104,13 +105,18 @@ public class BoardController {
 		Integer member_id = (Integer) session.getAttribute("member_id");
 			
 			
-		List<BoardDto> Blist =boardService.myBoard(member_id);
-		List<MyResDto> Rlist = boardService.myRes(member_id);
+		List<BoardListDto> Blist =boardService.myBoard(member_id);
+		List<ResListDto> Rlist = boardService.myRes(member_id);
 			
 		model.addAttribute("boardlist",Blist);
 		model.addAttribute("reslist",Rlist);
 			
-		return "user/mypage";
+		return "board/mypage";
+	
 	}
+	
+
+	
+	
 	
 }

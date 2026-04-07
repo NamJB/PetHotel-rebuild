@@ -3,25 +3,36 @@ package com.pethotel.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class ResDto {
     
- 
-	int res_id;	
+	private int res_id;
 	
-	int member_id;
+	@NotBlank
+	private int member_id;
 	
-	String check_in;
+	@NotBlank
+	private  String check_in;
 	
-	String check_out;
+	@NotBlank
+	private String check_out;
 	
-	List<PetInfoDto> pets;
+	@NotBlank
+	private List<PetInfoDto> pets;
 	
-	String status;
 	
-	LocalDate created_at;
+	
+	
 
 	
 }

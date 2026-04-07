@@ -26,7 +26,8 @@
       </c:choose>
     : ${p.count}마리 <br>
    </c:forEach>
-     -->
+      -->
+   <div>${rdto.nickname}님!</div>
    <div>체크인:${rdto.check_in}</div>
    <div>체크아웃${rdto.check_out}</div>
    <div>에약상태:${rdto.status}</div>

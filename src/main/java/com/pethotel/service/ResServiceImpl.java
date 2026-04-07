@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pethotel.dto.MyResDto;
+
 import com.pethotel.dto.PetInfoDto;
 import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResResponseDto;
+import com.pethotel.dto.ResupdateDto;
 import com.pethotel.mapper.ResMapper;
 
 @Service
@@ -83,7 +85,7 @@ public class ResServiceImpl implements ResService {
 	//
 	@Override
 	@Transactional
-    public String save(ResDto rdto) {
+    public void save(ResDto rdto) {
 		
 		/*resMapper.save(RDto);
 		
@@ -120,18 +122,9 @@ public class ResServiceImpl implements ResService {
 			resMapper.savePet(pdto);		
 			
 		}*/
-		if(rdto.getCheck_in() ==null && rdto.getCheck_out() == null) {
-			
-			return "날짜를 체크해주세요";
-		}
 		
-		
-        if (rdto.getPets() == null || rdto.getPets().isEmpty()) {
-            
-        	return "반려동물을 최소 한 마리 이상 등록해주세요.";
-        }
 
-        try {
+       
             
             resMapper.save(rdto); 
            
@@ -139,32 +132,14 @@ public class ResServiceImpl implements ResService {
 
             
             for (PetInfoDto pet : rdto.getPets()) {
-                
-                if (pet.getName() == null || pet.getName().trim().isEmpty()) {
-                  
-                	throw new RuntimeException("반려동물의 이름이 누락되었습니다.");
-                }
-                               
+               
                 pet.setRes_id(res_id);
             }
          
             resMapper.savePet(rdto.getPets());
-
-            return "success";
-
-        } catch (RuntimeException re) {
-            
-            return re.getMessage(); 
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-            return "시스템 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
-        }
-    }
-				
-
-	
-	
+        
+         
+	}
 	
 	@Override
 	public void resDelete(int res_id) {
@@ -173,17 +148,9 @@ public class ResServiceImpl implements ResService {
 	}
 	
 	
-	@Override
-	public ResDto getMyres(int res_id) {
-		
-		return resMapper.getMyres(res_id);
-		
-	}	
-	
-	
     @Override
     @Transactional
-    public void postUpdate(ResDto rdto) {
+    public void postUpdate(ResupdateDto rdto) {
     	
     	/* resMapper.postUpdate(rdto);
 		
@@ -237,6 +204,13 @@ public class ResServiceImpl implements ResService {
     	resMapper.savePet(rdto.getPets());
     	
     }
+    
+    @Override
+	public ResResponseDto getMyres(int res_id) {
+		
+		return resMapper.getMyres(res_id);
+		
+	}	
 	
 }
 

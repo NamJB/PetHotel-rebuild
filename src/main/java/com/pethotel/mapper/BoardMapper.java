@@ -8,7 +8,7 @@ import com.pethotel.dto.BoardDto;
 import com.pethotel.dto.BoardListDto;
 import com.pethotel.dto.BoardResponseDto;
 import com.pethotel.dto.BoardUpdateDto;
-import com.pethotel.dto.MyResDto;
+import com.pethotel.dto.ResListDto;
 
 @Mapper
 public interface BoardMapper {
@@ -28,7 +28,9 @@ public interface BoardMapper {
 	//게시글 삭제(is_deleted 1로 업데이트)
 	public void postDelete(int board_id);
 	
-	public List<BoardDto> myBoard(int member_id);
+	//나의 게시판 
+	public List<BoardListDto> myBoard(int member_id);
 	
-	public List<MyResDto> myRes(int member_id);
+	//나의 예약정보
+	public List<ResListDto> myRes(int member_id);
 }

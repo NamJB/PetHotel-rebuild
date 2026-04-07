@@ -10,11 +10,8 @@
    
    <select id = "getList" resultType = "com.pethotel.dto.BoardListDto">
       select 
-      b.board_id,
-      b.title,
-      b.created_at,
-      b.view_count,
-      m.nickname
+         b.board_id,b.title,b.created_at,b.view_count,
+         m.nickname
       from board b inner join member m on b.member_id = m.member_id
       where is_deleted = 0
       order by b.board_id desc
@@ -44,7 +41,7 @@
       where board_id = #{board_id}
    </delete>
    
-   <select id = "myBoard" resultType = "com.pethotel.dto.BoardResponseDto">
+   <select id = "myBoard" resultType = "com.pethotel.dto.BoardListDto">
       select 
          b.board_id,b.title,b.created_at,b.view_count,
          m.nickname
@@ -53,14 +50,15 @@
       order by b.board_id desc      
    </select>
    
-   <!--  
-   <select id = "getMyres" resultType = "">
+    
+   <select id = "myRes" resultType = "com.pethotel.dto.ResListDto">
       select 
-         r.res_id,r.check_in,r.check_out,r.status,r.created_at
-         
-       from reservation
-       where r.res_id = #{res_id}     
+         r.res_id,r.check_in,r.check_out,r.status,r.created_at,
+         m.nickname
+      from reservation r inner join member m on r.member_id = m.member_id
+      where r.member_id = #{member_id}
+      order by r.res_id  desc       
    </select>
-   -->
+   
 
 </mapper>
