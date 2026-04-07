@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pethotel.dto.BoardDto;
+import com.pethotel.dto.BoardListDto;
+import com.pethotel.dto.BoardResponseDto;
+import com.pethotel.dto.BoardUpdateDto;
+import com.pethotel.dto.MyResDto;
 import com.pethotel.mapper.BoardMapper;
 
 @Service
@@ -24,27 +28,39 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardDto> getList() {
+	public List<BoardListDto> getList() {
 		
 		return boardMapper.getList();
 	}
 	
 	@Override
-	public BoardDto getView(int board_id) {
+	public BoardResponseDto getView(int board_id) {
 		
 		return boardMapper.getView(board_id);
 	}
 	
 	@Override
-	public void postUpdate(BoardDto bDto) {
+	public void postUpdate(BoardUpdateDto bDto) {
 		
 		boardMapper.postUpdate(bDto);
 	}
 	
 	@Override
-	public void postDelete(int id) {
+	public void postDelete(int board_id) {
 		
-		boardMapper.postDelete(id);
+		boardMapper.postDelete(board_id);
+	}
+	
+	@Override
+	public List<BoardDto> myBoard(int member_id){
+				
+		return boardMapper.myBoard(member_id);
+	}
+	
+	@Override
+	public List<MyResDto> myRes(int member_id) {
+		
+		return boardMapper.myRes(member_id);
 	}
 	
 	

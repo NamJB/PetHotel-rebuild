@@ -8,25 +8,26 @@
       values(#{title},#{content},#{member_id})      
    </insert>
    
-   <select id = "getList" resultType = "com.pethotel.dto.BoardDto">
+   <select id = "getList" resultType = "com.pethotel.dto.BoardListDto">
       select 
       b.board_id,
       b.title,
       b.created_at,
-      m.userid
+      b.view_count,
+      m.nickname
       from board b inner join member m on b.member_id = m.member_id
       where is_deleted = 0
       order by b.board_id desc
       
    </select>
    
-   <select id = "getView" resultType = "com.pethotel.dto.BoardDto">
+   <select id = "getView" resultType = "com.pethotel.dto.BoardResponseDto">
       select  
       b.board_id,
       b.title,
       b.content,
       b.created_at,
-      m.userid      
+      m.nickname      
       from board b inner join member m on b.member_id = m.member_id
       where b.board_id = #{board_id}
    </select>
@@ -39,8 +40,27 @@
    
    <delete id = "postDelete">
       update board
-      set is_deleted = '1'
+         set is_deleted = '1'
       where board_id = #{board_id}
    </delete>
+   
+   <select id = "myBoard" resultType = "com.pethotel.dto.BoardResponseDto">
+      select 
+         b.board_id,b.title,b.created_at,b.view_count,
+         m.nickname
+      from board b inner join member m on b.member_id = m.member_id
+      where is_deleted = 0 and b.member_id = #{member_id}
+      order by b.board_id desc      
+   </select>
+   
+   <!--  
+   <select id = "getMyres" resultType = "">
+      select 
+         r.res_id,r.check_in,r.check_out,r.status,r.created_at
+         
+       from reservation
+       where r.res_id = #{res_id}     
+   </select>
+   -->
 
 </mapper>

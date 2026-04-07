@@ -110,21 +110,7 @@ public class UserController {
 	
 	}
 	
-	//마이페이지 뷰반환
-	@GetMapping("/user/mypage")
-	public String mypage(HttpSession session,Model model) {
-		
-		Integer member_id = (Integer) session.getAttribute("member_id");
-		
-		
-		List<BoardDto> Blist =userService.myBoard(member_id);
-		List<MyResDto> Rlist = userService.myRes(member_id);
-		
-		model.addAttribute("boardlist",Blist);
-		model.addAttribute("reslist",Rlist);
-		
-		return "user/mypage";
-	}
+	
 	
 
 	

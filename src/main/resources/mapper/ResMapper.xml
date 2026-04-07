@@ -17,7 +17,7 @@
       </foreach>      
    </insert>
    
-   
+  <!--  
    <resultMap id = "resMap" type = "com.pethotel.dto.ResDto">
       <id property = "res_id" column= "res_id"/>
          <result property = "member_id" column = "member_id"/>
@@ -44,7 +44,7 @@
          on p.res_id = r.res_id
       where r.res_id = #{res_id}     
    </select>
-   
+    -->
    <select id = "resDelete">
       update 
          reservation set

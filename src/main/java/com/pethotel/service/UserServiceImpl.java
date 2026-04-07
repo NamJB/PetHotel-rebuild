@@ -49,16 +49,8 @@ public class UserServiceImpl implements UserService{
 		return userMapper.loginUser(ldto);
 	}
 	
-	@Override
-	public List<BoardDto> myBoard(int member_id){
-				
-		return userMapper.myBoard(member_id);
-	}
 	
-	@Override
-	public List<MyResDto> myRes(int member_id) {
-		
-		return userMapper.myRes(member_id);
-	}
+	
+	
 	
 }

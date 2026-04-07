@@ -23,7 +23,7 @@
    <tr>
       <td>${b.board_id }</td>
       <td><a href = "/board/view?board_id=${b.board_id}">${b.title}</a></td>
-      <td>${b.userid}</td>,
+      <td>${b.nickname}</td>,
       <td>${b.created_at }</td>
    </tr>
    </c:forEach>

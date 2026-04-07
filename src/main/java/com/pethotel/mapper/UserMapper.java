@@ -22,7 +22,7 @@ public interface UserMapper {
 	
 	public MemberResponseDto loginUser(LoginDto ldto);
 	
-	public List<BoardDto> myBoard(int member_id);
 	
-	public List<MyResDto> myRes(int member_id);
+	
+	
 }

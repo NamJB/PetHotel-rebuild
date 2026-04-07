@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pethotel.dto.BoardDto;
+import com.pethotel.dto.BoardListDto;
+import com.pethotel.dto.BoardResponseDto;
+import com.pethotel.dto.BoardUpdateDto;
+import com.pethotel.dto.MyResDto;
 import com.pethotel.service.BoardService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,11 +27,11 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 	
-	//게시판 뷰 반환
+	//게시판 리스트 뷰 반환
 	@GetMapping("/board/list")
 	public String question(Model model) {
         
-		List<BoardDto> list = boardService.getList();
+		List<BoardListDto> list = boardService.getList();
 		
 		model.addAttribute("list",list);
 		
@@ -47,8 +51,7 @@ public class BoardController {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
 		
-		bDto.setMember_id(member_id);
-		
+		bDto.setMember_id(member_id);		
 		boardService.postWrite(bDto);
 		
 		return "redirect:/board/list";
@@ -58,7 +61,7 @@ public class BoardController {
 	@GetMapping("/board/view")
 	public String getView(@RequestParam int board_id,Model model) {
 		
-		BoardDto board = boardService.getView(board_id);
+		BoardResponseDto board = boardService.getView(board_id);
 		
 		model.addAttribute("board",board);
 		
@@ -69,7 +72,7 @@ public class BoardController {
 	@GetMapping("/board/update")
 	public String update(@RequestParam int board_id,Model model) {
 		
-		BoardDto board = boardService.getView(board_id);
+		BoardResponseDto board = boardService.getView(board_id);
 		
 		model.addAttribute("board",board);
 		
@@ -78,19 +81,36 @@ public class BoardController {
 	
 	//게시판 수정 요청
 	@PostMapping("/board/update")
-	public String postUpdate(BoardDto bDto) {
+	public String postUpdate(BoardUpdateDto budto) {
 		
-		boardService.postUpdate(bDto);
-		
-		return "redirect:/board/view?board_id="+bDto.getBoard_id();
+		boardService.postUpdate(budto);
+		System.out.println(budto);
+		return "redirect:/board/view?board_id="+budto.getBoard_id();
 	}
 	//게시판 삭제 요청
 	@PostMapping("/board/delete")
-	public String postDelete(int id) {
+	public String postDelete(int board_id) {
 		
-		boardService.postDelete(id);
+		boardService.postDelete(board_id);
 		
 		return "redirect:/board/list";
 			
 	}
+	
+	//마이페이지 뷰반환
+	@GetMapping("/board/mypage")
+	public String mypage(HttpSession session,Model model) {
+			
+		Integer member_id = (Integer) session.getAttribute("member_id");
+			
+			
+		List<BoardDto> Blist =boardService.myBoard(member_id);
+		List<MyResDto> Rlist = boardService.myRes(member_id);
+			
+		model.addAttribute("boardlist",Blist);
+		model.addAttribute("reslist",Rlist);
+			
+		return "user/mypage";
+	}
+	
 }

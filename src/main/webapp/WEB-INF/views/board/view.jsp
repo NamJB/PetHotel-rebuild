@@ -9,8 +9,8 @@
 <body>
 글쓴 화면
 
-<div>${board.board_id} 제목  ${board.title}    작성자${board.userid}</div>
-<div>내용  ${board.content}</div>
+<div>${board.board_id} 제목:  ${board.title}    작성자:${board.nickname}</div>
+<div>내용:  ${board.content}</div>
 
 
 <div><a href = "/board/update?board_id=${board.board_id}">글수정</a></div>

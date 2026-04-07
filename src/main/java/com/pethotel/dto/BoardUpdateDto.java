@@ -1,9 +1,6 @@
 package com.pethotel.dto;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,18 +10,17 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class BoardDto {
-
+public class BoardUpdateDto {
+	
+	
 	@NotBlank
-    private int member_id;
+	private int board_id;
 	
 	@NotBlank
 	private String title;
 	
 	@NotBlank
 	private String content;
-	
-	
 	
 	
 }

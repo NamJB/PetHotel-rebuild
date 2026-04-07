@@ -18,7 +18,7 @@
   </c:if>  
   
   <c:if test = "${not empty sessionScope.nickname}">
-     <a href = "/user/mypage">${sessionScope.nickname}</a>
+     <a href = "/board/mypage">${sessionScope.nickname}</a>
          님 반갑습니다
      <form method = "post" action ="/user/logout">
         <input type = "submit" value = "로그아웃">
