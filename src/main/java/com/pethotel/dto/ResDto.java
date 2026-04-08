@@ -27,8 +27,8 @@ public class ResDto {
 	@NotBlank
 	private String checkOut;
 	
-	@NotBlank
-	private List<PetInfoDto> pets;
+	//@NotBlank
+	//private List<PetDto> pets;
 	
 	
 	

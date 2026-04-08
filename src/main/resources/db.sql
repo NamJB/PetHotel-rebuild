@@ -78,3 +78,5 @@ CREATE TABLE `pet` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`pet_id`)
 )
+
+ALTER TABLE pet ADD COLUMN note TEXT; --메모 추가 26

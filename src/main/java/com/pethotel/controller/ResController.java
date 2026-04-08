@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import com.pethotel.dto.PetInfoDto;
+
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;

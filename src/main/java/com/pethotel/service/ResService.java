@@ -3,7 +3,6 @@ package com.pethotel.service;
 import java.util.List;
 import java.util.Map;
 
-import com.pethotel.dto.PetInfoDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;

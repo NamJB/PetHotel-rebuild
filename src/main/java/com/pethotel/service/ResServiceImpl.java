@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.pethotel.dto.PetInfoDto;
+
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
@@ -126,18 +126,18 @@ public class ResServiceImpl implements ResService {
 
        
             
-            resMapper.save(rdto); 
+     /*       resMapper.save(rdto); 
            
             int resId = rdto.getResId();
 
             
-            for (PetInfoDto pet : rdto.getPets()) {
+            for (PetDto pet : rdto.getPets()) {
                
                 pet.setResId(resId);
             }
          
             resMapper.savePet(rdto.getPets());
-        
+        */
          
 	}
 	
@@ -195,14 +195,14 @@ public class ResServiceImpl implements ResService {
     	resMapper.postUpdate(rdto);
     	resMapper.petDelete(rdto.getResId());
     	
-    	int res_id = rdto.getResId();
+    /*	int res_id = rdto.getResId();
     	
-    	for(PetInfoDto pdto : rdto.getPets()) {
+    	for(PetDto pdto : rdto.getPets()) {
     		
     		pdto.setResId(res_id);
     	}
     	resMapper.savePet(rdto.getPets());
-    	
+    	*/
     }
     
     @Override

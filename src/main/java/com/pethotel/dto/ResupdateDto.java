@@ -23,6 +23,6 @@ public class ResupdateDto {
 	@NotBlank
 	private int resId;
 	
-	@NotBlank
-	private List<PetInfoDto> pets;
+	//@NotBlank
+	//private List<PetDto> pets;
 }

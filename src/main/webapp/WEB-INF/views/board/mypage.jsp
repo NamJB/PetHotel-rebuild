@@ -51,5 +51,7 @@
      </tr>
      </c:forEach>
  </table>
+ 
+ <a href = "/pet/register">펫등록</a>
 </body>
 </html>

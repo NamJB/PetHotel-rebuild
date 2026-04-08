@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 
-import com.pethotel.dto.PetInfoDto;
+
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
@@ -17,7 +17,7 @@ public interface ResMapper {
 	public void save(ResDto RDto);
     
 	//펫예약 저장
-	public void savePet(List<PetInfoDto> list);
+	//public void savePet(List<PetDto> list);
 	
 	//사용자의 예약정보와 펫정보 가져오기
     public ResResponseDto getMyres(int resId);

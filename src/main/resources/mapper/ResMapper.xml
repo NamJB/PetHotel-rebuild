@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pethotel.mapper.ResMapper">
-   
+ <!--   
    <insert id="save" parameterType="com.pethotel.dto.ResDto"
         useGeneratedKeys="true" keyProperty="res_id">
     insert into 
@@ -75,5 +75,5 @@
       where res_id = #{resId}      
    </update>
    
-   
+    -->
 </mapper>
