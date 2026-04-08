@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pethotel.dto.BoardRequestDto;
@@ -17,6 +18,7 @@ import com.pethotel.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
 	private final BoardService boardService;
@@ -27,7 +29,7 @@ public class BoardController {
 	}
 	
 	//게시판 리스트 뷰 반환
-	@GetMapping("/board/list")
+	@GetMapping("/list")
 	public String question(Model model,BoardRequestDto bdto) {
         
 		List<BoardResponseDto> list = boardService.ListBoard(bdto);
@@ -38,14 +40,14 @@ public class BoardController {
 	}
 	
 	//게시판 글쓰기 뷰 반환
-	@GetMapping("/board/write")
+	@GetMapping("/write")
 	public String write() {
 		
 		return "board/write";
 	}
 	
 	//게시판 글쓰기 요청
-	@PostMapping("/board/write")
+	@PostMapping("/write")
 	public String postWrite(BoardRequestDto bdto,HttpSession session) {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
@@ -58,7 +60,7 @@ public class BoardController {
 	}
 	
 	//게시판 글보기 뷰 반환
-	@GetMapping("/board/view")
+	@GetMapping("/view")
 	public String getView(@RequestParam int board_id,Model model,BoardRequestDto bdto) {
 		
 		bdto.setBoard_id(board_id);
@@ -73,7 +75,7 @@ public class BoardController {
 	}
 	
 	//게시판 수정 뷰 반환
-	@GetMapping("/board/update")
+	@GetMapping("/update")
 	public String update(@RequestParam int board_id,Model model,BoardRequestDto bdto) {
 		
 		BoardResponseDto board = boardService.detailBoard(bdto);
@@ -84,7 +86,7 @@ public class BoardController {
 	}
 	
 	//게시판 수정 요청
-	@PostMapping("/board/update")
+	@PostMapping("/update")
 	public String postUpdate(BoardRequestDto budto) {
 		
 		boardService.postUpdate(budto);
@@ -92,7 +94,7 @@ public class BoardController {
 		return "redirect:/board/view?board_id="+budto.getBoard_id();
 	}
 	//게시판 삭제 요청
-	@PostMapping("/board/delete")
+	@PostMapping("/delete")
 	public String postDelete(int board_id) {
 		
 		boardService.postDelete(board_id);
@@ -102,7 +104,7 @@ public class BoardController {
 	}
 	
 	//마이페이지 뷰반환
-	@GetMapping("/board/mypage")
+	@GetMapping("/mypage")
 	public String mypage(HttpSession session,Model model,BoardRequestDto bdto) {
 			
 		Integer member_id = (Integer) session.getAttribute("member_id");

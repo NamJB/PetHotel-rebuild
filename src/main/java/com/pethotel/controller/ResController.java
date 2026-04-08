@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +25,7 @@ import com.pethotel.service.ResService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/reservation")
 public class ResController {
 
 	private final ResService resService;
@@ -35,7 +37,7 @@ public class ResController {
 	}
 	
 	//예악사이트 뷰반환
-	@GetMapping("/reservation/main")
+	@GetMapping("/main")
 	public String list() {
 		
 		return "reservation/main";
@@ -51,7 +53,7 @@ public class ResController {
 	}*/
 	
 	//예약 다시 확인
-	@PostMapping("/reservation/postConfirm")
+	@PostMapping("/postConfirm")
 	public String postConfirm(@ModelAttribute ResDto rdto,Model model) {
 		
 		model.addAttribute("rdto",rdto);
@@ -60,7 +62,7 @@ public class ResController {
 	}
 	  
 	//예약 요청
-	@PostMapping("/reservation/save")
+	@PostMapping("/save")
 	public String save(ResDto Rdto,HttpSession session) {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
@@ -74,7 +76,7 @@ public class ResController {
 	}
 	
 	//예약후 성공한 화면 뷰반환
-	@GetMapping("reservation/complete")
+	@GetMapping("/complete")
 	public String complete() {
 		
 		
@@ -83,7 +85,7 @@ public class ResController {
 	
 	
     //예약 취소 요청
-    @PostMapping("/reservation/delete")
+    @PostMapping("/delete")
     public String resDelete(int res_id,HttpSession session) {
     	
     	Integer member_id = (Integer) session.getAttribute("member_id");
@@ -106,7 +108,7 @@ public class ResController {
     }
     
     //예약 업데이트 뷰반환
-    @GetMapping("/reservation/update")
+    @GetMapping("/update")
     public String resUpdate(@RequestParam int res_id,HttpSession session,Model model) {
     	/*
     	Integer member_id = (Integer) session.getAttribute("member_id");
@@ -139,7 +141,7 @@ public class ResController {
     
     }
     //예약 업데이트 요청
-    @PostMapping("/reservation/update")
+    @PostMapping("/update")
     public String postUpdate(ResupdateDto rdto) {
     	
     	resService.postUpdate(rdto);
@@ -148,7 +150,7 @@ public class ResController {
     }
     
 	//마이페이지 예약글 상세보기 뷰반환
-    @GetMapping("/reservation/resview")
+    @GetMapping("/resview")
 	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
 			
 	   Integer member_id = (Integer) session.getAttribute("member_id");

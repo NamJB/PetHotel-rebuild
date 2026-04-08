@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-
+@RequestMapping("/user")
 public class UserController {
 
 	private final UserService userService;
@@ -30,14 +30,14 @@ public class UserController {
 	}
 	
 	//회원가입페이지 뷰 반환
-	@GetMapping("/user/member")
+	@GetMapping("/member")
 	public String member() {
 		
 		return "user/member";
 	}	
 	
 	//회원가입 요청
-	@PostMapping("/user/member")
+	@PostMapping("/member")
 	public String postMember(@Valid MemberDto mdto,BindingResult br ,Model model) {
 		
 		if(br.hasErrors()) {
@@ -67,7 +67,7 @@ public class UserController {
 	}
 	
 	//로그인페이지 뷰 반환
-	@GetMapping("/user/login")
+	@GetMapping("/login")
 	public String login() {
 		
 		
@@ -75,7 +75,7 @@ public class UserController {
 	}
 	
 	//로그인 요청
-	@PostMapping("/user/login")
+	@PostMapping("/login")
 	public String loginUser(@Valid LoginDto ldto,BindingResult br,HttpSession session,Model model) {
 	
 		if(br.hasErrors()) {
@@ -100,7 +100,7 @@ public class UserController {
 	}
 	
 	//로그아웃 요청
-	@PostMapping("/user/logout")
+	@PostMapping("/logout")
 	public String logOut(HttpSession session) {
 		
 		session.invalidate();
