@@ -57,15 +57,24 @@ CREATE TABLE `reservation` (
 
 --예약된펫
 
-CREATE TABLE `reservation_pet` (
-  `pet_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `res_id` bigint(20) NOT NULL,
+reservation_pet | CREATE TABLE `reservation_pet` (
+  `respet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `res_id` int(11) NOT NULL,
+  `pet_id` int(11) NOT NULL,
+  PRIMARY KEY (`respet_id`)
+)
+
+
+
+--펫
+CREATE TABLE `pet` (
+  `pet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `age` int(11) NOT NULL,
-  `size` varchar(20) NOT NULL,
-  `content` text DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`pet_id`),
-  KEY `fk_reservation_pet` (`res_id`),
-  CONSTRAINT `fk_reservation_pet` FOREIGN KEY (`res_id`) REFERENCES `reservation` (`res_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+  `type` varchar(50) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `weight` double DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`pet_id`)
+)
