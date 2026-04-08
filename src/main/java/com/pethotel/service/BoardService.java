@@ -9,16 +9,13 @@ import com.pethotel.dto.ResListDto;
 
 public interface BoardService {
 
-	public List<BoardResponseDto> getBoard(BoardRequestDto bdto);
-	
-	
-	
+	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto);
 	
 	public void postWrite(BoardRequestDto bdto);
 	
 	public void postUpdate(BoardRequestDto bDto);
 
-	public BoardResponseDto getView(BoardRequestDto bdto);
+	public BoardResponseDto detailBoard(BoardRequestDto bdto);
 
 	public void postDelete(int board_id);
 

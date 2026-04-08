@@ -28,16 +28,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
-	public BoardResponseDto getView(BoardRequestDto bdto) {
+	public BoardResponseDto detailBoard(BoardRequestDto bdto) {
 		
-		List<BoardResponseDto> list  = boardMapper.getBoard(bdto);
+		 return  boardMapper.detailBoard(bdto);
 		
-		if(list!= null && !list.isEmpty()) {
-			
-			return  list.get(0);
-		}
 		
-		return null;
 	}
 	
 	@Override
@@ -61,9 +56,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<BoardResponseDto> getBoard(BoardRequestDto bdto) {
+	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto) {
 		
-		return boardMapper.getBoard(bdto);
+		return boardMapper.ListBoard(bdto);
 	}
 	
 	

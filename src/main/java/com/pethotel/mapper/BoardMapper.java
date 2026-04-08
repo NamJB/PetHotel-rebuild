@@ -12,7 +12,6 @@ import com.pethotel.dto.ResListDto;
 @Mapper
 public interface BoardMapper {
 
-
 	//게시판 수정
 	public void postUpdate(BoardRequestDto bDto);
 	
@@ -25,6 +24,9 @@ public interface BoardMapper {
 	//나의 예약정보
 	public List<ResListDto> myRes(int member_id);
 	
-	//게시판 불러오기
-	public List<BoardResponseDto> getBoard(BoardRequestDto bdto);
+	//게시판 리스트 불러오기
+	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto);
+	
+	//게시판 글보기
+	public BoardResponseDto detailBoard(BoardRequestDto bdto);
 }

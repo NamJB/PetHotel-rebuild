@@ -8,7 +8,7 @@
       values(#{title},#{content},#{member_id})      
    </insert>
    
-   <select id="getBoard" 
+   <select id="ListBoard" 
         parameterType="com.pethotel.dto.BoardRequestDto" 
         resultType="com.pethotel.dto.BoardResponseDto">
     SELECT
@@ -17,10 +17,6 @@
         b.created_at,
         b.view_count,
         m.nickname
-        <!-- board_id가 있을 때(상세보기)만 content를 가져옴 -->
-        <if test="board_id != null">
-            , b.content
-        </if>
     from board b
     inner join member m ON b.member_id = m.member_id
     <where>
@@ -28,7 +24,7 @@
         AND b.is_deleted = 0
         <!-- 1. 상세 보기일 경우 (board_id 파라미터가 있을 때) -->
         <if test="board_id != null">
-            AND b.board_id = #{board_id}
+            and b.board_id = #{board_id}
         </if>
         <!-- 2. 내 글 보기일 경우 (member_id 파라미터가 있을 때) -->
         <if test="member_id != null">
@@ -38,6 +34,15 @@
     </where>
    order by b.board_id DESC
 </select>
+
+   <select id = "detailBoard" resultType = "com.pethotel.dto.BoardResponseDto">
+      select 
+         b.board_id,b.title,b.created_at,b.view_count,b.content,
+         m.nickname
+      from board b
+      inner join member m on b.member_id = m.member_id  
+      where b.board_id = #{board_id} 
+   </select>
    
    <select id = "myRes" resultType = "com.pethotel.dto.ResListDto">
       select 
@@ -46,12 +51,12 @@
       from reservation r inner join member m on r.member_id = m.member_id
       where r.member_id = #{member_id}
       order by r.res_id  desc       
-   </select>
+   </select> 
    
    <update id = "postUpdate">
       update board 
          set title = #{title}, content = #{content}
-         where board_id = #{board_id}    
+      where board_id = #{board_id}    
    </update>
    
    <delete id = "postDelete">

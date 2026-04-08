@@ -6,11 +6,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Setter 
 @ToString
 @NoArgsConstructor
 public class BoardRequestDto {
 
+	
 	private Integer board_id;
 	
 	private Integer member_id;

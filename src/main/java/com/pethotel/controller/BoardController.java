@@ -30,10 +30,10 @@ public class BoardController {
 	@GetMapping("/board/list")
 	public String question(Model model,BoardRequestDto bdto) {
         
-		List<BoardResponseDto> list = boardService.getBoard(bdto);
+		List<BoardResponseDto> list = boardService.ListBoard(bdto);
 		
 		model.addAttribute("list",list);
-		System.out.println(list);
+		
 		return "board/list";
 	}
 	
@@ -53,7 +53,7 @@ public class BoardController {
 		bdto.setMember_id(member_id);
 		
 		boardService.postWrite(bdto);
-		System.out.println(bdto);
+		
 		return "redirect:/board/list";
 	}
 	
@@ -63,10 +63,10 @@ public class BoardController {
 		
 		bdto.setBoard_id(board_id);
 		
-		BoardResponseDto board = boardService.getView(bdto);
+		BoardResponseDto board = boardService.detailBoard(bdto);
 		
 		model.addAttribute("board",board);
-	    System.out.println(board);
+	   
 	    
 	    
 		return "board/view";
@@ -76,7 +76,7 @@ public class BoardController {
 	@GetMapping("/board/update")
 	public String update(@RequestParam int board_id,Model model,BoardRequestDto bdto) {
 		
-		BoardResponseDto board = boardService.getView(bdto);
+		BoardResponseDto board = boardService.detailBoard(bdto);
 		
 		model.addAttribute("board",board);
 		
@@ -109,7 +109,7 @@ public class BoardController {
 		
 		bdto.setMember_id(member_id);
 			
-		List<BoardResponseDto> Blist =boardService.getBoard(bdto);
+		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
 		List<ResListDto> Rlist = boardService.myRes(member_id);
 			
 		model.addAttribute("boardlist",Blist);
