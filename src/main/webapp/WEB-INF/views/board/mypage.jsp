@@ -22,10 +22,10 @@
    </tr>
  <c:forEach var = "b" items ="${boardlist}">
     <tr>
-       <td>${b.board_id}</td>
-       <td><a href = "/board/view?board_id=${b.board_id }">${b.title}</a></td>
-       <td>${b.nickname }</td>
-       <td>${b.created_at }</td>
+       <td>${b.boardId}</td>
+       <td><a href = "/board/view?boardId=${b.boardId }">${b.title}</a></td>
+       <td>${b.nickName }</td>
+       <td>${b.createdAt }</td>
     </tr>
  </c:forEach>
 </table>
@@ -41,13 +41,13 @@
      </tr>
   <c:forEach var = "r" items = "${reslist }">
      <tr>
-        <td>${r.res_id }
+        <td>${r.resId }
         </td>
-        <td>${r.check_in}</td>
-        <td>${r.check_out}</td>
+        <td>${r.checkIn}</td>
+        <td>${r.checkOut}</td>
         <td>${r.status}</td>
-        <td>${r.created_at }</td>
-        <td><a href = "/reservation/resview?res_id=${r.res_id }">상세보기</a></td>
+        <td>${r.createdAt }</td>
+        <td><a href = "/reservation/resview?resId=${r.resId }">상세보기</a></td>
      </tr>
      </c:forEach>
  </table>

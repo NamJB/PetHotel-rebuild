@@ -15,7 +15,7 @@ public class PetInfoDto {
 
 	
 	@NotBlank
-	private int res_id;
+	private int resId;
 	
 	@NotBlank
 	private String size;

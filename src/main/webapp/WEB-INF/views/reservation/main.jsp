@@ -94,8 +94,8 @@ document.getElementById("check").addEventListener("click", function() {
 -->
 
    <form method = "post" action ="postConfirm" onsubmit = "return resCheck()">
-      <div>체크인:<input type = "date" name = "check_in"></div>
-      <div>체크아웃:<input type = "date" name ="check_out"></div>
+      <div>체크인:<input type = "date" name = "checkIn"></div>
+      <div>체크아웃:<input type = "date" name ="checkOut"></div>
       
       <div id = "pet_area">     
       </div>
@@ -114,8 +114,8 @@ document.getElementById("check").addEventListener("click", function() {
 	   let today = new Date().toISOString().split('T')[0];
 	    
 	   
-	   document.querySelector('input[name="check_in"]').min = today;
-	   document.querySelector('input[name="check_out"]').min = today;
+	   document.querySelector('input[name="checkIn"]').min = today;
+	   document.querySelector('input[name="checkOut"]').min = today;
 	   
    }
    
@@ -206,8 +206,8 @@ document.getElementById("check").addEventListener("click", function() {
    
    function resCheck() {
 	   //체크인,체크아웃 날짜 확인
-	   let check_in = document.querySelector('input[name="check_in"]').value;
-	   let check_out = document.querySelector('input[name="check_out"]').value;
+	   let check_in = document.querySelector('input[name="checkIn"]').value;
+	   let check_out = document.querySelector('input[name="checkOut"]').value;
 	   
 	   if(!check_in || !check_out){
 		  

@@ -14,7 +14,7 @@ import lombok.ToString;
 public class LoginDto {
    
 	@NotBlank(message = "아이디를 입력")
-	private String userid;
+	private String userId;
 	
 	@NotBlank(message = "비밀번호를 입력")
 	private String pwd;

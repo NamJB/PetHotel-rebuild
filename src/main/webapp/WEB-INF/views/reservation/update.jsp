@@ -94,9 +94,9 @@ document.getElementById("check").addEventListener("click", function() {
 -->
 
 <form method = "post" action = "/reservation/update">
-   <div>체크인:<input type = "date" name = "check_in" value = "${rdto.check_in }"></div>
-   <div>체크아웃:<input type = "date" name = "check_out" value = "${rdto.check_out }"></div>
-   <div><input type = "hidden" value = "${rdto.res_id}"name = "res_id"></div>
+   <div>체크인:<input type = "date" name = "checkIn" value = "${rdto.checkIn }"></div>
+   <div>체크아웃:<input type = "date" name = "checkOut" value = "${rdto.checkOut }"></div>
+   <div><input type = "hidden" value = "${rdto.resId}"name = "resId"></div>
    <div  id = "pet_area">
    <c:forEach var = "p" items = "${rdto.pets }" varStatus = "status">
       <div class="pet_box">

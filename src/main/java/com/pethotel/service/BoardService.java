@@ -13,13 +13,13 @@ public interface BoardService {
 	
 	public void postWrite(BoardRequestDto bdto);
 	
-	public void postUpdate(BoardRequestDto bDto);
+	public void postUpdate(BoardRequestDto bdto);
 
 	public BoardResponseDto detailBoard(BoardRequestDto bdto);
 
-	public void postDelete(int board_id);
+	public void postDelete(int boardId);
 
-	public List<ResListDto> myRes(int member_id);
+	public List<ResListDto> myRes(int memberId);
 	
 	
 }

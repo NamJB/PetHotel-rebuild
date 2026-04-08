@@ -128,12 +128,12 @@ public class ResServiceImpl implements ResService {
             
             resMapper.save(rdto); 
            
-            int res_id = rdto.getRes_id();
+            int resId = rdto.getResId();
 
             
             for (PetInfoDto pet : rdto.getPets()) {
                
-                pet.setRes_id(res_id);
+                pet.setResId(resId);
             }
          
             resMapper.savePet(rdto.getPets());
@@ -142,9 +142,9 @@ public class ResServiceImpl implements ResService {
 	}
 	
 	@Override
-	public void resDelete(int res_id) {
+	public void resDelete(int resId) {
 		
-		resMapper.resDelete(res_id);
+		resMapper.resDelete(resId);
 	}
 	
 	
@@ -193,22 +193,22 @@ public class ResServiceImpl implements ResService {
 		}
         */
     	resMapper.postUpdate(rdto);
-    	resMapper.petDelete(rdto.getRes_id());
+    	resMapper.petDelete(rdto.getResId());
     	
-    	int res_id = rdto.getRes_id();
+    	int res_id = rdto.getResId();
     	
     	for(PetInfoDto pdto : rdto.getPets()) {
     		
-    		pdto.setRes_id(res_id);
+    		pdto.setResId(res_id);
     	}
     	resMapper.savePet(rdto.getPets());
     	
     }
     
     @Override
-	public ResResponseDto getMyres(int res_id) {
+	public ResResponseDto getMyres(int resId) {
 		
-		return resMapper.getMyres(res_id);
+		return resMapper.getMyres(resId);
 		
 	}	
 	

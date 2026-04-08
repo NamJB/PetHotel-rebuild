@@ -12,13 +12,13 @@
 	
  <div>메인화면</div> 
   
-  <c:if test = "${empty sessionScope.nickname}">
+  <c:if test = "${empty sessionScope.nickName}">
      <a href = "/user/login">로그인</a>
      <a href = "/user/member">회원가입</a>
   </c:if>  
   
-  <c:if test = "${not empty sessionScope.nickname}">
-     <a href = "/board/mypage">${sessionScope.nickname}</a>
+  <c:if test = "${not empty sessionScope.nickName}">
+     <a href = "/board/mypage">${sessionScope.nickName}</a>
          님 반갑습니다
      <form method = "post" action ="/user/logout">
         <input type = "submit" value = "로그아웃">

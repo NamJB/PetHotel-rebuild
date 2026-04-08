@@ -27,11 +27,11 @@
     : ${p.count}마리 <br>
    </c:forEach>
       -->
-   <div>${rdto.nickname}님!</div>
-   <div>체크인:${rdto.check_in}</div>
-   <div>체크아웃${rdto.check_out}</div>
+   <div>${rdto.nickName}님!</div>
+   <div>체크인:${rdto.checkIn}</div>
+   <div>체크아웃${rdto.checkOut}</div>
    <div>에약상태:${rdto.status}</div>
-   <div>예약한 날짜 ${rdto.created_at}</div>  
+   <div>예약한 날짜 ${rdto.createdAt}</div>  
    
    
    <c:forEach var = "p" items = "${rdto.pets}">
@@ -43,13 +43,13 @@
    </c:forEach>
      
    <c:if test = "${rdto.status != '예약 취소' }">
-      <div> <a href = "/reservation/update?res_id=${rdto.res_id}">수정하기</a></div>
+      <div> <a href = "/reservation/update?resId=${rdto.resId}">수정하기</a></div>
    </c:if>
    
    <div>
     <c:if test = "${rdto.status != '예약 취소'}">
       <form method ="post" action = "/reservation/delete">
-         <input type = "hidden" value = "${rdto.res_id}" name = "res_id">
+         <input type = "hidden" value = "${rdto.resId}" name = "resId">
          <input type = "submit" value = "예악 취소">
       </form>
     </c:if>

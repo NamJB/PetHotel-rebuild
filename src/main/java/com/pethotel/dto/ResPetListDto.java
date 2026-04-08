@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ResPetListDto {
 
-	private int pet_id;
+	private int petId;
 	
 	private String name;
 	

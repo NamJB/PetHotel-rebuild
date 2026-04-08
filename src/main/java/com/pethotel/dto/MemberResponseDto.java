@@ -9,15 +9,15 @@ import lombok.ToString;
 @NoArgsConstructor
 public class MemberResponseDto {
 
-	private String userid;
+	private String userId;
 	
-	private String username;
+	private String userName;
 	
 	private  String phone;
 	
-	private int member_id;
+	private int memberId;
 	
-	private String nickname;
+	private String nickName;
 	
 	
 	

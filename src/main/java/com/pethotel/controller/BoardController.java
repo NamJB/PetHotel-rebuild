@@ -16,6 +16,7 @@ import com.pethotel.dto.ResListDto;
 import com.pethotel.service.BoardService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/board")
@@ -48,11 +49,11 @@ public class BoardController {
 	
 	//게시판 글쓰기 요청
 	@PostMapping("/write")
-	public String postWrite(BoardRequestDto bdto,HttpSession session) {
+	public String postWrite(@Valid BoardRequestDto bdto,HttpSession session) {
 		
 		Integer member_id = (Integer) session.getAttribute("member_id");
 		
-		bdto.setMember_id(member_id);
+		bdto.setMemberId(member_id);
 		
 		boardService.postWrite(bdto);
 		
@@ -61,9 +62,9 @@ public class BoardController {
 	
 	//게시판 글보기 뷰 반환
 	@GetMapping("/view")
-	public String getView(@RequestParam int board_id,Model model,BoardRequestDto bdto) {
+	public String getView(Model model,BoardRequestDto bdto) {
 		
-		bdto.setBoard_id(board_id);
+		/*bdto.setBoardId(bdto.getBoardId());*/
 		
 		BoardResponseDto board = boardService.detailBoard(bdto);
 		
@@ -76,7 +77,7 @@ public class BoardController {
 	
 	//게시판 수정 뷰 반환
 	@GetMapping("/update")
-	public String update(@RequestParam int board_id,Model model,BoardRequestDto bdto) {
+	public String update(Model model,BoardRequestDto bdto) {
 		
 		BoardResponseDto board = boardService.detailBoard(bdto);
 		
@@ -87,17 +88,17 @@ public class BoardController {
 	
 	//게시판 수정 요청
 	@PostMapping("/update")
-	public String postUpdate(BoardRequestDto budto) {
+	public String postUpdate(BoardRequestDto bdto) {
 		
-		boardService.postUpdate(budto);
+		boardService.postUpdate(bdto);
 				
-		return "redirect:/board/view?board_id="+budto.getBoard_id();
+		return "redirect:/board/view?board_id="+bdto.getBoardId();
 	}
 	//게시판 삭제 요청
 	@PostMapping("/delete")
-	public String postDelete(int board_id) {
+	public String postDelete(@RequestParam int  boardId) {
 		
-		boardService.postDelete(board_id);
+		boardService.postDelete(boardId);
 		
 		return "redirect:/board/list";
 			
@@ -107,12 +108,12 @@ public class BoardController {
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session,Model model,BoardRequestDto bdto) {
 			
-		Integer member_id = (Integer) session.getAttribute("member_id");
+		Integer memberId = (Integer) session.getAttribute("memberId");
 		
-		bdto.setMember_id(member_id);
+		bdto.setMemberId(memberId);
 			
 		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
-		List<ResListDto> Rlist = boardService.myRes(member_id);
+		List<ResListDto> Rlist = boardService.myRes(memberId);
 			
 		model.addAttribute("boardlist",Blist);
 		model.addAttribute("reslist",Rlist);

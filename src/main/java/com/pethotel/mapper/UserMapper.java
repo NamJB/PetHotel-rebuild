@@ -16,7 +16,7 @@ public interface UserMapper {
 	public void postMember(MemberDto memberDto);
 	
 	//아이디 중복체크
-	public int checkUserid(String User_id);
+	public int checkUserid(String UserId);
 	
 	public MemberResponseDto loginUser(LoginDto ldto);
 	

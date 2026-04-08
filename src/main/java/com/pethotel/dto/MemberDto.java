@@ -16,7 +16,7 @@ public class MemberDto {
 	@NotBlank
 	@Size(min = 4, max = 15, message = "아이디 4~15자 사이")
 	@Pattern(regexp = "^[a-zA-Z0-9]*$") //영어 + 숫자
-	String userid;
+	String userId;
 	
 	@NotBlank
 	@Size(min = 8,max= 20 ,message = "비민번호 8~20자 사이")
@@ -26,24 +26,24 @@ public class MemberDto {
 	@NotBlank
 	@Size(min = 3 ,max= 15 ,message = "이름 제대로 적어주세요")
 	@Pattern(regexp = "^[가-힣]*$" ,message = "한글만 가능") //한글만
-	String username;
+	String userName;
 	
 	@NotBlank
 	@Size(min = 1 ,max = 15 ,message = "닉네임 제대로 적어주세요")
-	String nickname;
+	String nickName;
 	
 	@NotBlank
-    String p1; //전화번호 앞자리
+    String phoneFirst; //전화번호 앞자리
     
 	@NotBlank
 	@Size(min = 3 ,max = 4 ,message = "전화번호 형식이 이상합니다")
 	@Pattern(regexp = "^[0-9]*$") //숫자만
-    String p2; //전화번호 중간자리
+    String phoneMiddle; //전화번호 중간자리
     
 	@NotBlank
 	@Size(min = 4 ,max = 4, message = "전화번호 형식이 이상합니다")
 	@Pattern(regexp = "^[0-9]*$") //숫자만
-    String p3; //전화번호 뒷자리
+    String phoneLast; //전화번호 뒷자리
 	
 	int member_id;
 	

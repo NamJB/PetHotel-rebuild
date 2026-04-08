@@ -21,10 +21,10 @@
    
 <c:forEach var = "b" items = "${list}">
    <tr>
-      <td>${b.board_id }</td>
-      <td><a href = "/board/view?board_id=${b.board_id}">${b.title}</a></td>
-      <td>${b.nickname}</td>,
-      <td>${b.created_at }</td>
+      <td>${b.boardId }</td>
+      <td><a href = "/board/view?boardId=${b.boardId}">${b.title}</a></td>
+      <td>${b.nickName}</td>,
+      <td>${b.createdAt }</td>
    </tr>
    </c:forEach>
 </table>

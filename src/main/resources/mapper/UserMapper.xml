@@ -4,19 +4,25 @@
    
    <insert id = "postMember">     
      insert into member(userid,pwd,username,nickname,phone) 
-     values (#{userid},#{pwd},#{username},#{nickname},#{phone})
+     values (#{userId},#{pwd},#{userName},#{nickName},#{phone})
    </insert>
    
    <select id = "loginUser" resultType = "com.pethotel.dto.MemberResponseDto">
-     select userid,username,phone,member_id,nickname from member 
-     where userid = #{userid} 
+     select 
+       userid as userId,
+       username as userName,
+       phone,
+       member_id as memberId,
+       nickname as nickName 
+     from member 
+     where userid = #{userId} 
      and pwd = #{pwd}
    </select>
   
    <select id = "checkUserid" resultType = "int">
       select count(*) 
       from member 
-      where userid = #{userid}
+      where userid = #{userId}
    </select>
    
 </mapper>

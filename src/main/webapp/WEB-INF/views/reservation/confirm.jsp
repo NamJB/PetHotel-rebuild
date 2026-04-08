@@ -32,10 +32,10 @@
 -->
 
    <div>
-      체크인 : ${rdto.check_in}      
+      체크인 : ${rdto.checkIn}      
    </div>
    <div>
-      체크아웃:${rdto.check_out }
+      체크아웃:${rdto.checkOut }
    </div>
    
    <c:forEach var = "pet" items = "${rdto.pets}" varStatus = "status">
@@ -54,8 +54,8 @@
          <input type = "hidden" value = "${pet.size}" name = "pets[${status.index }].size">
          <input type = "hidden" value = "${pet.content}" name = "pets[${status.index}].content">
       </c:forEach>
-         <input type = "hidden" value = "${rdto.check_in}" name = "check_in">
-         <input type = "hidden" value = "${rdto.check_out}" name = "check_out">
+         <input type = "hidden" value = "${rdto.checkInn}" name = "checkIn">
+         <input type = "hidden" value = "${rdto.checkOut}" name = "checkOut">
          <input type = "submit" value = "예약 확정하기">      
    </form>
    

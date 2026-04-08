@@ -12,9 +12,9 @@ import lombok.ToString;
 public class BoardRequestDto {
 
 	
-	private Integer board_id;
+	private Integer boardId;
 	
-	private Integer member_id;
+	private Integer memberId;
 	
 	private String title;
 	

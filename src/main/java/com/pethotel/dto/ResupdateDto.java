@@ -15,13 +15,13 @@ import lombok.ToString;
 public class ResupdateDto {
 
 	@NotBlank
-	private String check_in;
+	private String checkIn;
 	
 	@NotBlank
-	private String check_out;
+	private String checkOut;
 	
 	@NotBlank
-	private int res_id;
+	private int resId;
 	
 	@NotBlank
 	private List<PetInfoDto> pets;

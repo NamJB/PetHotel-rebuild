@@ -11,17 +11,17 @@
 
 
 <form method = "post" action = "/user/member">
-   <div>아이디<input type = "text" name = userid  maxlength="10" pattern="[a-z0-9]{5,20}" required value = "${mdto.userid }"></div>
+   <div>아이디<input type = "text" name = userId  maxlength="10" pattern="[a-z0-9]{5,20}" required value = "${mdto.userId }"></div>
    <div>비밀번호<input type = "password" name = "pwd" required maxlength = "20"></div>
-   <div>성함<input type = "text" name = "username"required value = "${mdto.username }"></div>
-   <div>닉네임<input type = "text" name = "nickname" maxlength="10" required value = "${mdto.nickname}"></div>
+   <div>성함<input type = "text" name = "userName"required value = "${mdto.userName }"></div>
+   <div>닉네임<input type = "text" name = "nickName" maxlength="10" required value = "${mdto.nickName}"></div>
    <div>휴대폰
-      <select name = "p1">
+      <select name = "phoneFirst">
          <option value = "010">010</option>
          <option value = "011">011</option>
       </select>
-     -<input type = "text" name = "p2" size= "4" maxlength = "4" required value = "${mdto.p2 }">
-     -<input type = "text" name = "p3" size = "4" maxlength = "4" required value = "${mdto.p3 }" }>
+     -<input type = "text" name = "phoneMiddel" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }">
+     -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required value = "${mdto.phoneLast }" }>
    </div>
    <div><input type = "submit" value = "회원가입"></div>
 </form>

@@ -12,19 +12,19 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ResResponseDto {
 
-	private int member_id;
+	private int memberId;
 	
-	private int res_id;
+	private int resId;
 	
-	private LocalDate check_in;
+	private LocalDate checkIn;
 	
-	private LocalDate check_out;
+	private LocalDate checkOut;
 	
 	private String status;
 	
-	private LocalDate created_at;
+	private LocalDate createdAt;
 	
-	private String nickname;
+	private String nickName;
 	
 	private List<ResPetListDto> pets;
 }

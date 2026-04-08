@@ -65,9 +65,9 @@ public class ResController {
 	@PostMapping("/save")
 	public String save(ResDto Rdto,HttpSession session) {
 		
-		Integer member_id = (Integer) session.getAttribute("member_id");
+		Integer memberId = (Integer) session.getAttribute("member_id");
 				
-		Rdto.setMember_id(member_id);
+		Rdto.setMemberId(memberId);
 		
 		resService.save(Rdto);
 		
@@ -86,11 +86,11 @@ public class ResController {
 	
     //예약 취소 요청
     @PostMapping("/delete")
-    public String resDelete(int res_id,HttpSession session) {
+    public String resDelete(int resId,HttpSession session) {
     	
-    	Integer member_id = (Integer) session.getAttribute("member_id");
+    	Integer memberId = (Integer) session.getAttribute("memberId");
     	
-    	if(member_id == null) {
+    	if(memberId == null) {
     		
     		return "redirect:/user/login";
     	}
@@ -102,14 +102,14 @@ public class ResController {
     		return "redirect:/user/mypage";
     	}
     	*/    	
-    	resService.resDelete(res_id);
+    	resService.resDelete(resId);
     	
     	return "redirect:/user/mypage";
     }
     
     //예약 업데이트 뷰반환
     @GetMapping("/update")
-    public String resUpdate(@RequestParam int res_id,HttpSession session,Model model) {
+    public String resUpdate(@RequestParam int resId,HttpSession session,Model model) {
     	/*
     	Integer member_id = (Integer) session.getAttribute("member_id");
         
@@ -132,7 +132,7 @@ public class ResController {
     	
     	return "reservation/update";*/
     	
-    	ResResponseDto rdto = resService.getMyres(res_id);
+    	ResResponseDto rdto = resService.getMyres(resId);
     	
     	model.addAttribute("rdto",rdto);
     	
@@ -145,15 +145,15 @@ public class ResController {
     public String postUpdate(ResupdateDto rdto) {
     	
     	resService.postUpdate(rdto);
-    	System.out.println(rdto);
-    	return "redirect:/reservation/resview?res_id="+rdto.getRes_id();
+    	
+    	return "redirect:/reservation/resview?res_id="+rdto.getResId();
     }
     
 	//마이페이지 예약글 상세보기 뷰반환
     @GetMapping("/resview")
-	public String rescontent(@RequestParam int res_id,Model model,HttpSession session) {
+	public String rescontent(@RequestParam int resId,Model model,HttpSession session) {
 			
-	   Integer member_id = (Integer) session.getAttribute("member_id");
+	   Integer memberId = (Integer) session.getAttribute("memberId");
 	   
 	 /*  
 	   int resMember_id = resService.getResMember_id(id);
@@ -170,10 +170,11 @@ public class ResController {
 	   model.addAttribute("res",myResDto);
 	   model.addAttribute("plist",plist);*/
 	   
-	   ResResponseDto rdto = resService.getMyres(res_id);
+	   ResResponseDto rdto = resService.getMyres(resId);
 	   
-	   if(rdto.getMember_id()!= member_id) {
-		   
+	   if(rdto.getMemberId()!= memberId) {
+		   System.out.println(rdto.getMemberId());
+		   System.out.println(memberId);
 		   return "redirect:/user/mypage";
 	   }
 	   

@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional	
-	public boolean postMember(MemberDto memberDto) {
+	public boolean postMember(MemberDto mdto) {
 		
-		int count =userMapper.checkUserid(memberDto.getUserid());
+		int count =userMapper.checkUserid(mdto.getUserId());
 		
 		if(count > 0) {
 			
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 		}
 		else {
 			
-			userMapper.postMember(memberDto);
+			userMapper.postMember(mdto);
 			
 			return true;
 			

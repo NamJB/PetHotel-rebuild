@@ -11,17 +11,17 @@ import lombok.ToString;
 @NoArgsConstructor
 public class BoardResponseDto {
 
-	private int board_id;
+	private int boardId;
 	
 	private String title;
 	
 	private String content;
 	
-    private String nickname;
+    private String nickName;
     
-    private LocalDate created_at;
+    private LocalDate createdAt;
     
-    private int view_count;
+    private int viewCount;
     
   
     

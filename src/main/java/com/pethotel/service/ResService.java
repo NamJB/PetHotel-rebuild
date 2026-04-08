@@ -14,9 +14,9 @@ public interface ResService {
 	/*public List<PetInfoDto> resPet(int id);*/
 	public void save(ResDto RDto);
 	
-	public void resDelete(int res_id);		
+	public void resDelete(int resId);		
 	
 	public void postUpdate(ResupdateDto rdto);
 	
-	public ResResponseDto getMyres(int res_id);
+	public ResResponseDto getMyres(int resId);
 }

@@ -6,7 +6,7 @@
         useGeneratedKeys="true" keyProperty="res_id">
     insert into 
        reservation(member_id, check_in, check_out)
-       values(#{member_id}, #{check_in}, #{check_out})
+       values(#{memberId}, #{checkIn}, #{checkOut})
   </insert>
    
    <insert id = "savePet">
@@ -14,22 +14,22 @@
          reservation_pet(res_id,name,age,size,content)
          values
       <foreach collection = "list" item = "pet" separator = ",">
-         (#{pet.res_id},#{pet.name},#{pet.age},#{pet.size},#{pet.content})
+         (#{pet.resId},#{pet.name},#{pet.age},#{pet.size},#{pet.content})
       </foreach>      
    </insert>
    
     
    <resultMap id = "resMap" type = "com.pethotel.dto.ResResponseDto">
-      <id property = "res_id" column= "res_id"/>
-         <result property = "member_id" column = "member_id"/>
-         <result property = "check_in" column = "check_in"/>
-         <result property = "check_out" column = "check_out"/>
+      <id property = "resId" column= "res_id"/>
+         <result property = "memberId" column = "member_id"/>
+         <result property = "checkIn" column = "check_in"/>
+         <result property = "checkOut" column = "check_out"/>
          <result property = "status" column = "status"/>
-         <result property = "created_at" column = "created_at"/>
-         <result property = "nickname" column = "nickname"/>
+         <result property = "createdAt" column = "created_at"/>
+         <result property = "nickName" column = "nickname"/>
            
       <collection property = "pets" ofType = "com.pethotel.dto.ResPetListDto">
-         <id property = "pet_id" column = "pet_id"/>
+         <id property = "petId" column = "pet_id"/>
             <result property = "name" column = "name"/>
             <result property = "age" column = "age"/>
             <result property = "size" column = "size"/>
@@ -39,34 +39,40 @@
    
    <select id = "getMyres" resultMap = "resMap">
       select 
-         r.res_id,r.member_id,r.check_in,r.check_out,r.status,r.created_at,
-         p.pet_id,p.name,p.age,p.size,p.content,
+         r.res_id,
+         r.member_id,
+         r.check_in,
+         r.check_out,
+         r.status,
+         r.created_at,
+         p.pet_id,
+         p.name,p.age,p.size,p.content,
          m.nickname
       from reservation r 
       inner join reservation_pet p on p.res_id = r.res_id
       inner join member m on r.member_id = m.member_id
-      where r.res_id = #{res_id}     
+      where r.res_id = #{resId}     
    </select>
     
    <select id = "resDelete">
       update 
          reservation set
          status ="예약 취소"
-      where res_id = #{res_id} 
+      where res_id = #{resId} 
    </select>
    
    <delete id = "petDelete">
      delete from 
         reservation_pet 
-     where res_id = #{id}
+     where res_id = #{resId}
    </delete>
    
    <update id = "postUpdate">
       update 
          reservation set 
-         check_in = #{check_in},
-         check_out = #{check_out}
-      where res_id = #{res_id}      
+         check_in = #{checkIn},
+         check_out = #{checkOut}
+      where res_id = #{resId}      
    </update>
    
    

@@ -49,7 +49,7 @@ public class UserController {
 		}
 		
 		//휴대폰 조합
-		String phone = mdto.getP1() + "-" + mdto.getP2() + "-" + mdto.getP3();
+		String phone = mdto.getPhoneFirst() + "-" + mdto.getPhoneMiddle() + "-" + mdto.getPhoneLast();
 		
 		mdto.setPhone(phone);
 			
@@ -89,12 +89,13 @@ public class UserController {
 		
 		if(user != null) {
 			
-			session.setAttribute("nickname", user.getNickname());
-			session.setAttribute("member_id", user.getMember_id());
+			session.setAttribute("nickName", user.getNickName());
+			session.setAttribute("memberId", user.getMemberId());
 			
 			
 			return "redirect:/main/home";
 		}
+		
 		
 		return "redirect:/user/login";
 	}
