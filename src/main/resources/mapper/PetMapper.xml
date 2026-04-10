@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pethotel.mapper.PetMapper">
+   <insert id = "add" parameterType = "com.pethotel.dto.PetRequestDto">
+      insert into 
+      pet(member_id,name,type,age,weight,gender,note)
+      values
+      <foreach collection = "list" item = "pet" separator = ",">
+         (#{pet.memberId},
+         #{pet.name},
+         #{pet.type},
+         #{pet.age},
+         #{pet.weight},
+         #{pet.gender},
+         #{pet.note})
+      </foreach>
+   </insert>
+</mapper>

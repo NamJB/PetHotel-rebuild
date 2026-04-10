@@ -51,9 +51,9 @@ public class BoardController {
 	@PostMapping("/write")
 	public String postWrite(@Valid BoardRequestDto bdto,HttpSession session) {
 		
-		Integer member_id = (Integer) session.getAttribute("member_id");
+		Integer memberId = (Integer) session.getAttribute("memberId");
 		
-		bdto.setMemberId(member_id);
+		bdto.setMemberId(memberId);
 		
 		boardService.postWrite(bdto);
 		
