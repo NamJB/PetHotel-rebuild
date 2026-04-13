@@ -61,11 +61,20 @@ public class PetController {
 		return "pet/update";
 	}
 	
+	//수정 요청
 	@PostMapping("/{petId}/update")
 	public String update(@PathVariable("petId")int petId,
 			             @ModelAttribute PetRequestUpdateDto pdto) {
 		
 		petService.petUpdate(petId,pdto);	
+		
+		return "redirect:/board/mypage";
+	}
+	
+	@PostMapping("/{petId}/delete")
+	public String delete(@PathVariable("petId") int petId) {
+		
+		petService.petDelete(petId);
 		
 		return "redirect:/board/mypage";
 	}

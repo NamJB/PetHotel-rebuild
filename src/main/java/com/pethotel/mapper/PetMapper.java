@@ -22,6 +22,9 @@ public interface PetMapper {
 	public PetResponseUpdateDto petDetail(int petId);
 	
 	//펫정보 수정
-	public void petUpdate(@Param("petId") int petId,@Param("pdto") PetRequestUpdateDto pdto);
+	public void petUpdate(@Param("petId") int petId,
+			              @Param("pdto") PetRequestUpdateDto pdto);
+	
+	public void petDelete(int petId);
 	
 }

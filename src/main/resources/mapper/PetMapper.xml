@@ -28,6 +28,7 @@
          created_at as createdAt
       from pet 
       where member_id = #{memberId}
+      and is_deleted = 0
       order by petId desc;
    </select>
    
@@ -52,7 +53,12 @@
          gender = #{pdto.gender},
          weight = #{pdto.weight},
          note = #{pdto.note}
-       where pet_id = #{petId}
-          
+       where pet_id = #{petId}         
+   </update>
+   
+   <update id = "petDelete">
+      update pet set
+         is_deleted = '1'
+      where pet_id = #{petId}
    </update>
 </mapper>

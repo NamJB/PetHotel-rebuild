@@ -51,6 +51,13 @@ public class PetServiceImpl implements PetService{
 	public void petUpdate(int petId,PetRequestUpdateDto pdto) {
 		
 		petMapper.petUpdate(petId,pdto);
+	
+	}
+	
+	@Override
+	public void petDelete(int petId) {
+		
+		petMapper.petDelete(petId);
 	}
 	
 }

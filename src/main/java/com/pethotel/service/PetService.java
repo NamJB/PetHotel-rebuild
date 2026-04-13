@@ -18,4 +18,6 @@ public interface PetService {
     
     public void petUpdate(int petId,PetRequestUpdateDto pdto);
     
+    public void petDelete(int petId);
+    
 }

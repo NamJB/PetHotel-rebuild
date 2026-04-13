@@ -78,6 +78,11 @@
           <td>${p.note}</td>
           <td>${p.createdAt}</td>
           <td><a href = "/pet/${p.petId}/update">수정하기</a></td>
+          <td>
+             <form method = "post" action ="/pet/${p.petId}/delete">
+                <input type = "submit" value = "펫 삭제">
+             </form>
+          </td>
        </tr>
     </c:forEach>
  </table>
