@@ -53,7 +53,7 @@
  </table>
  
  <hr>
- 
+ 등록된 펫
  <table>
     <tr>
        <td></td>
@@ -71,12 +71,13 @@
           <td>${p.name}</td>
           <td>${p.type}</td>
           <td>
-             <c:if test = "${p.gender eq 'M'}">수컷</c:if>
-             <c:if test = "${p.gender eq 'F'}">암컷</c:if>
+             <c:if test = "${p.gender eq 'M'}">남</c:if>
+             <c:if test = "${p.gender eq 'F'}">여</c:if>
           </td>   
           <td>${p.weight}kg</td>
           <td>${p.note}</td>
           <td>${p.createdAt}</td>
+          <td><a href = "/pet/${p.petId}/update">수정하기</a></td>
        </tr>
     </c:forEach>
  </table>

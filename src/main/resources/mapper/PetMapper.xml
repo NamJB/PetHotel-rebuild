@@ -30,4 +30,29 @@
       where member_id = #{memberId}
       order by petId desc;
    </select>
+   
+   <select id = "petDetail" resultType = "com.pethotel.dto.PetResponseUpdateDto">
+      select 
+         pet_id as petId,
+         age,
+         name,
+         type,
+         gender,
+         note,
+         weight
+      from pet 
+      where pet_id = #{petId}     
+   </select>
+   
+   <update id = "petUpdate" parameterType = "com.pethotel.dto.PetRequestUpdateDto">
+      update pet set 
+         name = #{pdto.name},
+         type = #{pdto.type},
+         age = #{pdto.age},
+         gender = #{pdto.gender},
+         weight = #{pdto.weight},
+         note = #{pdto.note}
+       where pet_id = #{petId}
+          
+   </update>
 </mapper>
