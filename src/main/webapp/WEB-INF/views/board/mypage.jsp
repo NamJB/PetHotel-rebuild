@@ -29,7 +29,7 @@
     </tr>
  </c:forEach>
 </table>
-
+<hr>
  <div>나의 예약</div>
  <table>
      <tr>
@@ -50,6 +50,35 @@
         <td><a href = "/reservation/resview?resId=${r.resId }">상세보기</a></td>
      </tr>
      </c:forEach>
+ </table>
+ 
+ <hr>
+ 
+ <table>
+    <tr>
+       <td></td>
+       <td>펫이름</td>
+       <td>견종</td>
+       <td>성별</td>
+       <td>몸무게</td>
+       <td>주의사항</td>
+       <td>등록한날</td>
+    </tr>
+    
+    <c:forEach var = "p" items = "${petList}">
+       <tr>
+          <td></td>
+          <td>${p.name}</td>
+          <td>${p.type}</td>
+          <td>
+             <c:if test = "${p.gender eq 'M'}">수컷</c:if>
+             <c:if test = "${p.gender eq 'F'}">암컷</c:if>
+          </td>   
+          <td>${p.weight}kg</td>
+          <td>${p.note}</td>
+          <td>${p.createdAt}</td>
+       </tr>
+    </c:forEach>
  </table>
  
  <a href = "/pet/register">펫등록</a>

@@ -18,7 +18,7 @@
       <div>
          성별 :
          남<input type = "radio" name ="g1" value = "M" class = "gender" checked>
-         여<input type = "radio" name = "g1" value = "F">  
+         여<input type = "radio" name = "g1" value = "F" class = "gender">  
       </div>
       <div>메모<textarea class = "note"></textarea></div>      
    </div>
@@ -41,12 +41,12 @@
 	      <hr>         
 	         <div>이름:<input type = "text" class = "name"></div>
 	         <div>견종:<input type = "text" class = "type"></div>
-	         <div>나이:<input type = "number" class = "age"></div>
+	         <div>나이:<input type = "number" class = "age"></div>	
 	         <div>몸무게:<input type = "number" class = "weight"></div>
 	         <div>
 	            성별:
-	            남<input type = "radio" name = "g${count}" class = "gender"  value = "M">
-	            여<input type = "radio" name = "g${count}" class = "gender" value = "F"
+	            남<input type = "radio" name = "g${count}" class = "gender"  value = "M" checked>
+	            여<input type = "radio" name = "g${count}" class = "gender" value = "F">
 	         </div>
 	         <div>메모<textarea class= "note"></textarea></div>
 	         <button type = "button" onclick = "$(this).closest('.pet-row').remove()">삭제</button>
@@ -98,6 +98,8 @@
     		success: function(res) {
     		   
     			alert("등록되었습니다!");
+    			location.href =  "/board/mypage";
+    			
     		},
     		error : function() {
     			

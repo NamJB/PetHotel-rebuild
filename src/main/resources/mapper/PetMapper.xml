@@ -15,4 +15,19 @@
          #{pet.note})
       </foreach>
    </insert>
+   
+   <select id = "petList" resultType = "com.pethotel.dto.PetResponseListDto">
+      select 
+         pet_id as petId,
+         age,
+         name,
+         type,
+         gender,
+         note,
+         weight,
+         created_at as createdAt
+      from pet 
+      where member_id = #{memberId}
+      order by petId desc;
+   </select>
 </mapper>

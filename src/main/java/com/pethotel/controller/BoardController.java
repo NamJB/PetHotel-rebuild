@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
+import com.pethotel.dto.PetResponseListDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResListDto;
 import com.pethotel.service.BoardService;
+import com.pethotel.service.PetService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,11 +25,16 @@ import jakarta.validation.Valid;
 public class BoardController {
 
 	private final BoardService boardService;
+	private final PetService petService;
 	
-	public BoardController(BoardService boardService) {
+	public BoardController(BoardService boardService,PetService petService) {
 		
 		this.boardService = boardService;
+		
+		this.petService = petService;
+		
 	}
+	
 	
 	//게시판 리스트 뷰 반환
 	@GetMapping("/list")
@@ -114,12 +121,15 @@ public class BoardController {
 			
 		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
 		List<ResListDto> Rlist = boardService.myRes(memberId);
+		List<PetResponseListDto> plist = petService.petList(memberId);
 			
 		model.addAttribute("boardlist",Blist);
 		model.addAttribute("reslist",Rlist);
+		model.addAttribute("petList",plist);
 			
 		return "board/mypage";
 	
+		
 	}
 	
 

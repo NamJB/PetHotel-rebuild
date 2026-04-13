@@ -33,15 +33,17 @@ public class PetController {
 		return "pet/register";
 	}
 	
+	//펫등록 요청
 	@PostMapping("/add")
 	@ResponseBody
 	public String add(@RequestBody List<PetRequestDto> pdto,HttpSession session) {
 		
 		Integer memberId = (Integer) session.getAttribute("memberId");
-	    System.out.println(pdto + "보내기전");
+	    
 		petService.add(pdto,memberId);
-		
-		System.out.println(pdto+"보낸후");
+				
 		return "success";
 	}
+	
+	
 }

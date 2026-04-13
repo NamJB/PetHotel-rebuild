@@ -173,8 +173,7 @@ public class ResController {
 	   ResResponseDto rdto = resService.getMyres(resId);
 	   
 	   if(rdto.getMemberId()!= memberId) {
-		   System.out.println(rdto.getMemberId());
-		   System.out.println(memberId);
+		  
 		   return "redirect:/user/mypage";
 	   }
 	   

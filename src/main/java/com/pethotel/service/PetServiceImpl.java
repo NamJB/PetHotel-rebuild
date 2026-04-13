@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.pethotel.dto.PetRequestDto;
+import com.pethotel.dto.PetResponseListDto;
 import com.pethotel.mapper.PetMapper;
 
 @Service
@@ -19,7 +20,7 @@ public class PetServiceImpl implements PetService{
 	
 	
 	@Override
-	public void add(List<PetRequestDto> pdto,Integer memberId) {
+	public void add(List<PetRequestDto> pdto,int memberId) {
 		
 		for(PetRequestDto pet : pdto ) {
 			
@@ -28,6 +29,13 @@ public class PetServiceImpl implements PetService{
 	    System.out.println(pdto + "db들어가기전");
 		petMapper.add(pdto);
 		
+	}
+	
+	@Override
+	public List<PetResponseListDto> petList(int memberId) {
+		
+		
+		return petMapper.petList(memberId);
 	}
 	
 }
