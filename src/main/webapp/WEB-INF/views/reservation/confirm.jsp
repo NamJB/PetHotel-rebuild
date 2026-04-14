@@ -32,20 +32,37 @@
 -->
 
    <div>
-      체크인 : ${rdto.checkIn}      
+      체크인 : ${confirm.checkIn}      
    </div>
    <div>
-      체크아웃:${rdto.checkOut }
+      체크아웃:${confirm.checkOut }
    </div>
    
-   <c:forEach var = "pet" items = "${rdto.pets}" varStatus = "status">
-      <div>펫${status.count}</div>
-      <div>이름:${pet.name}</div>
-      <div>나이:${pet.age }</div>
-      <div>사이즈:${pet.size }</div>
-      <div>주의사항:${pet.content }</div>
-   </c:forEach>
-   
+   <table>
+       <tr>
+          <td></td>
+          <td>이름</td>
+          <td>견종</td>
+          <td>나이</td>
+          <td>성별</td>
+          <td>몸무게</td>
+          <td>주의사항</td>
+          
+       </tr>
+       
+   <c:forEach var = "p" items = "${confirm.selectPets }">
+       <tr>
+          <td></td>
+          <td>${p.name}</td>
+          <td>${p.type}</td>
+          <td>${p.age}살</td>
+          <td>${p.gender}</td>
+          <td>${p.weight}kg</td>
+          <td>${p.note }</td>
+          
+       </tr>
+    </c:forEach>
+   </table>
    
    <form method = "post" action = "/reservation/save">    
       <c:forEach var = "pet" items = "${rdto.pets}" varStatus = "status">

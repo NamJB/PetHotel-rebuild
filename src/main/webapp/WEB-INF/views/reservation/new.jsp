@@ -7,9 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
 
@@ -92,7 +95,7 @@ document.getElementById("check").addEventListener("click", function() {
 });
 </script>
 -->
-
+<!--  
    <form method = "post" action ="postConfirm" onsubmit = "return resCheck()">
       <div>체크인:<input type = "date" name = "checkIn"></div>
       <div>체크아웃:<input type = "date" name ="checkOut"></div>
@@ -246,6 +249,61 @@ document.getElementById("check").addEventListener("click", function() {
 	   return true;
    }
    
+</script>-->
+<form method = "post" action = "confirm">
+   <div class="form-group">
+       <label>예약 기간 선택:</label>
+          <input type="text" name="reservationDates" id="reservationDates" class="form-control" />
+   </div>
+   <div>펫목록</div>
+   <table>
+       <tr>
+          <td></td>
+          <td>이름</td>
+          <td>견종</td>
+          <td>나이</td>
+          <td>성별</td>
+          <td>몸무게</td>
+          <td>주의사항</td>
+          <td>등록일</td>
+       </tr>
+    <c:forEach var = "p" items = "${petList}">
+       <tr>
+          <td><input type = "checkbox" name = "petId" value = "${p.petId }"></td>
+          <td>${p.name}</td>
+          <td>${p.type}</td>
+          <td>${p.age}</td>
+          <td>${p.gender}</td>
+          <td>${p.weight}kg</td>
+          <td>${p.note }</td>
+          <td>${p.createdAt }</td>
+       </tr>    
+    </c:forEach>       
+   </table>
+        <input type= "submit" value = "예약하기">
+</form>
+   
+
+<script>
+$(function() {
+	  $('#reservationDates').daterangepicker({
+	    "locale": {
+	        "format": "YYYY-MM-DD",
+	        "separator": " ~ ",
+	        "applyLabel": "확인",
+	        "cancelLabel": "취소",
+	        "fromLabel": "From",
+	        "toLabel": "To",
+	        "customRangeLabel": "Custom",
+	        "weekLabel": "W",
+	        "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+	        "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+	        "firstDay": 1
+	    },
+	    "minDate": new Date(), // 오늘 이전 날짜는 선택 못 하게!
+	    "opens": "center"      // 달력이 가운데서 열리게
+	  });
+	});
 </script>
 </body>
 </html>

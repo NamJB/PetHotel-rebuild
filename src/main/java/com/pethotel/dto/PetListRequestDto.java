@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PetRequestDto {
+public class PetListRequestDto {
 
 	private int memberId; //멤버아이디
 	

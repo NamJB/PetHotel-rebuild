@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pethotel.dto.PetRequestDto;
-import com.pethotel.dto.PetRequestUpdateDto;
-import com.pethotel.dto.PetResponseUpdateDto;
+import com.pethotel.dto.PetListRequestDto;
+import com.pethotel.dto.PetUpdateRequestDto;
+import com.pethotel.dto.PetUpdateResponseDto;
 import com.pethotel.service.PetService;
 
 import jakarta.servlet.http.HttpSession;
@@ -41,7 +41,7 @@ public class PetController {
 	//펫등록 요청
 	@PostMapping("/add")
 	@ResponseBody
-	public String add(@RequestBody List<PetRequestDto> pdto,HttpSession session) {
+	public String add(@RequestBody List<PetListRequestDto> pdto,HttpSession session) {
 		
 		Integer memberId = (Integer) session.getAttribute("memberId");
 	    
@@ -54,7 +54,7 @@ public class PetController {
 	@GetMapping("/{petId}/update")
 	public String updateForm(@PathVariable("petId")int petId,Model model){
 				
-		PetResponseUpdateDto pdto = petService.petDetail(petId);
+		PetUpdateResponseDto pdto = petService.petDetail(petId);
 		
 		model.addAttribute("pdto",pdto);
 		
@@ -64,7 +64,7 @@ public class PetController {
 	//수정 요청
 	@PostMapping("/{petId}/update")
 	public String update(@PathVariable("petId")int petId,
-			             @ModelAttribute PetRequestUpdateDto pdto) {
+			             @ModelAttribute PetUpdateRequestDto pdto) {
 		
 		petService.petUpdate(petId,pdto);	
 		
@@ -77,6 +77,7 @@ public class PetController {
 		petService.petDelete(petId);
 		
 		return "redirect:/board/mypage";
+	
 	}
 	
 	

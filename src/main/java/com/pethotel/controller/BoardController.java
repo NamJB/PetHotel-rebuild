@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
-import com.pethotel.dto.PetResponseListDto;
+import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResListDto;
 import com.pethotel.service.BoardService;
@@ -121,7 +121,7 @@ public class BoardController {
 			
 		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
 		List<ResListDto> Rlist = boardService.myRes(memberId);
-		List<PetResponseListDto> plist = petService.petList(memberId);
+		List<PetListResponseDto> plist = petService.petList(memberId);
 			
 		model.addAttribute("boardlist",Blist);
 		model.addAttribute("reslist",Rlist);
@@ -131,9 +131,6 @@ public class BoardController {
 	
 		
 	}
-	
-
-	
 	
 	
 }

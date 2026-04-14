@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class PetResponseUpdateDto {
+public class PetUpdateResponseDto {
 
 	private int petId;
 	

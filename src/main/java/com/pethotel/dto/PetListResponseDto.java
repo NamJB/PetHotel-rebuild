@@ -4,27 +4,27 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
-public class PetRequestUpdateDto {
+public class PetListResponseDto {
 
+	private int petId;
+	
+	private int age;
+	
 	private String name;
 	
 	private String type;
 	
-	private int age;
-	
 	private String gender;
-	
-	private double weight;
 	
 	private String note;
 	
+	private double weight;
 	
+	private LocalDate createdAt;
 	
 }

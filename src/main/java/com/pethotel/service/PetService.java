@@ -2,22 +2,24 @@ package com.pethotel.service;
 
 import java.util.List;
 
-import com.pethotel.dto.PetRequestDto;
-import com.pethotel.dto.PetRequestUpdateDto;
-import com.pethotel.dto.PetResponseListDto;
-import com.pethotel.dto.PetResponseUpdateDto;
+import com.pethotel.dto.PetListRequestDto;
+import com.pethotel.dto.PetUpdateRequestDto;
+import com.pethotel.dto.PetListResponseDto;
+import com.pethotel.dto.PetUpdateResponseDto;
 
 public interface PetService {
 
 	
-	public void add(List<PetRequestDto> pdto,int memberId);
+	public void add(List<PetListRequestDto> pdto,int memberId);
 	
-    public List<PetResponseListDto> petList(int memberId);
+    public List<PetListResponseDto> petList(int memberId);
     
-    public PetResponseUpdateDto petDetail(int petId);
+    public PetUpdateResponseDto petDetail(int petId);
     
-    public void petUpdate(int petId,PetRequestUpdateDto pdto);
+    public void petUpdate(int petId,PetUpdateRequestDto pdto);
     
     public void petDelete(int petId);
+    
+    public List<PetListResponseDto> petResList(List<Integer> petIds);
     
 }

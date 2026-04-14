@@ -27,7 +27,7 @@
   
   <div>
      <a href = "/board/list">질문게시판</a> 
-     <a href = "/reservation/main">예약 게시판</a>
+     <a href = "/reservation/new">예약 게시판</a>
   </div>
 
 </body>

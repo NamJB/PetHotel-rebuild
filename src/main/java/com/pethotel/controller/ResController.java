@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
+import com.pethotel.dto.PetListResponseDto;
+import com.pethotel.dto.ResConfirmDto;
 import com.pethotel.dto.ResDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
+import com.pethotel.service.PetService;
 import com.pethotel.service.ResService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,18 +30,27 @@ import jakarta.servlet.http.HttpSession;
 public class ResController {
 
 	private final ResService resService;
+	private final PetService petService;
 	
-	public ResController(ResService resService) {
+	public ResController(ResService resService,PetService petService) {
 		
-		this.resService=resService;
+		this.resService = resService;
+		
+		this.petService = petService;
 		
 	}
 	
 	//예악사이트 뷰반환
-	@GetMapping("/main")
-	public String list() {
+	@GetMapping("/new")
+	public String reservationForm(HttpSession session,Model model) {
 		
-		return "reservation/main";
+		int memberId = (Integer)session.getAttribute("memberId");
+		
+		List<PetListResponseDto> petList = petService.petList(memberId);
+		
+		model.addAttribute("petList",petList);
+		
+		return "reservation/new";
 	}
 	
 	
@@ -53,10 +63,27 @@ public class ResController {
 	}*/
 	
 	//예약 다시 확인
-	@PostMapping("/postConfirm")
-	public String postConfirm(@ModelAttribute ResDto rdto,Model model) {
+	@PostMapping("/confirm")
+	public String Confirm(
+			@RequestParam("reservationDates") String reservationDates,
+			@RequestParam("petId") List<Integer> petIds,
+			Model model) {
 		
-		model.addAttribute("rdto",rdto);
+		ResConfirmDto confirm = new ResConfirmDto();
+		
+		String [] dateParts = reservationDates.split("~");
+		
+		String checkIn = dateParts[0].trim();
+		String checkOut = dateParts[1].trim();
+		
+		confirm.setCheckIn(checkIn);
+		confirm.setCheckOut(checkOut);
+		
+		List<PetListResponseDto> petList = petService.petResList(petIds);
+		
+		confirm.setSelectPets(petList);
+		
+		model.addAttribute("confirm",confirm);
 		
 		return "/reservation/confirm";
 	}

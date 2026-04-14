@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.pethotel.dto.PetRequestDto;
-import com.pethotel.dto.PetRequestUpdateDto;
-import com.pethotel.dto.PetResponseListDto;
-import com.pethotel.dto.PetResponseUpdateDto;
+import com.pethotel.dto.PetListRequestDto;
+import com.pethotel.dto.PetUpdateRequestDto;
+import com.pethotel.dto.PetListResponseDto;
+import com.pethotel.dto.PetUpdateResponseDto;
 import com.pethotel.mapper.PetMapper;
 
 @Service
@@ -22,9 +22,9 @@ public class PetServiceImpl implements PetService{
 	
 	
 	@Override
-	public void add(List<PetRequestDto> pdto,int memberId) {
+	public void add(List<PetListRequestDto> pdto,int memberId) {
 		
-		for(PetRequestDto pet : pdto ) {
+		for(PetListRequestDto pet : pdto ) {
 			
 			pet.setMemberId(memberId);
 		}
@@ -34,21 +34,21 @@ public class PetServiceImpl implements PetService{
 	}
 	
 	@Override
-	public List<PetResponseListDto> petList(int memberId) {
+	public List<PetListResponseDto> petList(int memberId) {
 		
 		
 		return petMapper.petList(memberId);
 	}
 	
 	@Override
-	public PetResponseUpdateDto petDetail(int petId) {
+	public PetUpdateResponseDto petDetail(int petId) {
 		
 		
 		return petMapper.petDetail(petId);
 	}
 	
 	@Override
-	public void petUpdate(int petId,PetRequestUpdateDto pdto) {
+	public void petUpdate(int petId,PetUpdateRequestDto pdto) {
 		
 		petMapper.petUpdate(petId,pdto);
 	
@@ -59,5 +59,12 @@ public class PetServiceImpl implements PetService{
 		
 		petMapper.petDelete(petId);
 	}
+	
+	@Override
+	public List<PetListResponseDto> petResList(List<Integer> petIds) {
+		
+		return petMapper.petResList(petIds); 
+	}
+	
 	
 }
