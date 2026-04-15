@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
 import com.pethotel.dto.PetListResponseDto;
-import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResListDto;
 import com.pethotel.service.BoardService;
 import com.pethotel.service.PetService;

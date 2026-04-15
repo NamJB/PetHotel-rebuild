@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ResDto {
+public class ResSaveRequestDto {
     
 	private int resId;
 	
@@ -27,8 +27,10 @@ public class ResDto {
 	@NotBlank
 	private String checkOut;
 	
-	//@NotBlank
-	//private List<PetDto> pets;
+	@NotBlank
+	private List<Integer> petIds;
+	
+	
 	
 	
 	

@@ -64,16 +64,13 @@
     </c:forEach>
    </table>
    
-   <form method = "post" action = "/reservation/save">    
-      <c:forEach var = "pet" items = "${rdto.pets}" varStatus = "status">
-         <input type = "hidden" value = "${pet.name }" name = "pets[${status.index}].name">
-         <input type = "hidden" value = "${pet.age}" name = "pets[${status.index }].age">
-         <input type = "hidden" value = "${pet.size}" name = "pets[${status.index }].size">
-         <input type = "hidden" value = "${pet.content}" name = "pets[${status.index}].content">
-      </c:forEach>
-         <input type = "hidden" value = "${rdto.checkInn}" name = "checkIn">
-         <input type = "hidden" value = "${rdto.checkOut}" name = "checkOut">
-         <input type = "submit" value = "예약 확정하기">      
+   <form method = "post" action = "/reservation/save">
+      <input type = "hidden" name = "checkIn" value = "${confirm.checkIn}">
+      <input type = "hidden" name = "checkOut" value = "${confirm.checkOut}">
+    <c:forEach var = "p" items = "${confirm.selectPets}">
+      <input type = "hidden" name = "petIds" value = "${p.petId}">   
+    </c:forEach>
+      <input type = "submit" value = "예약하기">
    </form>
    
    

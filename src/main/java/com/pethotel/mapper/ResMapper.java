@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 
-import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
 
@@ -14,10 +14,10 @@ import com.pethotel.dto.ResupdateDto;
 public interface ResMapper {
 
 	//예약저장
-	public void save(ResDto RDto);
+	public void resSave(ResSaveRequestDto rdto);
     
 	//펫예약 저장
-	//public void savePet(List<PetDto> list);
+	public void petSave(ResSaveRequestDto rdto);
 	
 	//사용자의 예약정보와 펫정보 가져오기
     public ResResponseDto getMyres(int resId);

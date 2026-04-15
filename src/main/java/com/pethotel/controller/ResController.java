@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResConfirmDto;
-import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
 import com.pethotel.service.PetService;
@@ -86,17 +86,18 @@ public class ResController {
 		model.addAttribute("confirm",confirm);
 		
 		return "/reservation/confirm";
+	
 	}
 	  
 	//예약 요청
 	@PostMapping("/save")
-	public String save(ResDto Rdto,HttpSession session) {
+	public String save(ResSaveRequestDto rdto,HttpSession session) {
 		
-		Integer memberId = (Integer) session.getAttribute("member_id");
+		Integer memberId = (Integer) session.getAttribute("memberId");
 				
-		Rdto.setMemberId(memberId);
+		rdto.setMemberId(memberId);
 		
-		resService.save(Rdto);
+		resService.resSave(rdto);
 		
 		return "redirect:/reservation/complete";
 		

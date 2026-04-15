@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
-import com.pethotel.dto.ResDto;
+import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResResponseDto;
 import com.pethotel.dto.ResupdateDto;
 import com.pethotel.mapper.ResMapper;
@@ -85,7 +85,7 @@ public class ResServiceImpl implements ResService {
 	//
 	@Override
 	@Transactional
-    public void save(ResDto rdto) {
+    public void resSave(ResSaveRequestDto rdto) {
 		
 		/*resMapper.save(RDto);
 		
@@ -138,6 +138,13 @@ public class ResServiceImpl implements ResService {
          
             resMapper.savePet(rdto.getPets());
         */
+		
+		resMapper.resSave(rdto);
+		
+		if(rdto.getPetIds() !=null && !rdto.getPetIds().isEmpty()) {
+			
+			resMapper.petSave(rdto);
+		}
          
 	}
 	

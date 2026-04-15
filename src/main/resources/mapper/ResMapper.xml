@@ -1,58 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pethotel.mapper.ResMapper">
- <!--   
-   <insert id="save" parameterType="com.pethotel.dto.ResDto"
-        useGeneratedKeys="true" keyProperty="res_id">
-    insert into 
-       reservation(member_id, check_in, check_out)
-       values(#{memberId}, #{checkIn}, #{checkOut})
-  </insert>
    
-   <insert id = "savePet">
-      insert into 
-         reservation_pet(res_id,name,age,size,content)
-         values
-      <foreach collection = "list" item = "pet" separator = ",">
-         (#{pet.resId},#{pet.name},#{pet.age},#{pet.size},#{pet.content})
-      </foreach>      
+   <insert id = "resSave" useGeneratedKeys="true" keyProperty="resId">
+      insert into reservation
+         (member_id,check_in,check_out)
+      values(#{memberId},#{checkIn},#{checkOut})   
    </insert>
    
-    
-   <resultMap id = "resMap" type = "com.pethotel.dto.ResResponseDto">
-      <id property = "resId" column= "res_id"/>
-         <result property = "memberId" column = "member_id"/>
-         <result property = "checkIn" column = "check_in"/>
-         <result property = "checkOut" column = "check_out"/>
-         <result property = "status" column = "status"/>
-         <result property = "createdAt" column = "created_at"/>
-         <result property = "nickName" column = "nickname"/>
-           
-      <collection property = "pets" ofType = "com.pethotel.dto.ResPetListDto">
-         <id property = "petId" column = "pet_id"/>
-            <result property = "name" column = "name"/>
-            <result property = "age" column = "age"/>
-            <result property = "size" column = "size"/>
-            <result property = "content" column = "content"/>         
-      </collection>
-   </resultMap>
+  <insert id = "petSave">
+     insert into reservation_pet
+        (res_id,pet_id)
+     values
+      <foreach collection = "petIds" item = "petId" separator = ",">
+         (#{resId},#{petId})
+      </foreach>
+  </insert>
    
-   <select id = "getMyres" resultMap = "resMap">
-      select 
-         r.res_id,
-         r.member_id,
-         r.check_in,
-         r.check_out,
-         r.status,
-         r.created_at,
-         p.pet_id,
-         p.name,p.age,p.size,p.content,
-         m.nickname
-      from reservation r 
-      inner join reservation_pet p on p.res_id = r.res_id
-      inner join member m on r.member_id = m.member_id
-      where r.res_id = #{resId}     
-   </select>
+   
+ <!--   
+   
     
    <select id = "resDelete">
       update 
