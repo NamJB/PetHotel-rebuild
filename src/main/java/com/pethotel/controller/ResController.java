@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResConfirmDto;
 import com.pethotel.dto.ResSaveRequestDto;
-import com.pethotel.dto.ResResponseDto;
+import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResupdateDto;
 import com.pethotel.service.PetService;
 import com.pethotel.service.ResService;
@@ -160,7 +161,7 @@ public class ResController {
     	
     	return "reservation/update";*/
     	
-    	ResResponseDto rdto = resService.getMyres(resId);
+    	ResDetailResponseDto rdto = resService.resDetail(resId);
     	
     	model.addAttribute("rdto",rdto);
     	
@@ -178,37 +179,22 @@ public class ResController {
     }
     
 	//마이페이지 예약글 상세보기 뷰반환
-    @GetMapping("/resview")
-	public String rescontent(@RequestParam int resId,Model model,HttpSession session) {
+    @GetMapping("/{resId}")
+	public String resDetail(@PathVariable("resId") int resId,Model model,HttpSession session) {
 			
 	   Integer memberId = (Integer) session.getAttribute("memberId");
 	   
-	 /*  
-	   int resMember_id = resService.getResMember_id(id);
+	   ResDetailResponseDto detail = resService.resDetail(resId);
 	   
-	   if(!member_id.equals(resMember_id)) {
-		   
-		   return "redirect:/user/mypage";
-	   }
-	   
-	   List<PetInfoDto> plist=resService.resPet(id);
-	   MyResDto myResDto = resService.getView(id);
-	   
-	   
-	   model.addAttribute("res",myResDto);
-	   model.addAttribute("plist",plist);*/
-	   
-	   ResResponseDto rdto = resService.getMyres(resId);
-	   
-	   if(rdto.getMemberId()!= memberId) {
+	   if(detail.getMemberId()!= memberId) {
 		  
 		   return "redirect:/user/mypage";
 	   }
 	   
-	   model.addAttribute("rdto",rdto);
+	   model.addAttribute("detail",detail);
 	   
 			
-	   return "reservation/resview";
+	   return "reservation/detail";
 		
     }
 	

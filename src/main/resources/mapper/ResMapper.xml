@@ -16,6 +16,39 @@
          (#{resId},#{petId})
       </foreach>
   </insert>
+  <!-- 예약 생성일이랑 펫 생성일 구분해야함 -->
+  <resultMap id = "resDetailMap" type = "com.pethotel.dto.ResDetailResponseDto" >
+     <id property = "resId" column ="res_id"/>
+     <result property  = "checkIn" column = "check_in"/>
+     <result property = "checkOut" column = "check_out"/>
+     <result property = "status" column = "status"/>
+     <result property = "memberId" column = "member_id"/>
+     <result property = "nickName" column = "nickname"/>
+     
+     <collection property = "pets" ofType = "com.pethotel.dto.PetListResponseDto">
+        <id property = "petId" column = "pet_id"/>
+        <result property ="name" column = "name"/>
+        <result property ="age" column = "age"/>
+        <result property ="type" column = "type"/>
+        <result property ="gender" column = "gender"/>
+        <result property ="note" column = "note"/>
+        <result property ="weight" column = "weight"/>
+        <result property ="createdAt" column = "created_at"/>
+     </collection>
+  </resultMap>
+  
+  
+  <select id = "resDetail" resultMap = "resDetailMap">
+     select 
+        r.*,
+        p.*,
+        m.nickname
+     from reservation r 
+     inner join reservation_pet rp on r.res_id = rp.res_id
+     inner join pet p on rp.pet_id = p.pet_id
+     inner join member m on r.member_id = m.member_id
+     where r.res_id = #{resId}
+  </select>
    
    
  <!--   

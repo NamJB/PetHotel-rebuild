@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pethotel.dto.ResSaveRequestDto;
-import com.pethotel.dto.ResResponseDto;
+import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResupdateDto;
 
 public interface ResService {
@@ -17,5 +17,5 @@ public interface ResService {
 	
 	public void postUpdate(ResupdateDto rdto);
 	
-	public ResResponseDto getMyres(int resId);
+	public ResDetailResponseDto resDetail(int resId);
 }

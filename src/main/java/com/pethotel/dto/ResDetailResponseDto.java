@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class ResResponseDto {
+public class ResDetailResponseDto {
 
 	private int memberId;
 	
@@ -26,5 +26,5 @@ public class ResResponseDto {
 	
 	private String nickName;
 	
-	private List<ResPetListDto> pets;
+	private List<PetListResponseDto> pets;
 }

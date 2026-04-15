@@ -27,27 +27,29 @@
     : ${p.count}마리 <br>
    </c:forEach>
       -->
-   <div>${rdto.nickName}님!</div>
-   <div>체크인:${rdto.checkIn}</div>
-   <div>체크아웃${rdto.checkOut}</div>
-   <div>에약상태:${rdto.status}</div>
-   <div>예약한 날짜 ${rdto.createdAt}</div>  
+   <div>${detail.nickName}님!</div>
+   <div>체크인:${detail.checkIn}</div>
+   <div>체크아웃${detail.checkOut}</div>
+   <div>에약상태:${detail.status}</div>
+   <div>예약한 날짜 ${detail.createdAt}</div>  
    
    
-   <c:forEach var = "p" items = "${rdto.pets}">
+   <c:forEach var = "p" items = "${detail.pets}">
       <div>펫이름:${p.name}</div>
       <div>나이:${p.age}</div>
-      <div>사이즈:${p.size}</div>
-      <div>주의사항:${p.content}</div>
+      <div>성별:${p.gender}</div>
+      <div>견종:${p.type}</div>
+      <div>사이즈:${p.weight}</div>
+      <div>주의사항:${p.note}</div>
       <hr>
    </c:forEach>
      
-   <c:if test = "${rdto.status != '예약 취소' }">
+   <c:if test = "${detail.status != '예약 취소' }">
       <div> <a href = "/reservation/update?resId=${rdto.resId}">수정하기</a></div>
    </c:if>
    
    <div>
-    <c:if test = "${rdto.status != '예약 취소'}">
+    <c:if test = "${detail.status != '예약 취소'}">
       <form method ="post" action = "/reservation/delete">
          <input type = "hidden" value = "${rdto.resId}" name = "resId">
          <input type = "submit" value = "예악 취소">

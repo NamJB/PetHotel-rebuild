@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.pethotel.dto.ResSaveRequestDto;
-import com.pethotel.dto.ResResponseDto;
+import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResupdateDto;
 import com.pethotel.mapper.ResMapper;
 
@@ -213,9 +213,9 @@ public class ResServiceImpl implements ResService {
     }
     
     @Override
-	public ResResponseDto getMyres(int resId) {
+	public ResDetailResponseDto resDetail(int resId) {
 		
-		return resMapper.getMyres(resId);
+		return resMapper.resDetail(resId);
 		
 	}	
 	
