@@ -55,45 +55,34 @@
    
 <script>
 function cancelReservation(resId) {
-    if (!confirm("정말 취소하시겠습니까?")) return;
-
-    // [1단계] fetch로 서버에 PATCH 요청을 보냄
-    fetch('/reservation/' + resId + '/cancel', { 
-        method: 'PATCH' 
-    })
-    .then(response => {
-        // [2단계] 서버랑 연결 잘 됐나 확인 (response.ok)
-        if (response.ok) {
-            return response.text(); // 연결 성공 시 "success"라는 글자 읽으러 감
-            console.log("["+ data + "]");
-        }
-        throw new Error("서버 통신 실패");
-    })
-    .then(data => {
-        
-    	
-    	
-    	// [3단계] 서버가 준 진짜 내용물(data) 확인
-        if (data === "success") {
-            alert("예약이 정상적으로 취소되었습니다.");
-            
-            
-            const resText = document.querySelector(".res-status");
-            if(resText) {
-            	
-            	resText.innerText = "예약 취소";
-            }
-            
-            document.querySelector(".btn-cancel").style.display = "none";
-            
-        } else {
-            alert("취소 실패: " + data);
-        }
-    })
-    .catch(e => {
-        console.error(e);
-        alert("오류가 발생했습니다.");
-    });
+    
+	if(!confirm("정말 취소가하시겠습니까")){
+		
+		return;
+	}
+	
+	$.ajax({
+		url : '/reservation/' + resId + '/cancel',
+		method : 'PATCH',
+		success :function(data) {
+			if(data.trim() === "success") {
+				alert("취소 완료!");
+				
+				$(".res-status").text("예약 취소");
+				$(".btn-cancel").hide();
+			}
+			else if(data.trim()=== "fail"){
+				
+				alert("서버오류 다시시도");
+			}
+		},
+		error:function(xhr) {
+			
+			alert("에러발생:" + xhr.status);
+		}
+		
+		
+	});
 }
 
 </script>   

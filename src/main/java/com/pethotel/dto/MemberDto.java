@@ -25,7 +25,7 @@ public class MemberDto {
 	
 	@NotBlank
 	@Size(min = 3 ,max= 15 ,message = "이름 제대로 적어주세요")
-	@Pattern(regexp = "^[가-힣]*$" ,message = "한글만 가능") //한글만
+	@Pattern(regexp = "^[가-힣]*$" ,message = "성함 한글만 가능") //한글만
 	String userName;
 	
 	@NotBlank

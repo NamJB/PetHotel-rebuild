@@ -122,7 +122,7 @@ public class ResController {
     	Integer memberId = (Integer) session.getAttribute("memberId");
     	
     	if(memberId == null) {
-    		
+    		//리다이렉트 고치기
     		return "redirect:/user/login";
     	}
     			
