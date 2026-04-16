@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -114,8 +115,9 @@ public class ResController {
 	
 	
     //예약 취소 요청
-    @PostMapping("/delete")
-    public String resDelete(int resId,HttpSession session) {
+    @PatchMapping ("/{resId}/cancel")
+    @ResponseBody
+    public String cancelReservation(@PathVariable("resId") int resId,HttpSession session) {
     	
     	Integer memberId = (Integer) session.getAttribute("memberId");
     	
@@ -123,60 +125,18 @@ public class ResController {
     		
     		return "redirect:/user/login";
     	}
-    	
-    	/*int resMember_id = resService.getResMember_id(id);
-    	
-    	if(!member_id.equals(resMember_id)) {
-    		
-    		return "redirect:/user/mypage";
+    			
+    	try {   		
+    		resService.cancelReservation(resId);
+    		return "success";   		
     	}
-    	*/    	
-    	resService.resDelete(resId);
-    	
-    	return "redirect:/user/mypage";
-    }
-    
-    //예약 업데이트 뷰반환
-    @GetMapping("/update")
-    public String resUpdate(@RequestParam int resId,HttpSession session,Model model) {
-    	/*
-    	Integer member_id = (Integer) session.getAttribute("member_id");
-        
-    	
-    	if(member_id == null) {
-    		
-    		return "redirect:/user/login";
+    	catch(Exception e){
+    		e.printStackTrace();
+    		return "fail";	
     	}
-    	
-    	int resMember_id = resService.getResMember_id(id);
-    	
-    	if(!member_id.equals(resMember_id)) {
-    		
-    		return "redirect:/user/mypage";
-    	}
-    	
-    	ResDto resdto =resService.getUpdate(id);  
-    	
-    	model.addAttribute("res",resdto);
-    	
-    	return "reservation/update";*/
-    	
-    	ResDetailResponseDto rdto = resService.resDetail(resId);
-    	
-    	model.addAttribute("rdto",rdto);
-    	
-    	
-    	return "reservation/update";
-    
+    	 	
     }
-    //예약 업데이트 요청
-    @PostMapping("/update")
-    public String postUpdate(ResupdateDto rdto) {
-    	
-    	resService.postUpdate(rdto);
-    	
-    	return "redirect:/reservation/resview?res_id="+rdto.getResId();
-    }
+     
     
 	//마이페이지 예약글 상세보기 뷰반환
     @GetMapping("/{resId}")

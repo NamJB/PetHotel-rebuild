@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
-import com.pethotel.dto.ResListDto;
+import com.pethotel.dto.ResListResponseDto;
 
 @Mapper
 public interface BoardMapper {
@@ -20,9 +20,6 @@ public interface BoardMapper {
     
 	//게시글 삭제(is_deleted 1로 업데이트)
 	public void postDelete(int boardId);
-	
-	//나의 예약정보
-	public List<ResListDto> myRes(int memberId);
 	
 	//게시판 리스트 불러오기
 	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto);

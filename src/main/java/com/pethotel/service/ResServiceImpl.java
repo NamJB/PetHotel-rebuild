@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResDetailResponseDto;
+import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResupdateDto;
 import com.pethotel.mapper.ResMapper;
 
@@ -149,75 +150,24 @@ public class ResServiceImpl implements ResService {
 	}
 	
 	@Override
-	public void resDelete(int resId) {
+	public void cancelReservation(int resId) {
 		
-		resMapper.resDelete(resId);
+		resMapper.cancelReservation(resId);
 	}
-	
-	
-    @Override
-    @Transactional
-    public void postUpdate(ResupdateDto rdto) {
-    	
-    	/* resMapper.postUpdate(rdto);
-		
-		int res_id = rdto.getId();
-		
-		resMapper.petDelete(res_id);
-		
-		
-		if(rdto.getSmall_cnt() > 0) {
-			
-			PetInfoDto pdto = new PetInfoDto();
-			pdto.setRes_id(res_id);
-			pdto.setDog_type("small");
-			pdto.setCount(rdto.getSmall_cnt());
-			
-			resMapper.savePet(pdto);
-			
-		}
-        if(rdto.getMedium_cnt() > 0) {
-			
-			PetInfoDto pdto = new PetInfoDto();
-			pdto.setRes_id(res_id);
-			pdto.setDog_type("medium");
-			pdto.setCount(rdto.getMedium_cnt());
-			
-			resMapper.savePet(pdto);
-			
-		}
-        if(rdto.getLarge_cnt() > 0) {
-			
-			PetInfoDto pdto = new PetInfoDto();
-			pdto.setRes_id(res_id);
-			pdto.setDog_type("large");
-			pdto.setCount(rdto.getLarge_cnt());
-			
-			resMapper.savePet(pdto);
-			
-			
-			
-		}
-        */
-    	resMapper.postUpdate(rdto);
-    	resMapper.petDelete(rdto.getResId());
-    	
-    /*	int res_id = rdto.getResId();
-    	
-    	for(PetDto pdto : rdto.getPets()) {
-    		
-    		pdto.setResId(res_id);
-    	}
-    	resMapper.savePet(rdto.getPets());
-    	*/
-    }
+	  
     
     @Override
 	public ResDetailResponseDto resDetail(int resId) {
 		
 		return resMapper.resDetail(resId);
 		
-	}	
+	}
+    
+    @Override
+	public List<ResListResponseDto> getMyReservationList(int member_id) {
+		
+		return resMapper.getMyReservationList(member_id);
+	}
 	
 }
 

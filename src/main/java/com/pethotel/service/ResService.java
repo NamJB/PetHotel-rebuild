@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResDetailResponseDto;
+import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResupdateDto;
 
 public interface ResService {
@@ -13,9 +14,9 @@ public interface ResService {
 	/*public List<PetInfoDto> resPet(int id);*/
 	public void resSave(ResSaveRequestDto RDto);
 	
-	public void resDelete(int resId);		
-	
-	public void postUpdate(ResupdateDto rdto);
+	public void cancelReservation(int resId);		
 	
 	public ResDetailResponseDto resDetail(int resId);
+	
+	public List<ResListResponseDto> getMyReservationList(int memberId);
 }

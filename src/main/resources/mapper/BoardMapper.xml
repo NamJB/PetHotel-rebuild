@@ -48,18 +48,7 @@
       where b.board_id = #{boardId} 
    </select>
    
-   <select id = "myRes" resultType = "com.pethotel.dto.ResListDto">
-      select 
-         r.res_id as resId,
-         r.check_in as checkIn,
-         r.check_out as checkOut,
-         r.status,
-         r.created_at as createdAt,
-         m.nickname as nickName
-      from reservation r inner join member m on r.member_id = m.member_id
-      where r.member_id = #{memberId}
-      order by r.res_id  desc       
-   </select> 
+    
    
    <update id = "postUpdate">
       update board 

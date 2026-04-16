@@ -49,6 +49,26 @@
      inner join member m on r.member_id = m.member_id
      where r.res_id = #{resId}
   </select>
+  
+  <select id = "getMyReservationList" resultType = "com.pethotel.dto.ResListResponseDto">
+      select                                           
+         r.res_id as resId,
+         r.check_in as checkIn,
+         r.check_out as checkOut,
+         r.status,
+         r.created_at as createdAt,
+         m.nickname as nickName
+      from reservation r inner join member m on r.member_id = m.member_id
+      where r.member_id = #{memberId}
+      order by r.res_id  desc       
+   </select>
+   
+   <update id = "cancelReservation">
+      update 
+         reservation set
+         status = "예약 취소"
+         where res_id = #{resId}
+   </update>
    
    
  <!--   

@@ -13,9 +13,10 @@ import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
-import com.pethotel.dto.ResListDto;
+import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.service.BoardService;
 import com.pethotel.service.PetService;
+import com.pethotel.service.ResService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,12 +27,15 @@ public class BoardController {
 
 	private final BoardService boardService;
 	private final PetService petService;
+	private final ResService resService;
 	
-	public BoardController(BoardService boardService,PetService petService) {
+	public BoardController(BoardService boardService,PetService petService,ResService resService) {
 		
 		this.boardService = boardService;
 		
 		this.petService = petService;
+		
+		this.resService = resService;
 		
 	}
 	
@@ -120,7 +124,7 @@ public class BoardController {
 		bdto.setMemberId(memberId);
 			
 		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
-		List<ResListDto> Rlist = boardService.myRes(memberId);
+		List<ResListResponseDto> Rlist = resService.getMyReservationList(memberId);
 		List<PetListResponseDto> plist = petService.petList(memberId);
 			
 		model.addAttribute("boardlist",Blist);

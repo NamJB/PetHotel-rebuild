@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
-import com.pethotel.dto.ResListDto;
+import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.mapper.BoardMapper;
 
 @Service
@@ -49,11 +49,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
-	@Override
-	public List<ResListDto> myRes(int member_id) {
-		
-		return boardMapper.myRes(member_id);
-	}
+	
 	
 	@Override
 	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto) {

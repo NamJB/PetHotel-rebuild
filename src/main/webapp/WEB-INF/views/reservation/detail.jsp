@@ -30,7 +30,7 @@
    <div>${detail.nickName}님!</div>
    <div>체크인:${detail.checkIn}</div>
    <div>체크아웃${detail.checkOut}</div>
-   <div>에약상태:${detail.status}</div>
+   <div>에약상태:<span class = "res-status">${detail.status}</span></div>
    <div>예약한 날짜 ${detail.createdAt}</div>  
    
    
@@ -44,18 +44,58 @@
       <hr>
    </c:forEach>
      
-   <c:if test = "${detail.status != '예약 취소' }">
-      <div> <a href = "/reservation/update?resId=${rdto.resId}">수정하기</a></div>
-   </c:if>
+   
    
    <div>
     <c:if test = "${detail.status != '예약 취소'}">
-      <form method ="post" action = "/reservation/delete">
-         <input type = "hidden" value = "${rdto.resId}" name = "resId">
-         <input type = "submit" value = "예악 취소">
-      </form>
+       <input type = "button" class = "btn-cancel" onclick = "cancelReservation(${detail.resId})" value = "예약 취소">
     </c:if>
    </div>
    
+   
+<script>
+function cancelReservation(resId) {
+    if (!confirm("정말 취소하시겠습니까?")) return;
+
+    // [1단계] fetch로 서버에 PATCH 요청을 보냄
+    fetch('/reservation/' + resId + '/cancel', { 
+        method: 'PATCH' 
+    })
+    .then(response => {
+        // [2단계] 서버랑 연결 잘 됐나 확인 (response.ok)
+        if (response.ok) {
+            return response.text(); // 연결 성공 시 "success"라는 글자 읽으러 감
+            console.log("["+ data + "]");
+        }
+        throw new Error("서버 통신 실패");
+    })
+    .then(data => {
+        
+    	
+    	
+    	// [3단계] 서버가 준 진짜 내용물(data) 확인
+        if (data === "success") {
+            alert("예약이 정상적으로 취소되었습니다.");
+            
+            
+            const resText = document.querySelector(".res-status");
+            if(resText) {
+            	
+            	resText.innerText = "예약 취소";
+            }
+            
+            document.querySelector(".btn-cancel").style.display = "none";
+            
+        } else {
+            alert("취소 실패: " + data);
+        }
+    })
+    .catch(e => {
+        console.error(e);
+        alert("오류가 발생했습니다.");
+    });
+}
+
+</script>   
 </body>
 </html>

@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class ResListDto {
+public class ResListResponseDto {
    
 	private int resId;
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pethotel.dto.BoardRequestDto;
 import com.pethotel.dto.BoardResponseDto;
-import com.pethotel.dto.ResListDto;
+import com.pethotel.dto.ResListResponseDto;
 
 public interface BoardService {
 
@@ -19,7 +19,7 @@ public interface BoardService {
 
 	public void postDelete(int boardId);
 
-	public List<ResListDto> myRes(int memberId);
+	
 	
 	
 }
