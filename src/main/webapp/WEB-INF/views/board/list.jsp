@@ -27,7 +27,7 @@
       <td>${b.createdAt }</td>
    </tr>
    </c:forEach>
-</table>
+</table><!--맥북 테스트 -->111
 
  <a href = "/board/write">글쓰기</a>
 

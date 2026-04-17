@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+target/
+.idea/
+.DS_Store
+*.class
+out/
