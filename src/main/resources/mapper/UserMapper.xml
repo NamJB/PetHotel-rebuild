@@ -19,7 +19,7 @@
      and pwd = #{pwd}
    </select>
   
-   <select id = "checkUserid" resultType = "int">
+   <select id = "checkUserId" resultType = "int">
       select count(*) 
       from member 
       where userid = #{userId}

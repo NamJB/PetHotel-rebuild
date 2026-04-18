@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
 	@Transactional	
 	public boolean postMember(MemberDto mdto) {
 		
-		int count =userMapper.checkUserid(mdto.getUserId());
+		int count =userMapper.checkUserId(mdto.getUserId());
 		
 		if(count > 0) {
 			
@@ -46,6 +46,15 @@ public class UserServiceImpl implements UserService{
 	public MemberResponseDto loginUser(LoginDto ldto) {
 		
 		return userMapper.loginUser(ldto);
+	}
+	
+	
+	@Override
+	public int idCheck(String userId) {
+		
+		
+		
+		return userMapper.checkUserId(userId);
 	}
 	
 	

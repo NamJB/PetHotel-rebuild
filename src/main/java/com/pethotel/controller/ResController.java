@@ -88,6 +88,8 @@ public class ResController {
 		model.addAttribute("confirm",confirm);
 		
 		return "/reservation/confirm";
+		
+	    
 	
 	}
 	  

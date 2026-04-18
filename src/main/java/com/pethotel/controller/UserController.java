@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
@@ -52,6 +53,7 @@ public class UserController {
 		String phone = mdto.getPhoneFirst() + "-" + mdto.getPhoneMiddle() + "-" + mdto.getPhoneLast();
 		
 		mdto.setPhone(phone);
+	    
 			
 		boolean result =userService.postMember(mdto);
 			
@@ -62,7 +64,7 @@ public class UserController {
 		else{
 				
 			return "redirect:/user/member";	
-		}	
+		}
 		
 	}
 	
@@ -106,9 +108,24 @@ public class UserController {
 		
 		session.invalidate();
 		
+	
 		return "redirect:/main/home";
 	
 	}
+	
+	//아이디중복확인
+	@GetMapping("/idCehck")
+	@ResponseBody
+	public int idCheck(String userId) {
+		
+		if(userId == null || userId.length() < 5) {
+			
+			return -1;
+		}
+		
+		return userService.idCheck(userId);
+	}
+	
 	
 	
 	

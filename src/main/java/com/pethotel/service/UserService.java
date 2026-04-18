@@ -14,4 +14,6 @@ public interface UserService {
 	
 	public MemberResponseDto loginUser(LoginDto ldto);
 	
+	public int idCheck(String userId);
+	
 }
