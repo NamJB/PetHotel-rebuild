@@ -14,7 +14,12 @@
 <form method = "post" action = "/user/member">
    <div>아이디<input type = "text" name = userId  maxlength="10" pattern="[a-z0-9]{5,20}" required value = "${mdto.userId }" id = "userId"></div>
    <span id = "userId-msg"></span>
-   <div>비밀번호<input type = "password" name = "pwd" required maxlength = "20"></div>
+   
+   <div>비밀번호<input type = "password" name = "pwd" required maxlength = "20" id = "pwd"></div>
+   <div id = "pwd-msg"></div>
+   <div>비밀번호 체크<input type = "password" id = "pwdCheck"></div>
+   <div id = "pwdCheck-msg"></div>
+   
    <div>성함<input type = "text" name = "userName"required value = "${mdto.userName }"></div>
    <div>닉네임<input type = "text" name = "nickName" maxlength="10" required value = "${mdto.nickName}"></div>
    <div>휴대폰
@@ -31,7 +36,7 @@
 
 
 <script>
-   
+   //아이디 중복체
    $('#userId').on('blur',function(){
 	 
 	   const userId = $(this).val().trim();
@@ -91,6 +96,64 @@
 		   }
 		   
 	   });
+   });
+   
+   
+   //비밀번호 유효성검
+   $('#pwd').on('input',function(){
+	  
+	   const pwd = $(this).val();
+	   
+	   const msg = $('#pwd-msg');
+	   
+	   const pwdReg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`@$!%*#?&]).{8,16}$/; //8~16 영문 숫자 특수문자 
+	   
+	   
+	   if(!pwdReg.test(pwd)) {
+		   
+		   msg.text('영문/숫자/특수문자 포함 8~16자여야합니다');
+		   
+	   }
+	   else{
+		  
+		   msg.text("사용가능한 비밀번호 입니다"); 
+	   }
+	   
+	   
+	   if($('#pwdCheck').val().trim() !== "") {
+		   
+		   pwdCheckMatch();
+	   }
+	   else{
+		   
+		   $('pwdCheck-msg').text("");
+	   }
+	   
+   });
+   //비밀번호 체크 서로 일치한지 
+   function pwdCheckMatch() {
+	   
+	   const pwd1 = $('#pwd').val();
+	   
+	   const pwd2 = $('#pwdCheck').val();
+	   
+	   const msg = $('#pwdCheck-msg');
+	   
+	   if( pwd1 === pwd2) {
+		   
+		   msg.text("비밀번호가 일치합니다");
+	   }
+	   else{
+		   
+		   msg.text("비밀번호가 일치하지않습니");
+	   }
+	   
+   }
+   
+   $('#pwdCheck').on('input',function(){
+	  
+	   pwdCheckMatch();
+	   
    });
 </script>
 </body>
