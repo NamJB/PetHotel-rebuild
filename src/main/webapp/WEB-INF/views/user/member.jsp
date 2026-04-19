@@ -11,7 +11,7 @@
 회원가입 화면
 
 
-<form method = "post" action = "/user/member">
+<form method = "post" action = "/user/member" id = "joinForm">
    <div>아이디<input type = "text" name = userId  maxlength="10" pattern="[a-z0-9]{5,20}" required value = "${mdto.userId }" id = "userId"></div>
    <span id = "userId-msg"></span>
    
@@ -31,7 +31,7 @@
          <option value = "010">010</option>
          <option value = "011">011</option>
       </select>
-     -<input type = "text" name = "phoneMiddel" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }" id = "phoneMiddle">
+     -<input type = "text" name = "phoneMiddle" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }" id = "phoneMiddle">
      -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required value = "${mdto.phoneLast }" id = "phoneLast">
    </div>
    <div id = "phone-msg"></div>
@@ -67,7 +67,7 @@
    let isIdCheck = false;
    let isPwdCheck = false;
    let isNameCheck = false;
-   let isNickCheck = false;
+   let isNickNameCheck = false;
    let isPhoneCheck = false;
    
 
@@ -107,7 +107,7 @@
 	   
 	   $.ajax({
 		   
-		   url : '/user/idCehck',
+		   url : '/user/idCheck',
 		   method : 'GET',
 		   data : {userId : userId},
 		   success : function(result){
@@ -301,14 +301,15 @@
 		   
 	   }
 	   else{
-		   
+		   console.log(isIdCheck,isPwdCheck,isNameCheck,isNickNameCheck,isPhoneCheck);
 		   alert("입력되지 않거나 올바르지않는 형식이 있습니다 ");
 		   
 		   if (!isIdCheck) { $('#userId').focus(); }
 	       else if (!isPwdCheck) { $('#pwd').focus(); }
 	       else if (!isNameCheck) { $('#userName').focus(); }
-	       else if (!isNickCheck) { $('#nickName').focus(); }
+	       else if (!isNickNameCheck) { $('#nickName').focus(); }
 	       else if (!isPhoneCheck) { $('#phoneMiddle').focus(); }
+		   
 	   }
 	  
    });

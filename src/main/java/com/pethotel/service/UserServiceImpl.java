@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberIdCheckRequestDto;
 import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.mapper.UserMapper;
 
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	@Transactional	
 	public boolean postMember(MemberDto mdto) {
 		
-		int count =userMapper.checkUserId(mdto.getUserId());
+		int count = userMapper.checkUserId(mdto.getUserId());
 		
 		if(count > 0) {
 			
@@ -50,11 +51,11 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public int idCheck(String userId) {
+	public int idCheck(MemberIdCheckRequestDto requestDto) {
 		
 		
 		
-		return userMapper.checkUserId(userId);
+		return userMapper.checkUserId(requestDto);
 	}
 	
 	

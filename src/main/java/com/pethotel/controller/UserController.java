@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pethotel.dto.LoginDto;
 import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberIdCheckRequestDto;
 import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.service.UserService;
 
@@ -114,16 +115,17 @@ public class UserController {
 	}
 	
 	//아이디중복확인
-	@GetMapping("/idCehck")
+	@GetMapping("/idCheck")
 	@ResponseBody
-	public int idCheck(String userId) {
+	public int idCheck(@Valid MemberIdCheckRequestDto requestDto,BindingResult bindingResult) {
 		
-		if(userId == null || userId.length() < 5) {
-			
-			return -1;
-		}
 		
-		return userService.idCheck(userId);
+		
+		if (bindingResult.hasErrors()) {
+	        return -1;
+	    }
+		
+		return userService.idCheck(requestDto);
 	
 	}
 	
