@@ -124,6 +124,7 @@ public class UserController {
 		}
 		
 		return userService.idCheck(userId);
+	
 	}
 	
 	

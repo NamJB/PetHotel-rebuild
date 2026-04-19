@@ -20,43 +20,78 @@
    <div>비밀번호 체크<input type = "password" id = "pwdCheck"></div>
    <div id = "pwdCheck-msg"></div>
    
-   <div>성함<input type = "text" name = "userName"required value = "${mdto.userName }"></div>
-   <div>닉네임<input type = "text" name = "nickName" maxlength="10" required value = "${mdto.nickName}"></div>
+   <div>성함<input type = "text" name = "userName"required value = "${mdto.userName }" id = "userName"></div>
+   <div id = "userName-msg"></div>
+   
+   <div>닉네임<input type = "text" name = "nickName" maxlength="10" required value = "${mdto.nickName}" id = "nickName"></div>
+   <div id = "nickName-msg"></div>
+   
    <div>휴대폰
       <select name = "phoneFirst">
          <option value = "010">010</option>
          <option value = "011">011</option>
       </select>
-     -<input type = "text" name = "phoneMiddel" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }">
-     -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required value = "${mdto.phoneLast }">
+     -<input type = "text" name = "phoneMiddel" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }" id = "phoneMiddle">
+     -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required value = "${mdto.phoneLast }" id = "phoneLast">
    </div>
-   <div><input type = "submit" value = "회원가입"></div>
+   <div id = "phone-msg"></div>
+   <div><input type = "submit" value = "회원가입" id = "join-btn"></div>
 </form>
 <div>${msg}</div>
 
 
 <script>
+   const $userId = $('#userId');
+   const $userIdMsg = $('#userId-msg');
+
+   const $pwd = $('#pwd');
+   const $pwdMsg = $('#pwd-msg');
+   const $pwdCheck = $('#pwdCheck');
+   const $pwdCheckMsg = $('#pwdCheck-msg');
+
+   const $userName = $('#userName');
+   const $userNameMsg = $('#userName-msg')
+   
+   const $nickName = $('#nickName');
+   const $nickNameMsg = $('#nickName-msg')
+   
+   const $phoneMiddle = $('#phoneMiddle');
+   const $phoneLast = $('#phoneLast');
+   const $phoneMsg = $('#phone-msg');
+
+   const $joinForm = $('#joinForm');
+   const $joinBtn = $('#join-btn');
+
+   
+   
+   let isIdCheck = false;
+   let isPwdCheck = false;
+   let isNameCheck = false;
+   let isNickCheck = false;
+   let isPhoneCheck = false;
+   
+
    //아이디 중복체
-   $('#userId').on('blur',function(){
+   $userId.on('blur',function(){
 	 
 	   const userId = $(this).val().trim();
-	   
-	   const msg = $('#userId-msg');
-	   
-	   const idReg = /^[a-z0-9]+$/g; // 영문,숫자
+	   	   
+	   const idReg = /^[a-z0-9]+$/; // 영문,숫자
 	   
 	   
 	   
 	   if(userId === ""){
 		   
-		   msg.text("아이디를 입력해세요");
+		   $userIdMsg.text("아이디를 입력해세요");
+		   isIdCheck = false;
 		   
 		   return;
 	   }
 	   
 	   if(!idReg.test(userId)){
 		   
-		   msg.text("영어와 숫자만 가능합니다");
+		   $userIdMsg.text("영어와 숫자만 가능합니다");
+		   isIdCheck = false;
 		   
 		   return;
 		   
@@ -64,7 +99,8 @@
 	   
 	   if(userId.length < 5){
 		   
-		   msg.text("아이디는 최소 5글자 이상 적어주세요 ");
+		   $userIdMsg.text("아이디는 최소 5글자 이상 적어주세요 ");
+		   isIdCheck = false;
 		   
 		   return;
 	   }
@@ -78,21 +114,25 @@
 			   
 			   if (result === 0) {
 				   
-				   msg.text("사용가능한 아이디입니다 ");
+				   $userIdMsg.text("사용가능한 아이디입니다 ");
+				   isIdCheck = true;
 				   
 			   }
 			   else if(result === 1){
 				   
-				   msg.text("이미 사용중인 아이디입니다");
+				   $userIdMsg.text("이미 사용중인 아이디입니다");
+				   isIdCheck = false;
 			   }
 			   else if(result === -1) {
 				   
-				   msg.text("아이디형식이 올바르지않습니다");
+				   $userIdMsg.text("아이디형식이 올바르지않습니다");
+				   isIdCheck = false;
 			   }
 		   },
 		   error: function() {
 			   
-			   msg.text("서버오류");
+			   $userIdMsg.text("서버오류");
+			   isIdCheck = false;
 		   }
 		   
 	   });
@@ -100,61 +140,179 @@
    
    
    //비밀번호 유효성검
-   $('#pwd').on('input',function(){
+   $pwd.on('blur',function(){
 	  
 	   const pwd = $(this).val();
-	   
-	   const msg = $('#pwd-msg');
 	   
 	   const pwdReg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`@$!%*#?&]).{8,16}$/; //8~16 영문 숫자 특수문자 
 	   
 	   
 	   if(!pwdReg.test(pwd)) {
 		   
-		   msg.text('영문/숫자/특수문자 포함 8~16자여야합니다');
+		   $pwdMsg.text('영문/숫자/특수문자 포함 8~16자여야합니다');
+		   isPwdCheck = false;
 		   
 	   }
 	   else{
 		  
-		   msg.text("사용가능한 비밀번호 입니다"); 
-	   }
-	   
-	   
-	   if($('#pwdCheck').val().trim() !== "") {
+		   $pwdMsg.text("사용가능한 비밀번호 입니다");
 		   
-		   pwdCheckMatch();
-	   }
-	   else{
-		   
-		   $('pwdCheck-msg').text("");
-	   }
+		   if($pwdCheck.val().trim() !== ""){
+			   
+			    pwdCheckMatch();
+		   }
+		   else {
+			   
+			   $pwdCheckMsg.text("");
+			   isPwdCheck = false;
+		   }
+	   }   
+	   
 	   
    });
    //비밀번호 체크 서로 일치한지 
    function pwdCheckMatch() {
 	   
-	   const pwd1 = $('#pwd').val();
+	   const pwd = $pwd.val();
+	   const pwdCheck = $pwdCheck.val();
 	   
-	   const pwd2 = $('#pwdCheck').val();
-	   
-	   const msg = $('#pwdCheck-msg');
-	   
-	   if( pwd1 === pwd2) {
+	   if(pwd === pwdCheck) {
 		   
-		   msg.text("비밀번호가 일치합니다");
+		   $pwdCheckMsg.text("비밀번호가 일치합니다");
+		   isPwdCheck = true;
 	   }
 	   else{
 		   
-		   msg.text("비밀번호가 일치하지않습니");
+		   $pwdCheckMsg.text("비밀번호가 일치하지않습니");
+		   isPwdCheck = false;
 	   }
 	   
    }
    
-   $('#pwdCheck').on('input',function(){
-	  
-	   pwdCheckMatch();
+   $pwdCheck.on('blur',function(){
+	   
+	   
+	   const pwdCheck = $(this).val();	  
+	   
+	   if(pwdCheck !== ""){
+		   
+		   pwdCheckMatch();
+		   
+	   }
+	   else{
+		   
+		   $pwdCheckMsg.text("");
+		   isPwdCheck = false;
+	   }	   
 	   
    });
+   //사용자 이름 
+   $userName.on('blur',function(){
+	  
+	   const name = $(this).val().trim();
+	   
+	   if(name.length < 2) {
+		   
+		   $userNameMsg.text("이름을 확인해주세요");
+		   isNameCheck = false;
+	   }
+	   else{
+		   
+		   $userNameMsg.text("");
+		   isNameCheck = true;
+	   }
+	   
+   });
+   // 닉네임 
+   $nickName.on('blur',function(){
+	   
+	   const nickName = $(this).val().trim();
+	   
+	   if(nickName.length < 2){
+		   
+		   $nickNameMsg.text("닉네임은 2글자 이상 입력해주세요 ");
+		   isNickNameCheck = false;
+		   
+	   }
+	   else{
+		   
+		   $nickNameMsg.text("");
+		   isNickNameCheck = true;
+	   }
+	   
+   });
+   // 휴대폰 체
+   function phoneCheck() {
+	   
+	   const pMid = $phoneMiddle.val().trim();
+	   const pLast = $phoneLast.val().trim();
+	   
+	   if(pMid === "" && pLast === "") {
+		   
+		   $phoneMsg.text("");
+		   isPhoneCheck = false;
+		   return;
+	   }
+	   
+	   if (pMid !== "" && pLast === "") {
+	        $phoneMsg.text("");   
+	        isPhoneCheck = false; 
+	        return; 
+	    }
+	   
+	   const midReg = /^[0-9]{3,4}$/;
+	   const lastReg = /^[0-9]{4}$/;
+	   
+	   if(!midReg.test(pMid) || !lastReg.test(pLast)){
+		   
+		   $phoneMsg.text("휴대폰 번호를 확인해주세요");
+		   isPhoneCheck = false;
+		   		   
+	   }
+	   else{
+		   
+		   $phoneMsg.text("");
+		   isPhoneCheck = true;
+		   
+	   }
+   };
+   
+   $phoneMiddle.on('blur',function(){
+	   
+	   phoneCheck();
+	   
+   });
+   
+   $phoneLast.on('blur',function(){
+	   
+	   phoneCheck();
+   });
+   
+   $joinBtn.on('click',function(e){
+	  
+	   e.preventDefault();
+	   
+	   if(isIdCheck && isPwdCheck && isNameCheck && isNickNameCheck && isPhoneCheck) {
+		   
+		   if(confirm("회원가입하시겠습니까?")) {
+			   
+			   $joinForm.submit();   
+		   }
+		   
+	   }
+	   else{
+		   
+		   alert("입력되지 않거나 올바르지않는 형식이 있습니다 ");
+		   
+		   if (!isIdCheck) { $('#userId').focus(); }
+	       else if (!isPwdCheck) { $('#pwd').focus(); }
+	       else if (!isNameCheck) { $('#userName').focus(); }
+	       else if (!isNickCheck) { $('#nickName').focus(); }
+	       else if (!isPhoneCheck) { $('#phoneMiddle').focus(); }
+	   }
+	  
+   });
+   
 </script>
 </body>
 </html>
