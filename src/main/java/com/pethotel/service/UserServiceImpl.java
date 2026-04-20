@@ -27,9 +27,11 @@ public class UserServiceImpl implements UserService{
 	@Transactional	
 	public void postMember(MemberDto mdto) {
 			
-			userMapper.postMember(mdto);		
+		this.idCheck(mdto.getUserId());
 			
-		}			
+	    userMapper.postMember(mdto);		
+			
+	}			
 			
 	
 
@@ -37,7 +39,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public MemberResponseDto loginUser(LoginDto ldto) {
 		
-		return userMapper.loginUser(ldto);
+		MemberResponseDto user = userMapper.loginUser(ldto);
+		
+		if(user == null) {
+			
+			throw new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다.");
+		}
+		
+		return user;
+		
+		
 	}
 	
 	

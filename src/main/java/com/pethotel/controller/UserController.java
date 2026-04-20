@@ -55,8 +55,7 @@ public class UserController {
 		}
 							
 		try {
-			
-			userService.idCheck(mdto.getUserId());
+					
 			userService.postMember(mdto);
 			
 			return ResponseEntity.ok("회원가입 완료되었습니다"); 
@@ -68,7 +67,8 @@ public class UserController {
 		}
 		
 		catch(Exception e){			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입중 오류 발생");
+			
+			return ResponseEntity.status(500).body("서버오류");
 		}
 	}
 	
@@ -82,28 +82,38 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/login")
-	public String loginUser(@Valid LoginDto ldto,BindingResult br,HttpSession session,Model model) {
+	@ResponseBody
+	public ResponseEntity<String> loginUser(@Valid @RequestBody LoginDto ldto,
+			BindingResult bindingResult,
+			HttpSession session,
+			Model model) {
 	
-		if(br.hasErrors()) {
+		System.out.println(ldto);
+		if(bindingResult.hasErrors()) {
 			
-			model.addAttribute("msg",br.getFieldError().getDefaultMessage());
-			
-			return "user/login";
+			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
 		}
 		
-		MemberResponseDto user = userService.loginUser(ldto);	
-		
-		if(user != null) {
+			
+		try {
+			
+			MemberResponseDto user = userService.loginUser(ldto);
 			
 			session.setAttribute("nickName", user.getNickName());
 			session.setAttribute("memberId", user.getMemberId());
 			
+			return ResponseEntity.ok("로그인성공 ");
+		
+		}catch(RuntimeException e){
 			
-			return "redirect:/main/home";
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+		}
+		catch(Exception e) {
+			
+			return ResponseEntity.status(500).body("서버오류");
 		}
 		
 		
-		return "redirect:/user/login";
 	}
 	
 	//로그아웃 요청
