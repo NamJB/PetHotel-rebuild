@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.pethotel.dto.LoginDto;
-import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberRequestDto;
 import com.pethotel.dto.MemberIdCheckRequestDto;
 import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.mapper.UserMapper;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional	
-	public void postMember(MemberDto mdto) {
+	public void postMember(MemberRequestDto mdto) {
 			
 		this.idCheck(mdto.getUserId());
 			
@@ -34,8 +34,6 @@ public class UserServiceImpl implements UserService{
 	}			
 			
 	
-
-
 	@Override
 	public MemberResponseDto loginUser(LoginDto ldto) {
 		

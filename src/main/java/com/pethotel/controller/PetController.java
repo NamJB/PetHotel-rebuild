@@ -2,8 +2,10 @@ package com.pethotel.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +33,7 @@ public class PetController {
 		this.petService= petService;
 	}
 	
-	//펫등록
+	//펫등록 가치아쿠타 
 	@GetMapping("/register")
 	public String reserve() {
 		
@@ -41,13 +43,36 @@ public class PetController {
 	//펫등록 요청
 	@PostMapping("/add")
 	@ResponseBody
-	public String add(@RequestBody List<PetListRequestDto> pdto,HttpSession session) {
+	public ResponseEntity<String> add(
+			@RequestBody List<PetListRequestDto> pdto,
+			HttpSession session,
+			BindingResult bindingResult) {
 		
 		Integer memberId = (Integer) session.getAttribute("memberId");
+		
+		if(bindingResult.hasErrors()) {
+			
+			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
+		}
 	    
-		petService.add(pdto,memberId);
+		if(memberId == null) {
+			
+			return ResponseEntity.status(401).body("권한이 없습니다");
+		}
+		try {
+			
+			petService.add(pdto,memberId);
+			
+			return ResponseEntity.ok("등록되었습니다");
+								
+		}catch(Exception e){
+			
+			return ResponseEntity.status(500).body("서버오류 ");
+		}
+		
+		
 				
-		return "success";
+		
 	
 	}
 	//수정폼

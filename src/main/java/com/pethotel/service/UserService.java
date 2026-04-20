@@ -4,14 +4,14 @@ import java.util.List;
 
 
 import com.pethotel.dto.LoginDto;
-import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberRequestDto;
 import com.pethotel.dto.MemberIdCheckRequestDto;
 import com.pethotel.dto.MemberResponseDto;
 
 
 public interface UserService {
 
-	public void postMember(MemberDto memberDto);
+	public void postMember(MemberRequestDto memberDto);
 	
 	public MemberResponseDto loginUser(LoginDto ldto);
 	

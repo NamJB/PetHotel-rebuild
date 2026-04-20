@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MemberDto {
+public class MemberRequestDto {
     
 	@NotBlank
 	@Size(min = 4, max = 15, message = "아이디 4~15자 사이")

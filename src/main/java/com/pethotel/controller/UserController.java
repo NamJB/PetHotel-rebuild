@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pethotel.dto.LoginDto;
-import com.pethotel.dto.MemberDto;
+import com.pethotel.dto.MemberRequestDto;
 import com.pethotel.dto.MemberIdCheckRequestDto;
 import com.pethotel.dto.MemberResponseDto;
 import com.pethotel.service.UserService;
@@ -44,8 +44,8 @@ public class UserController {
 	//회원가입 요청
 	@PostMapping("/member")
 	public ResponseEntity<String> postMember(
-			@Valid @RequestBody MemberDto mdto,
-			BindingResult bindingResult ,Model model) {
+			@Valid @RequestBody MemberRequestDto mdto,
+			BindingResult bindingResult) {
 		
 		System.out.println(mdto);
 		

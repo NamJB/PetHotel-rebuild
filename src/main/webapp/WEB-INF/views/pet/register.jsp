@@ -59,8 +59,10 @@
     	
     	let petDataList = [];
     	
+    	isPetCheck = true;
+    	
     	//배열 세팅 여러마리 일경우
-    	$(".pet-row").each(function(){
+    	$(".pet-row").each(function(index){
     		
     		const pet = {
     				
@@ -70,18 +72,29 @@
     		   weight : $(this).find(".weight").val(),
     		   gender : $(this).find(".gender:checked").val(),
     		   note : $(this).find(".note").val()
-    		};
-    	//값이 있어야 들어가게 note제외	
-    	if(pet.name !== "" && pet.tpye !=="" && pet.age !=="" && pet.weight !==""  && pet.gender!==""){
-    		 
-    		   petDataList.push(pet);
-    		   
-    	    }
     		
+    		};
+    		
+    	//값이 있어야 들어가게 note제외	
+    	if(!pet.name || !pet.age  || !pet.weight || !pet.gender){
+    		  		
+            alert((index+1)+"번쨰 펫의 정보를 확인해주세요");
+            isPetCheck = false;
+            return false; 	      		   
+    	}
+    	
+    	petDataList.push(pet);
+    	
     	});
     	
     	//찍으니까 들어온다
     	console.table(petDataList);
+    	
+    	//트루가아니면 전송안되게 
+    	if(!isPetCheck){
+    		
+    		return;
+    	}
     	
     	//펫 0마리이면 안되니까 막아둠
     	if(petDataList.length === 0) {
@@ -95,18 +108,17 @@
     		type: "post",
     		contentType : "application/json; charset =utf-8",
     		data : JSON.stringify(petDataList),
-    		success: function(res) {
+    		success: function(result) {
     		   
-    			alert("등록되었습니다!");
+    			alert(result);
     			location.href =  "/board/mypage";
     			
     		},
-    		error : function() {
+    		error : function(xhr) {
     			
-    			alert("전송실패")
+    			alert(xhr.ResponseText);
     		}
-    		
-    		
+    				
     	});
     	
     }

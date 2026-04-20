@@ -22,7 +22,7 @@ public class PetServiceImpl implements PetService{
 	
 	
 	@Override
-	public void add(List<PetListRequestDto> pdto,int memberId) {
+	public void add(List<PetListRequestDto> pdto,int memberId) {	
 		
 		for(PetListRequestDto pet : pdto ) {
 			
