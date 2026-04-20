@@ -14,6 +14,7 @@ import lombok.ToString;
 public class MemberIdCheckRequestDto {
 
 	@NotBlank
-	@Size(min = 5)
+	@Size(min = 5, message = "5글자 이상")
 	private String userId;
+	
 }

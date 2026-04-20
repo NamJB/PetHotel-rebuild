@@ -2,6 +2,7 @@ package com.pethotel.service;
 
 import java.util.List;
 
+import org.springframework.jdbc.support.CustomSQLExceptionTranslatorRegistrar;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,23 +25,13 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional	
-	public boolean postMember(MemberDto mdto) {
-		
-		int count = userMapper.checkUserId(mdto.getUserId());
-		
-		if(count > 0) {
+	public void postMember(MemberDto mdto) {
 			
-			return false;
-		}
-		else {
-			
-			userMapper.postMember(mdto);
-			
-			return true;
+			userMapper.postMember(mdto);		
 			
 		}			
 			
-	}
+	
 
 
 	@Override
@@ -51,14 +42,17 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public int idCheck(MemberIdCheckRequestDto requestDto) {
+	public void idCheck(String userId) {
+			
+		int count= userMapper.checkUserId(userId);
+		
+		if(count > 0) {
+			
+			throw new RuntimeException("중복된 아이디입니다");
+		}
 		
 		
-		
-		return userMapper.checkUserId(requestDto);
 	}
-	
-	
 	
 	
 	

@@ -11,10 +11,10 @@ import com.pethotel.dto.MemberResponseDto;
 
 public interface UserService {
 
-	public boolean postMember(MemberDto memberDto);
+	public void postMember(MemberDto memberDto);
 	
 	public MemberResponseDto loginUser(LoginDto ldto);
 	
-	public int idCheck(MemberIdCheckRequestDto requestDto);
+	public void idCheck(String userId);
 	
 }

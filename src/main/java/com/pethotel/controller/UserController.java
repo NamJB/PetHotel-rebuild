@@ -3,11 +3,14 @@ package com.pethotel.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,33 +43,33 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/member")
-	public String postMember(@Valid MemberDto mdto,BindingResult br ,Model model) {
+	public ResponseEntity<String> postMember(
+			@Valid @RequestBody MemberDto mdto,
+			BindingResult bindingResult ,Model model) {
 		
-		if(br.hasErrors()) {
-				    
-			model.addAttribute("msg",br.getFieldError().getDefaultMessage());
-			model.addAttribute("mdto",mdto);
+		System.out.println(mdto);
+		
+		if(bindingResult.hasErrors()) {
+				    			
+			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
+		}
+							
+		try {
 			
-			return "/user/member";
+			userService.idCheck(mdto.getUserId());
+			userService.postMember(mdto);
+			
+			return ResponseEntity.ok("회원가입 완료되었습니다"); 
+			
+		}
+		catch(RuntimeException e) {
+			
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 		}
 		
-		//휴대폰 조합
-		String phone = mdto.getPhoneFirst() + "-" + mdto.getPhoneMiddle() + "-" + mdto.getPhoneLast();
-		
-		mdto.setPhone(phone);
-	    
-			
-		boolean result =userService.postMember(mdto);
-			
-		if(result) {
-				
-			return "redirect:/user/login";	
+		catch(Exception e){			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("가입중 오류 발생");
 		}
-		else{
-				
-			return "redirect:/user/member";	
-		}
-		
 	}
 	
 	//로그인페이지 뷰 반환
@@ -117,22 +120,28 @@ public class UserController {
 	//아이디중복확인
 	@GetMapping("/idCheck")
 	@ResponseBody
-	public int idCheck(@Valid MemberIdCheckRequestDto requestDto,BindingResult bindingResult) {
-		
+	public ResponseEntity<String> idCheck(
+			@Valid MemberIdCheckRequestDto requestDto,
+			BindingResult bindingResult) {	
 		
 		
 		if (bindingResult.hasErrors()) {
-	        return -1;
+	        String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
 	    }
 		
-		return userService.idCheck(requestDto);
-	
+		try {
+			userService.idCheck(requestDto.getUserId());
+			
+			return ResponseEntity.ok("사용가능한 아이디입니다");
+		}
+		catch(RuntimeException e){
+			
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+						
+		}			
 	}
-	
-	
-	
-	
-
 	
 	
 	

@@ -12,7 +12,7 @@
 
 
 <form method = "post" action = "/user/member" id = "joinForm">
-   <div>아이디<input type = "text" name = userId  maxlength="10" pattern="[a-z0-9]{5,20}" required value = "${mdto.userId }" id = "userId"></div>
+   <div>아이디<input type = "text" name = userId  maxlength="10" pattern="[a-z0-9]{5,20}" required  id = "userId"></div>
    <span id = "userId-msg"></span>
    
    <div>비밀번호<input type = "password" name = "pwd" required maxlength = "20" id = "pwd"></div>
@@ -20,19 +20,19 @@
    <div>비밀번호 체크<input type = "password" id = "pwdCheck"></div>
    <div id = "pwdCheck-msg"></div>
    
-   <div>성함<input type = "text" name = "userName"required value = "${mdto.userName }" id = "userName"></div>
+   <div>성함<input type = "text" name = "userName"required  id = "userName"></div>
    <div id = "userName-msg"></div>
    
-   <div>닉네임<input type = "text" name = "nickName" maxlength="10" required value = "${mdto.nickName}" id = "nickName"></div>
+   <div>닉네임<input type = "text" name = "nickName" maxlength="10" required  id = "nickName"></div>
    <div id = "nickName-msg"></div>
    
    <div>휴대폰
-      <select name = "phoneFirst">
+      <select name = "phoneFirst" id = "phoneFirst">
          <option value = "010">010</option>
          <option value = "011">011</option>
       </select>
-     -<input type = "text" name = "phoneMiddle" size= "4" maxlength = "4" required value = "${mdto.phoneMiddle }" id = "phoneMiddle">
-     -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required value = "${mdto.phoneLast }" id = "phoneLast">
+     -<input type = "text" name = "phoneMiddle" size= "4" maxlength = "4" required id = "phoneMiddle">
+     -<input type = "text" name = "phoneLast" size = "4" maxlength = "4" required  id = "phoneLast">
    </div>
    <div id = "phone-msg"></div>
    <div><input type = "submit" value = "회원가입" id = "join-btn"></div>
@@ -112,27 +112,26 @@
 		   data : {userId : userId},
 		   success : function(result){
 			   
-			   if (result === 0) {
-				   
-				   $userIdMsg.text("사용가능한 아이디입니다 ");
-				   isIdCheck = true;
-				   
-			   }
-			   else if(result === 1){
-				   
-				   $userIdMsg.text("이미 사용중인 아이디입니다");
-				   isIdCheck = false;
-			   }
-			   else if(result === -1) {
-				   
-				   $userIdMsg.text("아이디형식이 올바르지않습니다");
-				   isIdCheck = false;
-			   }
+			   $userIdMsg.text(result);
+			   isIdCheck = true;
+			   			   			   
 		   },
-		   error: function() {
-			   
-			   $userIdMsg.text("서버오류");
+		   error: function(xhr) {
 			   isIdCheck = false;
+			   
+			   if(xhr.status === 400|| xhr.status === 409) {
+				   
+				 $userIdMsg.text(xhr.responseText);
+			   
+			   }else if(xhr.status === 500){
+				   
+				   $userIdMsg.text("서버오류가 생겼습니다");
+			   }
+			   else {
+				   
+				   $userIdMsg.text("알수없는 오류");   
+			   }
+			   			   		   
 		   }
 		   
 	   });
@@ -296,7 +295,32 @@
 		   
 		   if(confirm("회원가입하시겠습니까?")) {
 			   
-			   $joinForm.submit();   
+			   const formElement = document.querySelector('#joinForm');
+			   
+			   const formData = new FormData(formElement);
+			   
+			   const data = Object.fromEntries(formData.entries());
+			   
+			   data.phone = $("#phoneFirst").val() + "-" + $("#phoneMiddle").val() + "-" + $("#phoneLast").val();
+			   
+			   $.ajax({
+				   url: "/user/member",
+				   type : "POST",
+				   contentType : "application/json",
+				   data : JSON.stringify(data),
+				   success(result) {
+					   
+					   alert(result);
+					   location.href = "/user/login";
+				   },
+				   
+				   error: function(xhr) {
+					   
+					   alert(xhr.responseText); 
+					   
+				   }
+			   
+			   })
 		   }
 		   
 	   }
