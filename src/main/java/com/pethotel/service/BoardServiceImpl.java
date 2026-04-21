@@ -20,6 +20,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
+	
+	@Override
+	public List<BoardResponseDto> listBoard(String boardType) {
+		
+		return boardMapper.listBoard(boardType);
+	}
+	
 	@Override
 	public void postWrite(BoardRequestDto bdto) {
 		
@@ -51,11 +58,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
-	@Override
-	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto) {
-		
-		return boardMapper.ListBoard(bdto);
-	}
+	
 	
 	
 	

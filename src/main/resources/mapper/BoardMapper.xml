@@ -2,7 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pethotel.mapper.BoardMapper">
    
+   <select id = "listBoard" resultType = "com.pethotel.dto.BoardResponseDto">
+     select  
+        board_id as boardId,
+        title,
+        writer_id as writerId,
+        view_count as viewCount,
+        secret_ys as secretYN,
+        created_at as createdAt,
+        updated_at as updatedAt
+      where board_type = #{boardType}
+      and del_yn = 'N'
+      order by board_id desc
+   </select>
    
+   
+ <!--  
    <insert id = "postWrite">
       insert into board(title,content,member_id)
       values(#{title},#{content},#{memberId})      
@@ -20,17 +35,17 @@
     from board b
     inner join member m ON b.member_id = m.member_id
     <where>
-        <!-- 삭제되지 않은 글만 조회 (공통 조건) -->
+        
         AND b.is_deleted = 0
-        <!-- 1. 상세 보기일 경우 (board_id 파라미터가 있을 때) -->
+        <
         <if test="boardId != null">
             and b.board_id = #{boardId}
         </if>
-        <!-- 2. 내 글 보기일 경우 (member_id 파라미터가 있을 때) -->
+        
         <if test="memberId != null">
             and b.member_id = #{memberId}
         </if>       
-        <!-- 3. 검색 기능 추가 시 여기에 <if> 추가 가능 (확장성 굿!) -->
+        
     </where>
    order by b.board_id DESC
 </select>
@@ -62,7 +77,9 @@
       where board_id = #{boardId}
    </delete>
     
-   
-   
+   -->
+ 
 
 </mapper>
+
+  

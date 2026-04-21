@@ -9,7 +9,7 @@ import com.pethotel.dto.ResListResponseDto;
 
 public interface BoardService {
 
-	public List<BoardResponseDto> ListBoard(BoardRequestDto bdto);
+	public List<BoardResponseDto> listBoard(String boardType);
 	
 	public void postWrite(BoardRequestDto bdto);
 	

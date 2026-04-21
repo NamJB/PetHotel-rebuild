@@ -17,4 +17,6 @@ public interface ResService {
 	public ResDetailResponseDto resDetail(int resId);
 	
 	public List<ResListResponseDto> getMyReservationList(int memberId);
+	
 }
+	

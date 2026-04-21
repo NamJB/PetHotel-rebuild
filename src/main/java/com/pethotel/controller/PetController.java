@@ -67,7 +67,7 @@ public class PetController {
 								
 		}catch(Exception e){
 			
-			return ResponseEntity.status(500).body("서버오류 ");
+			return ResponseEntity.status(500).body("서버오류 "+e.getMessage());
 		}
 		
 					

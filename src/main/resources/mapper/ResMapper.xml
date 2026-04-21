@@ -69,31 +69,5 @@
          status = "예약 취소"
          where res_id = #{resId}
    </update>
-   
-   
- <!--   
-   
-    
-   <select id = "resDelete">
-      update 
-         reservation set
-         status ="예약 취소"
-      where res_id = #{resId} 
-   </select>
-   
-   <delete id = "petDelete">
-     delete from 
-        reservation_pet 
-     where res_id = #{resId}
-   </delete>
-   
-   <update id = "postUpdate">
-      update 
-         reservation set 
-         check_in = #{checkIn},
-         check_out = #{checkOut}
-      where res_id = #{resId}      
-   </update>
-   
-    -->
+ 
 </mapper>

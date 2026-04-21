@@ -93,7 +93,7 @@ public class ResController {
 		}
 		catch(Exception e) {
 			
-			return ResponseEntity.status(500).body("예약서버오류");
+			return ResponseEntity.status(500).body("예약 요청 오류 :" +e.getMessage());
 		}	
 		
 		

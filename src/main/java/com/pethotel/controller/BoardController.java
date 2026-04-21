@@ -42,11 +42,7 @@ public class BoardController {
 	
 	//게시판 리스트 뷰 반환
 	@GetMapping("/list")
-	public String question(Model model,BoardRequestDto bdto) {
-        
-		List<BoardResponseDto> list = boardService.ListBoard(bdto);
-		
-		model.addAttribute("list",list);
+	public String list(Model model,BoardRequestDto bdto) {
 		
 		return "board/list";
 	}
@@ -81,8 +77,7 @@ public class BoardController {
 		
 		model.addAttribute("board",board);
 	   
-	    
-	    
+    
 		return "board/view";
 	}
 	

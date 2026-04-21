@@ -23,20 +23,19 @@ CREATE TABLE `member` (
 
 
 --게시판--
-
- CREATE TABLE `board` (
-  `board_id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `view_count` int(11) DEFAULT 0,
-  `is_deleted` tinyint(4) DEFAULT 0,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`board_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 |
-
-
+CREATE TABLE board (
+    board_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '게시글 고유 번호',
+    board_type VARCHAR(10) NOT NULL COMMENT 'B01: 공지사항, B02: 질문(QnA)',
+    title VARCHAR(255) NOT NULL COMMENT '게시글 제목',
+    content TEXT NOT NULL COMMENT '게시글 내용',
+    writer_id INT NOT NULL COMMENT '작성자 회원 번호 (member 테이블과 연결)',
+    view_count INT DEFAULT 0 COMMENT '조회수',
+    secret_yn CHAR(1) DEFAULT 'N' COMMENT '비밀글 여부 (Y/N - QnA용)',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '작성일시',
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시'
+);
+ALTER TABLE board 
+ADD COLUMN del_yn CHAR(1) DEFAULT 'N' NOT NULL COMMENT '삭제 여부 (Y:삭제, N:미삭제)';
 
 --예약
 

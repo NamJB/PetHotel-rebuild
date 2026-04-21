@@ -110,7 +110,7 @@ public class UserController {
 		}
 		catch(Exception e) {
 			
-			return ResponseEntity.status(500).body("서버오류");
+			return ResponseEntity.status(500).body("로그인서버오류" +e.getMessage());
 		}
 		
 		
@@ -121,8 +121,7 @@ public class UserController {
 	public String logOut(HttpSession session) {
 		
 		session.invalidate();
-		
-	
+			
 		return "redirect:/main/home";
 	
 	}
