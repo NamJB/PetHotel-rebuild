@@ -102,7 +102,7 @@ public class UserController {
 			session.setAttribute("nickName", user.getNickName());
 			session.setAttribute("memberId", user.getMemberId());
 			
-			return ResponseEntity.ok("로그인성공 ");
+			return ResponseEntity.ok("로그인성공");
 		
 		}catch(RuntimeException e){
 			

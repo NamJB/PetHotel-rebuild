@@ -10,9 +10,7 @@ import com.pethotel.dto.ResupdateDto;
 
 public interface ResService {
 
-	/*Map<String, Object> check(ResDto RDto);*/
-	/*public List<PetInfoDto> resPet(int id);*/
-	public void resSave(ResSaveRequestDto RDto);
+	public void saveReservation(ResSaveRequestDto RDto);
 	
 	public void cancelReservation(int resId);		
 	

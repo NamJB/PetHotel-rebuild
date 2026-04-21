@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,7 @@ import lombok.ToString;
 @ToString
 public class ResSaveRequestDto {
     
-	private int resId;
 	
-	@NotBlank
 	private int memberId;
 	
 	@NotBlank
@@ -27,10 +26,10 @@ public class ResSaveRequestDto {
 	@NotBlank
 	private String checkOut;
 	
-	@NotBlank
+	@NotEmpty
 	private List<Integer> petIds;
 	
-	
+	private int resId;
 	
 	
 	

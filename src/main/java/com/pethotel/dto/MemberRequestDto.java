@@ -33,9 +33,7 @@ public class MemberRequestDto {
 	@NotBlank
 	@Size(min = 1 ,max = 15 ,message = "닉네임 제대로 적어주세요")
 	String nickName;
- 
-	int member_id;
-	
+
 	@NotBlank
 	String phone;
 	

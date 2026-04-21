@@ -26,7 +26,7 @@ public interface ResMapper {
     //예약취소(staus업데이트)
     public void cancelReservation(int resId);
 	
-     //나의 예약정보
+    //나의 예약정보
   	public List<ResListResponseDto> getMyReservationList(int memberId);
 	
 	

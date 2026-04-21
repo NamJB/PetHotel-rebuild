@@ -33,7 +33,7 @@ public class PetController {
 		this.petService= petService;
 	}
 	
-	//펫등록 가치아쿠타 
+	//펫등록 
 	@GetMapping("/register")
 	public String reserve() {
 		
@@ -70,8 +70,7 @@ public class PetController {
 			return ResponseEntity.status(500).body("서버오류 ");
 		}
 		
-		
-				
+					
 		
 	
 	}
