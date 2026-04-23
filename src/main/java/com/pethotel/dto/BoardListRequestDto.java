@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter 
 @ToString
 @NoArgsConstructor
-public class BoardRequestDto {
+public class BoardListRequestDto {
 
 	
 	private Integer boardId;

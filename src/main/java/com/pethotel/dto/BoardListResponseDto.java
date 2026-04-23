@@ -6,16 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/*
- * 
- */
-
 @Getter
 @ToString
 @NoArgsConstructor
-public class BoardResponseDto {
+public class BoardListResponseDto {
 
-    private Integer boardId; //게시판 고유번호 
+	private Integer boardId; //게시판 고유번호 
 	
 	private Integer writerId; //게시판 작성자 
 	
@@ -31,4 +27,7 @@ public class BoardResponseDto {
 	
 	private LocalDate updateAt; // 게시글 수정
 	
+    
+  
+    
 }

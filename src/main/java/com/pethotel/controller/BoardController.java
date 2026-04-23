@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pethotel.dto.BoardRequestDto;
-import com.pethotel.dto.BoardResponseDto;
+import com.pethotel.dto.BoardListRequestDto;
+import com.pethotel.dto.BoardListResponseDto;
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResListResponseDto;
@@ -42,38 +42,27 @@ public class BoardController {
 	
 	//게시판 리스트 뷰 반환
 	@GetMapping("/list")
-	public String list(Model model,BoardRequestDto bdto) {
+	public String listForm(Model model,BoardListRequestDto bdto) {
 		
 		return "board/list";
 	}
 	
 	//게시판 글쓰기 뷰 반환
 	@GetMapping("/write")
-	public String write() {
+	public String writeForm() {
 		
 		return "board/write";
 	}
 	
-	//게시판 글쓰기 요청
-	@PostMapping("/write")
-	public String postWrite(@Valid BoardRequestDto bdto,HttpSession session) {
-		
-		Integer memberId = (Integer) session.getAttribute("memberId");
-		
-		bdto.setMemberId(memberId);
-		
-		boardService.postWrite(bdto);
-		
-		return "redirect:/board/list";
-	}
+	
 	
 	//게시판 글보기 뷰 반환
 	@GetMapping("/view")
-	public String getView(Model model,BoardRequestDto bdto) {
+	public String getView(Model model,BoardListRequestDto bdto) {
 		
 		/*bdto.setBoardId(bdto.getBoardId());*/
 		
-		BoardResponseDto board = boardService.detailBoard(bdto);
+		BoardListResponseDto board = boardService.detailBoard(bdto);
 		
 		model.addAttribute("board",board);
 	   
@@ -83,9 +72,9 @@ public class BoardController {
 	
 	//게시판 수정 뷰 반환
 	@GetMapping("/update")
-	public String update(Model model,BoardRequestDto bdto) {
+	public String update(Model model,BoardListRequestDto bdto) {
 		
-		BoardResponseDto board = boardService.detailBoard(bdto);
+		BoardListResponseDto board = boardService.detailBoard(bdto);
 		
 		model.addAttribute("board",board);
 		
@@ -94,7 +83,7 @@ public class BoardController {
 	
 	//게시판 수정 요청
 	@PostMapping("/update")
-	public String postUpdate(BoardRequestDto bdto) {
+	public String postUpdate(BoardListRequestDto bdto) {
 		
 		boardService.postUpdate(bdto);
 				
@@ -112,13 +101,13 @@ public class BoardController {
 	
 	//마이페이지 뷰반환
 	@GetMapping("/mypage")
-	public String mypage(HttpSession session,Model model,BoardRequestDto bdto) {
+	public String mypage(HttpSession session,Model model,BoardListRequestDto bdto) {
 			
 		Integer memberId = (Integer) session.getAttribute("memberId");
 		
 		bdto.setMemberId(memberId);
 			
-		List<BoardResponseDto> Blist =boardService.ListBoard(bdto);
+		List<BoardListResponseDto> Blist =boardService.ListBoard(bdto);
 		List<ResListResponseDto> Rlist = resService.getMyReservationList(memberId);
 		List<PetListResponseDto> plist = petService.petList(memberId);
 			

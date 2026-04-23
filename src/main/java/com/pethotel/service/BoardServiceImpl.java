@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.pethotel.dto.BoardRequestDto;
-import com.pethotel.dto.BoardResponseDto;
+import com.pethotel.dto.BoardListRequestDto;
+import com.pethotel.dto.BoardListResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.mapper.BoardMapper;
 
@@ -22,20 +22,20 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
-	public List<BoardResponseDto> listBoard(String boardType) {
+	public List<BoardListResponseDto> getBoardList (String boardType) {
 		
-		return boardMapper.listBoard(boardType);
+		return boardMapper.getBoardList(boardType);
 	}
 	
 	@Override
-	public void postWrite(BoardRequestDto bdto) {
+	public void postWrite(BoardListRequestDto bdto) {
 		
 		boardMapper.postWrite(bdto);
 	}
 	
 	
 	@Override
-	public BoardResponseDto detailBoard(BoardRequestDto bdto) {
+	public BoardListResponseDto detailBoard(BoardListRequestDto bdto) {
 		
 		 return  boardMapper.detailBoard(bdto);
 		
@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void postUpdate(BoardRequestDto bDto) {
+	public void postUpdate(BoardListRequestDto bDto) {
 		
 		boardMapper.postUpdate(bDto);
 	}

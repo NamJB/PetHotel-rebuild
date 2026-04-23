@@ -33,6 +33,12 @@
  <a href = "/board/write">글쓰기</a>
 -->
 
+   <div>
+      <button onclick ="loadBoardData('ALL')">전체보기</button>
+      <button onclick ="loadBoardData('B01')">공지사항</button>
+      <button onclick ="loadBoardData('B02')">질문게시판</button>
+      <button onclick ="loadBoardData('B03')">자유게시판</button>      
+   </div>
    <table>
       <thead>
          <tr>
@@ -44,15 +50,19 @@
          </tr>
       </thead>
       
-      <tbody id = "list"></tbody>
+      <tbody id = "list">
+      
+      </tbody>
    </table>
+   
+   <a href = "/board/write">글쓰기 </a>
 <script>
    $(document).ready(function(){
 	 // 리스트들어오자마자 값보내줘서 아작스로 불러오기 
-	   
+	   loadBoardData('ALL');
    });
    
-   function loadBoardData(boardType,targetId) {
+   function loadBoardData(boardType) {
 	   
 	   $.ajax({
 		   url : "/api/board/list",
@@ -61,16 +71,31 @@
 		   success : function(data) {
 			   
 			   let html = "";
-			   
+			   //html반복문 돌리기 
 			   if(data && data.length > 0 ) {
 				   
-				   //html반복문 돌리기 
+				   $(data).each(function(i,list){
+					  console.log(list);
+					    html += ` 
+					 <tr>
+	                    <td>\${list.boardId}</td>
+	                    <td><a href="/detail/\${list.boardId}">\${list.title}</a></td>
+	                    <td>\${list.writerId}</td>
+	                    <td>\${list.viewCount}</td>
+	                    <td>\${list.createdAt}</td>
+	                </tr>
+	            `;
+					   
+				   });
+				  
 			   }
 			   else{
 				   
+				   html = "<tr><td>게시글이 없습니다 </td></tr>";
 				   //게시글 없으면 없다는거 html
 			   }
-			   //타켓아이디로 리스트 html지정하기 
+			   $('#list').html(html);
+			  //html지정 
 		   },
 		   error : function(xhr) {
 			   

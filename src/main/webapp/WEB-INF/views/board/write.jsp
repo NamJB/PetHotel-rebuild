@@ -13,6 +13,7 @@
    <input type = "hidden" value = "${memberId}" name = "memberId">
    <div>제목<input type = "text" name = "title"></div>
    <div>내용<textarea name = "content"></textarea></div>
+   <div></div>
    <div><input type = "submit" value = "글쓰기"></div>
 </form>
 </body>
