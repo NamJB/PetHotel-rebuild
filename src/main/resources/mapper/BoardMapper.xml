@@ -29,6 +29,12 @@
     ORDER BY (CASE WHEN board_type = 'B01' THEN 0 ELSE 1 END), board_id DESC
    </select>
    
+   <insert id = "postWrite" parameterType = "com.pethotel.dto.BoardFormRequestDto">
+      insert into 
+      board(title,content,writer_id,board_type,secret_yn)
+      values(#{title},#{content},#{writerId},#{boardType},#{secretYN})    
+   </insert>
+   
    
  <!--  
    <insert id = "postWrite">

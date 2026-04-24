@@ -25,7 +25,7 @@ CREATE TABLE `member` (
 --게시판--
 CREATE TABLE board (
     board_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '게시글 고유 번호',
-    board_type VARCHAR(10) NOT NULL COMMENT 'B01: 공지사항, B02: 질문(QnA)',
+    board_type VARCHAR(10) NOT NULL COMMENT 'B01: 공지사항, B02: 질문(QnA)','B03: 자유게시판'
     title VARCHAR(255) NOT NULL COMMENT '게시글 제목',
     content TEXT NOT NULL COMMENT '게시글 내용',
     writer_id INT NOT NULL COMMENT '작성자 회원 번호 (member 테이블과 연결)',

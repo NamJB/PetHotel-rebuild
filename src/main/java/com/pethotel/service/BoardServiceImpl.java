@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.pethotel.dto.BoardListRequestDto;
+import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.mapper.BoardMapper;
@@ -28,14 +28,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void postWrite(BoardListRequestDto bdto) {
+	public void postWrite(BoardFormRequestDto bdto) {
+		
+		//권한 검증,도배방지,첨부파일(트랜잭션),
 		
 		boardMapper.postWrite(bdto);
 	}
 	
 	
 	@Override
-	public BoardListResponseDto detailBoard(BoardListRequestDto bdto) {
+	public BoardListResponseDto detailBoard(BoardFormRequestDto bdto) {
 		
 		 return  boardMapper.detailBoard(bdto);
 		
@@ -43,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void postUpdate(BoardListRequestDto bDto) {
+	public void postUpdate(BoardFormRequestDto bDto) {
 		
 		boardMapper.postUpdate(bDto);
 	}

@@ -3,13 +3,15 @@ package com.pethotel.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pethotel.dto.BoardListRequestDto;
+import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
 import com.pethotel.service.BoardService;
 
@@ -52,15 +54,40 @@ public class BoardApiController {
 	
 	//게시판 글쓰기 요청
 	@PostMapping("/write")
-	public String postWrite(@Valid BoardListRequestDto bdto,HttpSession session) {
+	public ResponseEntity<?> postWrite(
+			@Valid @RequestBody BoardFormRequestDto bdto,
+			HttpSession session,
+			BindingResult bindingResult) {
 			
+		System.out.println(bdto);
+	    
+		
+		
+		if(bindingResult.hasErrors()) {
+			
+			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
+		}
+		
 		Integer memberId = (Integer) session.getAttribute("memberId");
+		bdto.setWriterId(memberId);
+		
+	    try {
+	    	
+	    	boardService.postWrite(bdto);
+	    	
+	    	return ResponseEntity.ok("");
+	    }
+	    catch(Exception e){
+	    	
+	    	
+	    	return ResponseEntity.status(500).body("글쓰기 서버 오류" + e.getMessage()); 
+	    }
+		
+		
 			
-		bdto.setMemberId(memberId);
+		
 			
-		boardService.postWrite(bdto);
-			
-		return "redirect:/board/list";
+		
 		
 	
 	}

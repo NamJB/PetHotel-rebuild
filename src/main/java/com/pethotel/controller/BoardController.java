@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pethotel.dto.BoardListRequestDto;
+import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
@@ -42,7 +42,7 @@ public class BoardController {
 	
 	//게시판 리스트 뷰 반환
 	@GetMapping("/list")
-	public String listForm(Model model,BoardListRequestDto bdto) {
+	public String listForm(Model model,BoardFormRequestDto bdto) {
 		
 		return "board/list";
 	}
@@ -58,7 +58,7 @@ public class BoardController {
 	
 	//게시판 글보기 뷰 반환
 	@GetMapping("/view")
-	public String getView(Model model,BoardListRequestDto bdto) {
+	public String getView(Model model,BoardFormRequestDto bdto) {
 		
 		/*bdto.setBoardId(bdto.getBoardId());*/
 		
@@ -72,7 +72,7 @@ public class BoardController {
 	
 	//게시판 수정 뷰 반환
 	@GetMapping("/update")
-	public String update(Model model,BoardListRequestDto bdto) {
+	public String update(Model model,BoardFormRequestDto bdto) {
 		
 		BoardListResponseDto board = boardService.detailBoard(bdto);
 		
@@ -83,7 +83,7 @@ public class BoardController {
 	
 	//게시판 수정 요청
 	@PostMapping("/update")
-	public String postUpdate(BoardListRequestDto bdto) {
+	public String postUpdate(BoardFormRequestDto bdto) {
 		
 		boardService.postUpdate(bdto);
 				
@@ -101,7 +101,7 @@ public class BoardController {
 	
 	//마이페이지 뷰반환
 	@GetMapping("/mypage")
-	public String mypage(HttpSession session,Model model,BoardListRequestDto bdto) {
+	public String mypage(HttpSession session,Model model,BoardFormRequestDto bdto) {
 			
 		Integer memberId = (Integer) session.getAttribute("memberId");
 		
