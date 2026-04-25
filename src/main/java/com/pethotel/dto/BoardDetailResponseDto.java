@@ -13,11 +13,11 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class BoardResponseDto {
+public class BoardDetailResponseDto {
 
     private Integer boardId; //게시판 고유번호 
 	
-	private Integer writerId; //게시판 작성자 
+	private String nickName ; //게시판 작성자 // 
 	
 	private Integer viewCount; // 조회수
 	
@@ -30,5 +30,7 @@ public class BoardResponseDto {
 	private LocalDate createdAt; // 게시글 작성일 
 	
 	private LocalDate updateAt; // 게시글 수정
+	
+	private String content; //게시글 내용 
 	
 }

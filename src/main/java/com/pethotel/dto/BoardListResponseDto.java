@@ -13,7 +13,7 @@ public class BoardListResponseDto {
 
 	private Integer boardId; //게시판 고유번호 
 	
-	private Integer writerId; //게시판 작성자 
+	private String nickName; //게시판 작성자 
 	
 	private Integer viewCount; // 조회수
 	

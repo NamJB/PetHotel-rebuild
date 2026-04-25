@@ -79,8 +79,8 @@
 					    html += ` 
 					 <tr>
 	                    <td>\${list.boardId}</td>
-	                    <td><a href="/detail/\${list.boardId}">\${list.title}</a></td>
-	                    <td>\${list.writerId}</td>
+	                    <td><a href="/board/\${list.boardId}">\${list.title}</a></td>
+	                    <td>\${list.nickName || '(탈퇴한 사용자)'}</td>
 	                    <td>\${list.viewCount}</td>
 	                    <td>\${list.createdAt}</td>
 	                </tr>

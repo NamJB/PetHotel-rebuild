@@ -9,11 +9,11 @@
 <body>
 글쓴 화면
 
-<div>${board.boardId} 제목:  ${board.title}    작성자:${board.nickName}</div>
+<div>${board.boardId} 제목:  ${board.title}    작성자:${empty board.nickName ? '(탈퇴한 사용자)' : board.nickName}</div>
 <div>내용:  ${board.content}</div>
 
 
-<div><a href = "/board/update?boardId=${board.boardId}">글수정</a></div>
+<div><a href = "/board/${board.boardId}/update">글수정</a></div>
 <div>
    <form method = "post" action = "/board/delete">
      <input type = "hidden" value = "${board.boardId}" name = "boardId">

@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
+import com.pethotel.dto.BoardDetailResponseDto;
 import com.pethotel.dto.PetListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResListResponseDto;
@@ -57,38 +59,33 @@ public class BoardController {
 	
 	
 	//게시판 글보기 뷰 반환
-	@GetMapping("/view")
-	public String getView(Model model,BoardFormRequestDto bdto) {
+	@GetMapping("/{boardId}")
+	public String getView(
+			@PathVariable("boardId") Integer boardId,
+			Model model){
 		
-		/*bdto.setBoardId(bdto.getBoardId());*/
-		
-		BoardListResponseDto board = boardService.detailBoard(bdto);
-		
+		BoardDetailResponseDto board = boardService.detailBoard(boardId);
+				
 		model.addAttribute("board",board);
-	   
-    
-		return "board/view";
+	    
+		return "board/detail";
 	}
 	
 	//게시판 수정 뷰 반환
-	@GetMapping("/update")
-	public String update(Model model,BoardFormRequestDto bdto) {
+	@GetMapping("/{boardId}/update")
+	public String update(
+			@PathVariable("boardId") Integer boardId,
+			Model model) {
 		
-		BoardListResponseDto board = boardService.detailBoard(bdto);
+		BoardDetailResponseDto board = boardService.detailBoard(boardId);
 		
 		model.addAttribute("board",board);
 		
-		return "board/update";
+		return "board/write";
 	}
 	
-	//게시판 수정 요청
-	@PostMapping("/update")
-	public String postUpdate(BoardFormRequestDto bdto) {
-		
-		boardService.postUpdate(bdto);
-				
-		return "redirect:/board/view?board_id="+bdto.getBoardId();
-	}
+	
+	
 	//게시판 삭제 요청
 	@PostMapping("/delete")
 	public String postDelete(@RequestParam int  boardId) {

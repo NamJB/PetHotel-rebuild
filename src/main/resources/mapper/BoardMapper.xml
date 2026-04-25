@@ -4,13 +4,15 @@
    
    <select id="getBoardList" resultType="com.pethotel.dto.BoardListResponseDto">
     select  
-    board_id as boardId,
-    writer_id as writerId,
-    view_count as viewCount,
-    title,
-    board_type as boardType,
-    created_at as createdAt
-    from board
+       b.board_id as boardId,
+       b.writer_id as writerId,
+       b.view_count as viewCount,
+       b.title,
+       b.board_type as boardType,
+       b.created_at as createdAt,
+       m.nickname as nickName
+    from board b
+    left join member m on m.member_id = writer_id
     WHERE del_yn = 'N'
     <choose>
         <when test="boardType == 'ALL'">
@@ -35,6 +37,36 @@
       values(#{title},#{content},#{writerId},#{boardType},#{secretYN})    
    </insert>
    
+   <select id = "detailBoard" resultType = "com.pethotel.dto.BoardDetailResponseDto">
+      select
+         b.board_id as boardId,
+         b.title,
+         b.content,
+         b.board_type as boardType,
+         b.secret_yn  as secretYN ,
+         b.created_at as createdAt,
+         b.view_count as viewCount,
+         m.nickname as nickName
+      from board b 
+      left join member m on m.member_id = b.writer_id
+      where b.board_id = #{boardId}         
+   </select>
+   
+   <update id = "postUpdate">
+      update board set
+         title = #{title},
+         content = #{content},
+         board_type = #{boardType},
+         secret_yn = #{secretYN}
+      where board_id = #{boardId}
+   </update>
+   
+   <select id = "getWriterId" resultType = "Integer">
+      select 
+         writer_id
+      from board 
+      where board_id = #{boardId} 
+   </select>
    
  <!--  
    <insert id = "postWrite">

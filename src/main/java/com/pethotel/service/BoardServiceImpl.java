@@ -3,9 +3,12 @@ package com.pethotel.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
+import com.pethotel.dto.BoardUpdateRequestDto;
+import com.pethotel.dto.BoardDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.mapper.BoardMapper;
 
@@ -37,17 +40,24 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
-	public BoardListResponseDto detailBoard(BoardFormRequestDto bdto) {
+	public BoardDetailResponseDto detailBoard(Integer boardId) {
 		
-		 return  boardMapper.detailBoard(bdto);
+		 return  boardMapper.detailBoard(boardId);
 		
 		
 	}
 	
+	
 	@Override
-	public void postUpdate(BoardFormRequestDto bDto) {
+	@Transactional
+	public void postUpdate(BoardUpdateRequestDto bdto) {
 		
-		boardMapper.postUpdate(bDto);
+		if(!bdto.getMemberId().equals(boardMapper.getWriterId(bdto.getBoardId()))) {
+			
+			throw new RuntimeException("");
+		}
+			
+	    boardMapper.postUpdate(bdto);
 	}
 	
 	@Override

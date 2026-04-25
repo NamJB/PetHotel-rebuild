@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.pethotel.dto.BoardFormRequestDto;
 import com.pethotel.dto.BoardListResponseDto;
+import com.pethotel.dto.BoardUpdateRequestDto;
+import com.pethotel.dto.BoardDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 
 public interface BoardService {
@@ -13,9 +15,9 @@ public interface BoardService {
 	
 	public void postWrite(BoardFormRequestDto bdto);
 	
-	public void postUpdate(BoardFormRequestDto bdto);
+	public void postUpdate(BoardUpdateRequestDto bdto);
 
-	public BoardListResponseDto detailBoard(BoardFormRequestDto bdto);
+	public BoardDetailResponseDto detailBoard(Integer boardId);
 
 	public void postDelete(int boardId);
 
