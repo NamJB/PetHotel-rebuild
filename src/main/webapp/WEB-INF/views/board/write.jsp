@@ -56,7 +56,7 @@
 	   // true면 수정  false면 글 작성 
 	   const isCheck = data.boardId ? true : false;
 	   
-	   const apiUrl = isCheck ? "/api/board/update" : "/api/board/write";
+	   const apiUrl = isCheck ? "/api/board/" + data.boardId : "/api/board/";
 	   const httpMethod = isCheck ? "PUT" : "POST";
 	   const successMsg = isCheck ? "게시글이 수정되었습니다" : "게시글이 등록되었습니다";
 	   const redirectURL = isCheck ? "/board/" + data.boardId : "/board/list";

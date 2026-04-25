@@ -19,7 +19,7 @@ public interface BoardService {
 
 	public BoardDetailResponseDto detailBoard(Integer boardId);
 
-	public void postDelete(int boardId);
+	public void boardDelete(Integer boardId,Integer memberId);
 
 	
 	

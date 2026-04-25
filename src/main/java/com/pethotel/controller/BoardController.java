@@ -86,15 +86,7 @@ public class BoardController {
 	
 	
 	
-	//게시판 삭제 요청
-	@PostMapping("/delete")
-	public String postDelete(@RequestParam int  boardId) {
-		
-		boardService.postDelete(boardId);
-		
-		return "redirect:/board/list";
-			
-	}
+	
 	
 	//마이페이지 뷰반환
 	@GetMapping("/mypage")

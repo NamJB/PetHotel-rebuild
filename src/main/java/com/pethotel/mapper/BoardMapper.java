@@ -31,10 +31,8 @@ public interface BoardMapper {
     //게시판 글쓴이 가져오기 
     public Integer getWriterId(Integer boardId);
 	
-	
-	
-	//게시글 삭제(is_deleted 1로 업데이트)
-	public void postDelete(Integer boardId);
+	//게시글 삭제(del_yn Y로 업데이트)
+	public void boardDelete(Integer boardId);
 	
 	
 	

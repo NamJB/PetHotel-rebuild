@@ -61,9 +61,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void postDelete(int board_id) {
+	public void boardDelete(Integer boardId, Integer memberId) {
 		
-		boardMapper.postDelete(board_id);
+        if(!memberId.equals(boardMapper.getWriterId(boardId))){
+			
+			throw new RuntimeException("권한없음");
+		}
+		
+		boardMapper.boardDelete(boardId);
 	}
 	
 	

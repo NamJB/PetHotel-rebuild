@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +35,7 @@ public class BoardApiController {
 		this.boardService = boardService;
 	}
 	
-	@GetMapping("/list")
+	@GetMapping
 	public ResponseEntity<?> getList(
 			@RequestParam(value = "boardType", defaultValue = "ALL") String boardType){
 		
@@ -55,7 +57,7 @@ public class BoardApiController {
 	}
 	
 	//게시판 글쓰기 요청
-	@PostMapping("/write")
+	@PostMapping
 	public ResponseEntity<?> postWrite(
 			@Valid @RequestBody BoardFormRequestDto bdto,
 			HttpSession session,
@@ -89,12 +91,13 @@ public class BoardApiController {
 	
 	//게시판 수정 요청
     @PutMapping("/{boardId}")
-	public ResponseEntity<?> postUpdate(
+    public ResponseEntity<?> postUpdate(
+    		@PathVariable ("boardId") Integer boardId,
 			@Valid @RequestBody BoardUpdateRequestDto bdto,
 			BindingResult bindingResult,
 			HttpSession session) {
 		
-        
+        bdto.setBoardId(boardId);
     	
     	Integer memberId = (Integer) session.getAttribute("memberId");
     	
@@ -121,5 +124,19 @@ public class BoardApiController {
         
 		
 	}
+    
+    //게시판 삭제 요청
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<?> postDelete(
+    		@PathVariable("boardId") Integer boardId,
+    		HttpSession session) {
+  	    
+        Integer memberId = (Integer) session.getAttribute("memberId");
+    	
+  		boardService.boardDelete(boardId,memberId);
+  		
+  		return ResponseEntity.ok("");
+  			
+  	}
 	
 }

@@ -68,6 +68,12 @@
       where board_id = #{boardId} 
    </select>
    
+   <update id = "boardDelete">
+      update board set
+         del_yn = "Y"
+      where board_id = #{boardId}
+   </update>
+   
  <!--  
    <insert id = "postWrite">
       insert into board(title,content,member_id)
