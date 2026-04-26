@@ -31,12 +31,12 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/reservation")
-public class ResController {
+public class ReservationController {
 
 	private final ResService resService;
 	private final PetService petService;
 	
-	public ResController(ResService resService,PetService petService) {
+	public ReservationController(ResService resService,PetService petService) {
 		
 		this.resService = resService;
 		

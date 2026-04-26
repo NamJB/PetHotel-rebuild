@@ -157,6 +157,64 @@
 	  
   });
   
+  function listReservation(data){
+	  
+	  let html = `
+	     <table>
+	        <tr>
+	           <td>체크인</td>
+	           <td>체크아웃</td>
+	           <td>예약자명</td>
+	           <td>상태</td>
+	           <td>예약한날</td>
+	        </tr>`;
+	   if(data.length === 0) {
+		   
+		   html += `
+		   <td>
+		      <tr>예약이 없습니다</tr>
+		   </td>`;
+	   }
+	   else{
+		   
+		   $.each(data,function(index,list){
+			   
+			   html += `
+			      <tr>
+			         <td>\${list.checkIn}</td>
+			         <td>\${list.checkOut}</td>
+			         <td>\${list.nickName}</td>
+			         <td>\${list.status}</td>
+			         <td>\${list.createdAt}</td>
+			         <td><button>예약 취소</button></td>
+			      </tr>`;			   
+		   });
+	   }
+	   html += `
+	      </table>`;
+	   
+	   return html;
+	      
+  }
+   $("#reservation-btn").on('click',function(){
+
+	   $.ajax({
+				  
+	      url : "/api/reservation/my",
+		  type : "GET",
+		  success : function(data){
+		  $("#my-area").html(listReservation(data));
+					  
+		  },
+		  error : function(xhr) {
+					  
+				alert(xhr.responseText);
+		  }
+				  
+	  });
+			  
+	});
+  
   
   
 

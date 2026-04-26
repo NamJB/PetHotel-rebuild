@@ -66,7 +66,7 @@ public class ResServiceImpl implements ResService {
 	}
     
     @Override
-	public List<ResListResponseDto> getMyReservationList(int memberId) {
+	public List<ResListResponseDto> getMyReservationList(Integer memberId) {
 		
 		return resMapper.getMyReservationList(memberId);
 	}

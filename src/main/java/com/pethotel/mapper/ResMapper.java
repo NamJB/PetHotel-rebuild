@@ -27,7 +27,7 @@ public interface ResMapper {
     public void cancelReservation(int resId);
 	
     //나의 예약정보
-  	public List<ResListResponseDto> getMyReservationList(int memberId);
+  	public List<ResListResponseDto> getMyReservationList(Integer memberId);
 	
 	
 	
