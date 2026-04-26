@@ -40,40 +40,7 @@ public class PetController {
 		return "pet/register";
 	}
 	
-	//펫등록 요청
-	@PostMapping("/add")
-	@ResponseBody
-	public ResponseEntity<String> add(
-			@RequestBody List<PetListRequestDto> pdto,
-			HttpSession session,
-			BindingResult bindingResult) {
-		
-		Integer memberId = (Integer) session.getAttribute("memberId");
-		
-		if(bindingResult.hasErrors()) {
-			
-			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
-		}
-	    
-		if(memberId == null) {
-			
-			return ResponseEntity.status(401).body("권한이 없습니다");
-		}
-		try {
-			
-			petService.add(pdto,memberId);
-			
-			return ResponseEntity.ok("등록되었습니다");
-								
-		}catch(Exception e){
-			
-			return ResponseEntity.status(500).body("서버오류 "+e.getMessage());
-		}
-		
-					
-		
 	
-	}
 	//수정폼
 	@GetMapping("/{petId}/update")
 	public String updateForm(@PathVariable("petId")int petId,Model model){

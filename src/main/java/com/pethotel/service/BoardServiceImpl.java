@@ -71,6 +71,13 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.boardDelete(boardId);
 	}
 	
+	@Override
+	public List<BoardListResponseDto> getMyBoard(Integer memberId) {
+		
+		
+		return boardMapper.getMyBoard(memberId);
+	}
+	
 	
 	
 	

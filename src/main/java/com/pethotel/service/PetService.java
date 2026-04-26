@@ -12,7 +12,7 @@ public interface PetService {
 	
 	public void add(List<PetListRequestDto> pdto,int memberId);
 	
-    public List<PetListResponseDto> petList(int memberId);
+    public List<PetListResponseDto> petList(Integer memberId);
     
     public PetUpdateResponseDto petDetail(int petId);
     

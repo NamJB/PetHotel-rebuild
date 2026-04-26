@@ -63,7 +63,7 @@ public class BoardController {
 	public String getView(
 			@PathVariable("boardId") Integer boardId,
 			Model model){
-		
+		//뷰카운트 늘리기 
 		BoardDetailResponseDto board = boardService.detailBoard(boardId);
 				
 		model.addAttribute("board",board);
@@ -94,6 +94,11 @@ public class BoardController {
 			
 		Integer memberId = (Integer) session.getAttribute("memberId");
 		
+		if(memberId == null) {
+			
+			return "user/login";
+		}
+		/*
 		bdto.setMemberId(memberId);
 			
 		List<BoardListResponseDto> Blist =boardService.ListBoard(bdto);
@@ -103,7 +108,7 @@ public class BoardController {
 		model.addAttribute("boardlist",Blist);
 		model.addAttribute("reslist",Rlist);
 		model.addAttribute("petList",plist);
-			
+		*/	
 		return "board/mypage";
 	
 		

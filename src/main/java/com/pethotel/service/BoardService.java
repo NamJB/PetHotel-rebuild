@@ -20,6 +20,8 @@ public interface BoardService {
 	public BoardDetailResponseDto detailBoard(Integer boardId);
 
 	public void boardDelete(Integer boardId,Integer memberId);
+	
+	public List<BoardListResponseDto> getMyBoard(Integer memberId);
 
 	
 	

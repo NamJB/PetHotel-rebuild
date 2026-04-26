@@ -74,6 +74,22 @@
       where board_id = #{boardId}
    </update>
    
+   <select id = "getMyBoard" resultType  = "com.pethotel.dto.BoardListResponseDto">
+      select
+         b.board_id as boardId,
+         b.view_count as viewCount,
+         b.title,
+         b.board_type as boardType,
+         b.created_at as createdAt,
+         m.nickname as nickName
+      from board b
+      inner join  member m on m.member_id = b.writer_id
+      where m.member_id = #{memberId}
+         
+   </select>
+   
+   
+   
  <!--  
    <insert id = "postWrite">
       insert into board(title,content,member_id)

@@ -34,7 +34,7 @@ public class PetServiceImpl implements PetService{
 	}
 	
 	@Override
-	public List<PetListResponseDto> petList(int memberId) {
+	public List<PetListResponseDto> petList(Integer memberId) {
 		
 		
 		return petMapper.petList(memberId);

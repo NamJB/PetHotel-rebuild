@@ -138,5 +138,18 @@ public class BoardApiController {
   		return ResponseEntity.ok("");
   			
   	}
+    
+    //나의 글 가져오기 
+    @GetMapping("/my")
+    public ResponseEntity<?> getMyBoard(HttpSession session){
+    	
+    	Integer memberId = (Integer) session.getAttribute("memberId");
+    	
+    	List<BoardListResponseDto> board = boardService.getMyBoard(memberId);
+    	
+    	
+    	return ResponseEntity.ok(board);
+    	
+    }
 	
 }

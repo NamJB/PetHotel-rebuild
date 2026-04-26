@@ -16,7 +16,7 @@ public interface PetMapper {
 	public void add (List<PetListRequestDto> pdto);
 	
 	//펫정보 리스트 불러오기
-	public List<PetListResponseDto> petList(int memberId);
+	public List<PetListResponseDto> petList(Integer memberId);
 	
 	//펫한마리 정보 보기
 	public PetUpdateResponseDto petDetail(int petId);

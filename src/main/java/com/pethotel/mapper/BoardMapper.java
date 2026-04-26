@@ -34,6 +34,9 @@ public interface BoardMapper {
 	//게시글 삭제(del_yn Y로 업데이트)
 	public void boardDelete(Integer boardId);
 	
+	//나의 게시판 가져오기
+	public List<BoardListResponseDto> getMyBoard(Integer boardId);
+	
 	
 	
 	
