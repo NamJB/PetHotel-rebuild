@@ -12,20 +12,18 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PetListRequestDto {
 
-	@NotBlank
-	private int memberId; //멤버아이디
 	
-	@NotBlank
+	private Integer memberId; //멤버아이디
+	
+	
 	private String name; // 이름
 	
 	private String type; //견종
 	
 	private int age; //나이
 	
-	@NotBlank
 	private double weight; //무게
 	
-	@NotBlank
 	private String gender; //성별
 	
 	private String note; //메모,주의사항?

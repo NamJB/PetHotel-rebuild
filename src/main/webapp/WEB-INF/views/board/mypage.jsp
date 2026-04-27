@@ -23,14 +23,33 @@
 
 </div>
 
+<div id = "petForm-area" style = "display:none;">
+   <div>새로운 펫 등록</div>
+   <form id = "petForm">
+      이름 : <input type = "text" name = "name"> <br>
+      견종 : <input type = "text" name = "type"> <br>
+      나이 : <input type = "number" name = "age"> <br>
+      성별 : 
+      <select name = "gender">
+         <option value = "M">남</option>
+         <option value = "F">여</option>
+      </select><br>
+      무게 : <input type = "number" name = "weight"> <br>
+      메모 : <textarea name = "note"></textarea> <br>
+      
+      <button type = "button" id = "pet-submit-btn">등록하기</button>
+      <button type = "button" id = "pet-cancel-btn">취소하기</button>
+   </form>
+</div>
+
 <script>
 
   $(document).ready(function(){
 	//페이지 열면 디폴트로 나의 게시판 보여줌
 	$("#board-btn").trigger("click");
 	  
-  });
-  
+  })
+
   
  function listBoard(data){
 	 let html =`
@@ -131,7 +150,7 @@
 	        html += `
 	          <tr>
 	             <td>
-	             <button>펫등록</button>
+	             <button id = "petForm-btn">펫추가</button>
 	             </td>
 	          </table>`;
 	     
@@ -156,6 +175,51 @@
 	  });
 	  
   });
+  //펫추가 클릭시 등록할수있는 펫폼이 뜸
+  $(document).on("click", "#petForm-btn", function() {
+	    $("#petForm-area").slideDown();
+	    $("#petForm-btn").hide(); 
+	});
+  
+  $("#pet-cancel-btn").on('click',function(){
+	  $("#petForm-area").slideUp();
+	  $("#petForm-btn").show();
+  });
+  
+  $("#pet-submit-btn").on('click',function(e){
+	  
+	  e.preventDefault();
+	  
+	  let data = $("#petForm").serialize();
+	  console.log(data);
+	 
+	  $.ajax({
+		  
+		  url : "/api/pet/add",
+		  type : "POST",
+		  data : data,
+		  success : function(result) {
+			  
+			  alert("펫등록완료");
+			  
+			  $("#petForm-area").slideUp();
+			  
+			  $("#petForm")[0].reset();
+			  
+			  $("#my-area").html(listPets(result));
+			  
+		  },
+		  error: function(xhr) {
+			  
+			  alert(xhr.responseText);
+		  }		 		  
+	  });
+	  
+  });
+  
+  
+  
+  
   
   function listReservation(data){
 	  

@@ -22,14 +22,13 @@ public class PetServiceImpl implements PetService{
 	
 	
 	@Override
-	public void add(List<PetListRequestDto> pdto,int memberId) {	
+	public List<PetListResponseDto> add(PetListRequestDto pdto) {	
 		
-		for(PetListRequestDto pet : pdto ) {
-			
-			pet.setMemberId(memberId);
-		}
 	    System.out.println(pdto + "db들어가기전");
-		petMapper.add(pdto);
+		
+	    petMapper.add(pdto);
+	    
+	    return  this.petList(pdto.getMemberId()); 
 		
 	}
 	

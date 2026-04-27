@@ -13,7 +13,7 @@ import com.pethotel.dto.PetUpdateResponseDto;
 @Mapper
 public interface PetMapper {
     //회원의 펫 정보들 저장
-	public void add (List<PetListRequestDto> pdto);
+	public void add (PetListRequestDto pdto);
 	
 	//펫정보 리스트 불러오기
 	public List<PetListResponseDto> petList(Integer memberId);

@@ -10,7 +10,7 @@ import com.pethotel.dto.PetUpdateResponseDto;
 public interface PetService {
 
 	
-	public void add(List<PetListRequestDto> pdto,int memberId);
+	public List<PetListResponseDto> add(PetListRequestDto pdto);
 	
     public List<PetListResponseDto> petList(Integer memberId);
     

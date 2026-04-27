@@ -5,15 +5,13 @@
       insert into 
       pet(member_id,name,type,age,weight,gender,note)
       values
-      <foreach collection = "list" item = "pet" separator = ",">
-         (#{pet.memberId},
-         #{pet.name},
-         #{pet.type},
-         #{pet.age},
-         #{pet.weight},
-         #{pet.gender},
-         #{pet.note})
-      </foreach>
+         (#{memberId},
+         #{name},
+         #{type},
+         #{age},
+         #{weight},
+         #{gender},
+         #{note})    
    </insert>
    
    <select id = "petList" resultType = "com.pethotel.dto.PetListResponseDto">

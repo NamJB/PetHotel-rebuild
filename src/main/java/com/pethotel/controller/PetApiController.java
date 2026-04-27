@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class PetApiController {
 		this.petService = petService;
 	}
 	
+	//마이페이지 펫리스트
 	@GetMapping("/my")
 	public ResponseEntity<?> getMyPet(
 			HttpSession session){
@@ -42,11 +44,13 @@ public class PetApiController {
 	
 	//펫등록 요청
 	@PostMapping("/add")	
-	public ResponseEntity<String> add(
-			@RequestBody List<PetListRequestDto> pdto,
+	public ResponseEntity<?> add(
+			@ModelAttribute PetListRequestDto pdto,
 			HttpSession session,
 			BindingResult bindingResult) {
 			
+		System.out.println(pdto);
+		
 		Integer memberId = (Integer) session.getAttribute("memberId");
 			
 		if(bindingResult.hasErrors()) {
@@ -59,10 +63,12 @@ public class PetApiController {
 			return ResponseEntity.status(401).body("권한이 없습니다");
 		}
 		try {
+			
+			pdto.setMemberId(memberId);	
+			
+			List<PetListResponseDto> pList = petService.add(pdto);
 				
-			petService.add(pdto,memberId);
-				
-			return ResponseEntity.ok("등록되었습니다");
+			return ResponseEntity.ok(pList);
 									
 		}catch(Exception e){
 				
