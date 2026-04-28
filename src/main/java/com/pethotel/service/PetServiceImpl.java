@@ -3,6 +3,7 @@ package com.pethotel.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.PetListRequestDto;
 import com.pethotel.dto.PetUpdateRequestDto;
@@ -22,10 +23,9 @@ public class PetServiceImpl implements PetService{
 	
 	
 	@Override
+	@Transactional
 	public List<PetListResponseDto> add(PetListRequestDto pdto) {	
-		
-	    System.out.println(pdto + "db들어가기전");
-		
+			
 	    petMapper.add(pdto);
 	    
 	    return  this.petList(pdto.getMemberId()); 
@@ -47,9 +47,9 @@ public class PetServiceImpl implements PetService{
 	}
 	
 	@Override
-	public void petUpdate(int petId,PetUpdateRequestDto pdto) {
+	public void petUpdate(PetUpdateRequestDto pdto) {
 		
-		petMapper.petUpdate(petId,pdto);
+		petMapper.petUpdate(pdto);
 	
 	}
 	

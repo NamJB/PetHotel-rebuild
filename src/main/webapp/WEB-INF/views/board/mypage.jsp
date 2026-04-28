@@ -142,8 +142,17 @@
 		    		      <td>\${list.weight}</td>
 		    		      <td>\${list.note}</td>
 		    		      <td>\${list.createdAt}</td>
-		    		   </tr>`;
-	    		
+		    		      <td>
+		    		         <button class = "pet-update-btn"
+		    		            data-id = "\${list.petId}"
+		    		            data-name = "\${list.name}"
+		    		            data-type = "\${list.type}"
+		    		            data-age = "\${list.age}"
+		    		            data-gender = "\${list.gender}"
+		    		            data-weight = "\${list.weight}"
+		    		            data-note = "\${list.note}"		    		   		    		            		    		         
+		    		         >수정하기</button> <td>		    		         
+		    		   </tr> `;    		
 	    	});
 	    			    			    	
 	    }	    
@@ -175,6 +184,8 @@
 	  });
 	  
   });
+  
+  
   //펫추가 클릭시 등록할수있는 펫폼이 뜸
   $(document).on("click", "#petForm-btn", function() {
 	    $("#petForm-area").slideDown();
@@ -217,8 +228,30 @@
 	  
   });
   
-  
-  
+  //펫 수정폼
+  $(document).on("click",".pet-update-btn",function(){
+	  
+	  let $btn = $(this);
+	  let $row = $btn.closest("tr");
+	  
+	  $row.after($("#petForm-area"));
+	  
+	  $("#form-petId").val($btn.data("id"));
+	  $("input[name='name']").val($btn.data("name"));
+	  $("input[name='type']").val($btn.data("type"));
+	  $("input[name='age']").val($btn.data("age"));
+	  $("select[name='gender']").val($btn.data("gender")).prop("selected", true);
+	  $("input[name='weight']").val($btn.data("weight"));
+	  $("textarea[name='note']").val($btn.data("note"));
+	  
+	  $("#petForm-area").find("div:first").text("펫 정보 수정");
+	  $("#pet-submit-btn").text("수정완료하");
+	  
+	  $("#petForm-area").slideDown();
+	  $("#petForm-btn").show(); 
+	  
+	  
+  });
   
   
   function listReservation(data){

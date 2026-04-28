@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pethotel.dto.PetListRequestDto;
 import com.pethotel.dto.PetListResponseDto;
+import com.pethotel.dto.PetUpdateRequestDto;
 import com.pethotel.service.PetService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/pet")
@@ -48,8 +52,6 @@ public class PetApiController {
 			@ModelAttribute PetListRequestDto pdto,
 			HttpSession session,
 			BindingResult bindingResult) {
-			
-		System.out.println(pdto);
 		
 		Integer memberId = (Integer) session.getAttribute("memberId");
 			
@@ -74,6 +76,18 @@ public class PetApiController {
 				
 			return ResponseEntity.status(500).body("서버오류 "+e.getMessage());
 		}
+	}
+	//수정요청 
+	@PutMapping("/{petId}")
+	public ResponseEntity<?> update(
+			@PathVariable("petId") Integer petId,
+			@Valid @ModelAttribute PetUpdateRequestDto pdto) {
+		
+		pdto.setPetId(petId);
+		
+		petService.petUpdate(pdto);
+		
+		return ResponseEntity.ok("");
 	}
 	
 	

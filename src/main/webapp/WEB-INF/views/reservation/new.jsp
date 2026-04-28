@@ -18,7 +18,7 @@
 
 예약 게시판
 
-<form method = "post" action = "/reservation/save" id = "resForm">
+<form id = "resForm">
    <div class="form-group">
        <label>예약 기간 선택:</label>
           <input type="text" name="reservationDates" id="reservationDates" class="form-control" />
@@ -134,7 +134,7 @@
 			};
 			console.log(reservationData);
 			$.ajax({
-			   url :  "/reservation/save",
+			   url :  "/api/reservation/save",
 			   type : "POST",
 			   contentType : "application/json",
 			   data : JSON.stringify(reservationData),

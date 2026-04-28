@@ -13,6 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PetUpdateRequestDto {
 
+	private Integer petId;
+	
 	private String name;
 	
 	private String type;

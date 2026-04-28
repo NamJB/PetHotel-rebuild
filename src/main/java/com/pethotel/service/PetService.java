@@ -16,7 +16,7 @@ public interface PetService {
     
     public PetUpdateResponseDto petDetail(int petId);
     
-    public void petUpdate(int petId,PetUpdateRequestDto pdto);
+    public void petUpdate(PetUpdateRequestDto pdto);
     
     public void petDelete(int petId);
     

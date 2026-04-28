@@ -28,19 +28,12 @@ import jakarta.validation.Valid;
 public class BoardController {
 
 	private final BoardService boardService;
-	private final PetService petService;
-	private final ResService resService;
 	
-	public BoardController(BoardService boardService,PetService petService,ResService resService) {
+	
+	public BoardController(BoardService boardService) {
 		
-		this.boardService = boardService;
-		
-		this.petService = petService;
-		
-		this.resService = resService;
-		
+		this.boardService = boardService;				
 	}
-	
 	
 	//게시판 리스트 뷰 반환
 	@GetMapping("/list")
@@ -84,10 +77,6 @@ public class BoardController {
 		return "board/write";
 	}
 	
-	
-	
-	
-	
 	//마이페이지 뷰반환
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session,Model model,BoardFormRequestDto bdto) {
@@ -98,21 +87,8 @@ public class BoardController {
 			
 			return "user/login";
 		}
-		/*
-		bdto.setMemberId(memberId);
 			
-		List<BoardListResponseDto> Blist =boardService.ListBoard(bdto);
-		List<ResListResponseDto> Rlist = resService.getMyReservationList(memberId);
-		List<PetListResponseDto> plist = petService.petList(memberId);
-			
-		model.addAttribute("boardlist",Blist);
-		model.addAttribute("reslist",Rlist);
-		model.addAttribute("petList",plist);
-		*/	
-		return "board/mypage";
-	
-		
+		return "board/mypage";			
 	}
-	
-	
+
 }

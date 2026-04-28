@@ -57,49 +57,6 @@ public class ReservationController {
 		return "reservation/new";
 	}
 	
-	  
-	//예약 요청
-	@PostMapping("/save")
-	@ResponseBody
-	public ResponseEntity<String> saveReservation(
-			@Valid @RequestBody  ResSaveRequestDto rdto
-			,HttpSession session,
-			BindingResult bindingResult) {
-		
-        System.out.println(rdto);
-		
-		Integer memberId = (Integer) session.getAttribute("memberId");
-		
-		if(memberId == null) {
-			
-			return ResponseEntity.status(401).body("예약권한 없음");
-		}
-		
-        if(bindingResult.hasErrors()) {
-			
-			return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
-		}
-								
-		try{			
-			
-			rdto.setMemberId(memberId);
-			resService.saveReservation(rdto);
-			
-			return ResponseEntity.ok("예약 성공!!");
-			
-		}catch(RuntimeException e){
-			
-			return ResponseEntity.status(400).body(e.getMessage());
-		}
-		catch(Exception e) {
-			
-			return ResponseEntity.status(500).body("예약 요청 오류 :" +e.getMessage());
-		}	
-		
-		
-	}
-	
-	
     //예약 취소 요청
     @PatchMapping ("/{resId}/cancel")
     @ResponseBody
@@ -126,7 +83,9 @@ public class ReservationController {
     
 	//마이페이지 예약글 상세보기 뷰반환
     @GetMapping("/{resId}")
-	public String resDetail(@PathVariable("resId") int resId,Model model,HttpSession session) {
+	public String resDetail(@PathVariable("resId") int resId,
+			Model model,
+			HttpSession session) {
 			
 	   Integer memberId = (Integer) session.getAttribute("memberId");
 	   

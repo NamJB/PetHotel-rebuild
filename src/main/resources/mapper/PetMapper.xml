@@ -45,12 +45,12 @@
    
    <update id = "petUpdate" parameterType = "com.pethotel.dto.PetUpdateRequestDto">
       update pet set 
-         name = #{pdto.name},
-         type = #{pdto.type},
-         age = #{pdto.age},
-         gender = #{pdto.gender},
-         weight = #{pdto.weight},
-         note = #{pdto.note}
+         name = #{name},
+         type = #{type},
+         age = #{age},
+         gender = #{gender},
+         weight = #{weight},
+         note = #{note}
        where pet_id = #{petId}         
    </update>
    
