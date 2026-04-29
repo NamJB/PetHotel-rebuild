@@ -39,7 +39,7 @@ public class ReservationApiController {
 	}
 	//예약 요청
 	@PostMapping("/save")
-	public ResponseEntity<String> saveReservation(
+	public ResponseEntity<?> saveReservation(
 			@Valid @RequestBody  ResSaveRequestDto rdto
 			,HttpSession session,
 			BindingResult bindingResult) {
@@ -62,9 +62,9 @@ public class ReservationApiController {
 				
 			rdto.setMemberId(memberId);
 			
-			resService.saveReservation(rdto);
+		    resService.saveReservation(rdto);
 				
-			return ResponseEntity.ok("예약 성공!!");
+			return ResponseEntity.ok(rdto.getResId());
 				
 		}catch(RuntimeException e){
 				

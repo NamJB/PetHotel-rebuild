@@ -32,29 +32,5 @@ public class PetController {
 		
 		this.petService= petService;
 	}
-	
-	//펫등록 
-	@GetMapping("/register")
-	public String reserve() {
-		
-		return "pet/register";
-	}
-	
-	
-	//수정폼
-	@GetMapping("/{petId}/update")
-	public String updateForm(@PathVariable("petId")int petId,Model model){
-				
-		PetUpdateResponseDto pdto = petService.petDetail(petId);
-		
-		model.addAttribute("pdto",pdto);
-		
-		return "pet/update";
-	}
-	
-	
-	
-   
-	
-	
+
 }

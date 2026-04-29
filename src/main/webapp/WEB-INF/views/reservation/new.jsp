@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 
 예약 게시판
@@ -138,11 +138,10 @@
 			   type : "POST",
 			   contentType : "application/json",
 			   data : JSON.stringify(reservationData),
-			   success : function(result) {
+			   success : function(resId) {
 				   
-				   alert("예약이 성공적으로 완료되었습니다");
-				   location.href = "/main/home";
-			   
+				   //alert("예약이 성공적으로 완료되었습니다");
+				   requestPay(resId);				   		   
 			   },
 			   error: function(xhr){
 				   
@@ -154,6 +153,58 @@
 	    });
 		
 	});
+	
+	function requestPay(resId) {
+		
+		var IMP = window.IMP;
+		IMP.init("imp36353532");
+		
+	    IMP.request_pay({
+	    	
+	    	pg : "kakaopay.TC0ONETIME",
+	        pay_method : 'card',
+	        merchant_uid: "order_no_" + new Date().getTime(), 
+	        name : '펫 숙박 예약 (테스트)',
+	        amount : 100, // 테스트용 100원
+	        buyer_email : 'njb3430@naver.com',
+	        buyer_name : '남정범',
+	        buyer_tel : '010-3430-6138'
+	    	
+	    },function(rsp){
+	    	
+	    	if(rsp.success){
+	    		
+	    		console.log("결제성공" +rsp.imp_uid);
+	    		
+	    		$.ajax({    			
+	    			url: "/payment/verify",
+	    			type : "POST",
+	    			contentType : "application/json",
+	    			data : JSON.stringify({
+	    				
+	    				imp_uid : rsp.imp_uid, //결제 고유번
+	    				merchant_uid : rsp.merchant_uid, //내가 생성한 주문번호
+	    				amount : rsp.paid_amount //실제결제된 금액
+	    			}),
+	    			success : function(data){
+	    			   alert("예약및 결제 완료");
+	    			   location.href = "/main/home";
+	    			},
+	    			error: function(err) {
+	    				
+	    				alert("결제 실패");
+	    			}    			
+	    		});	    		
+	    	}
+	    	else {
+	    		
+	    		alert("결제 실패 " + rsp.error_msg);
+	    	}	    	
+	    });
+    
+	}
+	
+	
 </script>
 </body>
 </html>

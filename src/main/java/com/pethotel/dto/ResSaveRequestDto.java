@@ -17,6 +17,7 @@ import lombok.ToString;
 @ToString
 public class ResSaveRequestDto {
     
+    
 	
 	private int memberId;
 	
@@ -29,7 +30,7 @@ public class ResSaveRequestDto {
 	@NotEmpty
 	private List<Integer> petIds;
 	
-	private int resId;
+	private Integer resId;
 	
 	
 	
