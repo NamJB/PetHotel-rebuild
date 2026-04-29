@@ -53,13 +53,7 @@ public class PetController {
 	}
 	
 	
-	@PostMapping("/{petId}/delete")
-	public String delete(@PathVariable("petId") int petId) {
-		
-		petService.petDelete(petId);
-		
-		return "redirect:/board/mypage";	
-	}
+	
    
 	
 	

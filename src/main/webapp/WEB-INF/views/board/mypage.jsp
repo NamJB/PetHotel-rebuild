@@ -152,10 +152,12 @@
 		    		            data-gender = "\${list.gender}"
 		    		            data-weight = "\${list.weight}"
 		    		            data-note = "\${list.note}"		    		   		    		            		    		         
-		    		         >수정하기</button> <td>		    		         
+		    		         >수정하기</button> <td>
+		    		     <td>
+		    		        <button class = "pet-delete-btn" data-id = "\${list.petId}">펫 삭제</button>
+		    		     </td>
 		    		   </tr> `;    		
-	    	});
-	    			    			    	
+	    	});	    			    			    	
 	    }	    
 	        html += `
 	          <tr>
@@ -169,21 +171,16 @@
   
   $("#pet-btn").on('click',function(){
 		 
-	  $.ajax({
-		  
+	  $.ajax({	  
 		  url : "/api/pet/my",
 		  type : "GET",
 		  success : function(data){
-			  $("#my-area").html(listPets(data));
-			  
+			  $("#my-area").html(listPets(data));		  
 		  },
-		  error : function(xhr) {
-			  
+		  error : function(xhr) {			 
 			  alert(xhr.responseText);
-		  }
-		  
-	  });
-	  
+		  }		  
+	  });	  
   });
   
   
@@ -211,7 +208,9 @@
 	  $("#petForm-btn").show();
 	  $(".pet-update-btn").show();
   });
+ 
   
+  //펫 수정 삭제 
   $("#pet-submit-btn").on('click',function(e){
 	  
 	  e.preventDefault();
@@ -249,6 +248,26 @@
 		  }		 		  
 	  });
 	  
+  });
+  
+  //펫 삭제 
+  $(document).on("click",".pet-delete-btn",function(){
+	  if(!confirm("삭제하시겠습니까?")){
+		  return;
+	  }
+	  let petId = $(this).data("id");
+	  
+	  $.ajax({
+		  url : "/api/pet/" + petId,
+		  type : "DELETE",
+		  success : function(result) {
+			  alert("삭제 완료");			  
+			  $("#my-area").html(listPets(result));
+		  },
+		  error : function(xhr) {
+			  alert(xhr.responseText);
+		  }		  
+	  });  	  
   });
   
   //펫 수정폼

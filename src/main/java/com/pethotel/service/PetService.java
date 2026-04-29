@@ -18,7 +18,7 @@ public interface PetService {
     
     public List<PetListResponseDto> petUpdate(PetUpdateRequestDto pdto,Integer memberId);
     
-    public void petDelete(int petId);
+    public List<PetListResponseDto> petDelete(Integer petId,Integer MemberId);
     
     public List<PetListResponseDto> petResList(List<Integer> petIds);
     

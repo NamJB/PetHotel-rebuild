@@ -52,16 +52,16 @@ public class PetServiceImpl implements PetService{
 		
 		petMapper.petUpdate(pdto);
 		
-		return this.petList(memberId);
-		
-	    
-	
+		return this.petList(memberId);		    
 	}
 	
 	@Override
-	public void petDelete(int petId) {
+	@Transactional
+	public List<PetListResponseDto> petDelete(Integer petId,Integer memberId) {
 		
 		petMapper.petDelete(petId);
+		
+		return this.petList(memberId);
 	}
 	
 	@Override

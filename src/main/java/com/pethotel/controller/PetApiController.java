@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,12 +86,49 @@ public class PetApiController {
 			HttpSession session) {
 		
 		Integer memberId = (Integer) session.getAttribute("memberId");
+        
+		if(memberId == null) {
+			
+			return ResponseEntity.status(401).body("권한이 없습니다");
+		}
+	    try {
+	    	pdto.setPetId(petId);
+			
+			List<PetListResponseDto> plist = petService.petUpdate(pdto,memberId);
+			
+			return ResponseEntity.ok(plist);
+	    	
+	    }
+	    catch(Exception e) {
+	    	
+	    	return ResponseEntity.status(500).body(e.getMessage());
+	    			
+	    }
 		
-		pdto.setPetId(petId);
 		
-		List<PetListResponseDto> plist = petService.petUpdate(pdto,memberId);
+	}
+	
+	@DeleteMapping("/{petId}")
+	public ResponseEntity<?> delete(
+			@PathVariable("petId") Integer petId,
+			HttpSession session) {
 		
-		return ResponseEntity.ok(plist);
+		Integer memberId = (Integer) session.getAttribute("memberId");
+		
+		if(memberId == null) {
+			
+			return ResponseEntity.status(401).body("권한이 없습니다");
+		}
+		try {			
+			List<PetListResponseDto> plist = petService.petDelete(petId,memberId);
+			
+			return ResponseEntity.ok(plist);			
+		}
+		catch(Exception e) {
+			
+			return ResponseEntity.status(500).body("500오류"+e.getMessage());
+		}
+			
 	}
 	
 	
