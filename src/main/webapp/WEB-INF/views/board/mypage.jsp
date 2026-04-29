@@ -26,6 +26,7 @@
 <div id = "petForm-area" style = "display:none;">
    <div>새로운 펫 등록</div>
    <form id = "petForm">
+      <input type="hidden" name="petId" id="form-petId">
       이름 : <input type = "text" name = "name"> <br>
       견종 : <input type = "text" name = "type"> <br>
       나이 : <input type = "number" name = "age"> <br>
@@ -188,13 +189,27 @@
   
   //펫추가 클릭시 등록할수있는 펫폼이 뜸
   $(document).on("click", "#petForm-btn", function() {
-	    $("#petForm-area").slideDown();
-	    $("#petForm-btn").hide(); 
+	  let $btn = $(this);
+	  let $row = $btn.closest("tr");
+	    
+	  $row.before($("#petForm-area"));
+	    
+	  
+	  $("#petForm")[0].reset();
+	  $("#form-petId").val(""); //펫아이디 비우기 
+	    
+	   
+	  $("#petForm-area").find("div:first").text("새로운 펫 등록");
+	  $("#pet-submit-btn").text("등록하기");
+	    
+	  $("#petForm-area").slideDown();
+	  $btn.hide();
 	});
   
   $("#pet-cancel-btn").on('click',function(){
 	  $("#petForm-area").slideUp();
 	  $("#petForm-btn").show();
+	  $(".pet-update-btn").show();
   });
   
   $("#pet-submit-btn").on('click',function(e){
@@ -202,20 +217,28 @@
 	  e.preventDefault();
 	  
 	  let data = $("#petForm").serialize();
+	  let petId = $("#form-petId").val();
 	  console.log(data);
-	 
-	  $.ajax({
-		  
-		  url : "/api/pet/add",
-		  type : "POST",
+	  
+	  //petId가 있으면 수정 없으면 펫추가
+	  const isCheck = petId ? true : false;
+	  
+	  const apiUrl = isCheck ? "/api/pet/" + petId : "/api/pet/add";
+	  const httpMethod = isCheck ? "PUT" : "POST";
+	  const successMsg = isCheck ? "수정되었습니다" : "등록되었습니다";
+	  
+	  $.ajax({		  
+		  url : apiUrl,
+		  type : httpMethod,
 		  data : data,
 		  success : function(result) {
 			  
-			  alert("펫등록완료");
-			  
-			  $("#petForm-area").slideUp();
+			  alert(successMsg);			  
+			  $("#petForm-area").slideUp(); 
+			  $("body").append($("#petForm-area"));
 			  
 			  $("#petForm")[0].reset();
+			  $("#form-petId").val("");
 			  
 			  $("#my-area").html(listPets(result));
 			  
@@ -245,10 +268,11 @@
 	  $("textarea[name='note']").val($btn.data("note"));
 	  
 	  $("#petForm-area").find("div:first").text("펫 정보 수정");
-	  $("#pet-submit-btn").text("수정완료하");
+	  $("#pet-submit-btn").text("수정완료하기");
 	  
 	  $("#petForm-area").slideDown();
-	  $("#petForm-btn").show(); 
+	  $("#petForm-btn").show();
+	  
 	  
 	  
   });

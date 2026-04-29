@@ -81,13 +81,16 @@ public class PetApiController {
 	@PutMapping("/{petId}")
 	public ResponseEntity<?> update(
 			@PathVariable("petId") Integer petId,
-			@Valid @ModelAttribute PetUpdateRequestDto pdto) {
+			@Valid @ModelAttribute PetUpdateRequestDto pdto,
+			HttpSession session) {
+		
+		Integer memberId = (Integer) session.getAttribute("memberId");
 		
 		pdto.setPetId(petId);
 		
-		petService.petUpdate(pdto);
+		List<PetListResponseDto> plist = petService.petUpdate(pdto,memberId);
 		
-		return ResponseEntity.ok("");
+		return ResponseEntity.ok(plist);
 	}
 	
 	

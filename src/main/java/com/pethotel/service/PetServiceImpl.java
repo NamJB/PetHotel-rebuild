@@ -47,9 +47,14 @@ public class PetServiceImpl implements PetService{
 	}
 	
 	@Override
-	public void petUpdate(PetUpdateRequestDto pdto) {
+	@Transactional
+	public List<PetListResponseDto> petUpdate (PetUpdateRequestDto pdto,Integer memberId) {
 		
 		petMapper.petUpdate(pdto);
+		
+		return this.petList(memberId);
+		
+	    
 	
 	}
 	
