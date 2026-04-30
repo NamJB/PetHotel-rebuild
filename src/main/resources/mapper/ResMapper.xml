@@ -69,5 +69,9 @@
          status = "예약 취소"
          where res_id = #{resId}
    </update>
+   
+   <select id = "getPrice">
+      
+   </select>
  
 </mapper>

@@ -154,26 +154,33 @@
 		
 	});
 	
-	function requestPay(resId) {
-		
-		var IMP = window.IMP;
-		IMP.init("imp36353532");
-		
+	$(document).ready(function() {
+	    var IMP = window.IMP;
+	    IMP.init("imp36353532"); //  여기에 식별코드 세팅
+	});
+	
+	function requestPay(resId) { 
+		alert("현재 내 식별코드: imp36353532");
 	    IMP.request_pay({
 	    	
-	    	pg : "kakaopay.TC0ONETIME",
+	    	pg: "uplus",
 	        pay_method : 'card',
-	        merchant_uid: "order_no_" + new Date().getTime(), 
+	        merchant_uid: "RES_" + resId, 
 	        name : '펫 숙박 예약 (테스트)',
-	        amount : 100, // 테스트용 100원
+	        amount : 101, // 테스트용 100원
 	        buyer_email : 'njb3430@naver.com',
 	        buyer_name : '남정범',
 	        buyer_tel : '010-3430-6138'
 	    	
 	    },function(rsp){
+	    	console.log("결제응답");
+	    	console.log(rsp);
 	    	
 	    	if(rsp.success){
 	    		
+	    		console.log("imp_uid:", rsp.imp_uid);
+	            console.log("merchant_uid:", rsp.merchant_uid);
+	            console.log("paid_amount:", rsp.paid_amount);
 	    		console.log("결제성공" +rsp.imp_uid);
 	    		
 	    		$.ajax({    			
@@ -184,15 +191,16 @@
 	    				
 	    				imp_uid : rsp.imp_uid, //결제 고유번
 	    				merchant_uid : rsp.merchant_uid, //내가 생성한 주문번호
-	    				amount : rsp.paid_amount //실제결제된 금액
+	    				amount : rsp.paid_amount, //실제결제된 금액
+	    				resId : resId
 	    			}),
 	    			success : function(data){
 	    			   alert("예약및 결제 완료");
 	    			   location.href = "/main/home";
 	    			},
-	    			error: function(err) {
+	    			error: function(xhr) {
 	    				
-	    				alert("결제 실패");
+	    				alert(xhr.responseText + "결제 실패");
 	    			}    			
 	    		});	    		
 	    	}

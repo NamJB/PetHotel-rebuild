@@ -1,42 +1,98 @@
 package com.pethotel.service;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import com.pethotel.dto.PaymentCheckDto;
+import com.pethotel.mapper.ResMapper;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 
+
 @Service
 public class PaymentServiceImpl implements PaymentService { 
 	
-	private IamportClient iamportClient;
+	//private IamportClient iamportClient;
+	private final ResMapper resMapper;
    
-	public PaymentServiceImpl() {
+	public PaymentServiceImpl(ResMapper resMapper) {
 		
-		this.iamportClient = new IamportClient("0336653451438854", "PuczZquVhkX6KtDJXbwL6myEYUUjZyRrvx8y4tSJP0WlklH5HgsFFUF3iYvYldtIUr79O97r90uBQrTK");
+		
+		//this.iamportClient = new IamportClient("0336653451438854","AQGsjN1oO4ULOJzIJYQ6XCKzWMV3d9OuBHVhJaEHUGDqz4em9b99h9n6VEakpeMFWhNr5wKWnhPZKSCZ");
+		
+		this.resMapper = resMapper;
 	}
 	
 	@Override
+	@Transactional
 	public void processPayment(PaymentCheckDto dto) {
 		
 		try {
-	        // 포트원 서버에서 실제 결제 정보를 조회함
-	        IamportResponse<Payment> response = iamportClient.paymentByImpUid(dto.getImp_uid());
-	        
-	        Payment payment = response.getResponse();
-	        // 여기에 이제 금액 비교(if문) 로직이 들어갈 예정입니다!
-	        int actualAmount = payment.getAmount().intValue();
-	        
-	    } catch (IamportResponseException | IOException e) {
-	        e.printStackTrace();
+			
+			String token = getAccessToken();
+            System.out.println("토큰: " + token);
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.iamport.kr/payments/" + dto.getImp_uid() + "?include_sandbox=true"))
+                .header("Authorization", token)
+                .GET()
+                .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("응답: " + response.body());
+            
+            
+            String json = response.body();
+            System.out.println("응답: " + json);
+            
+            int idx = json.indexOf("\"amount\":") + 9;
+            int actualAmount = Integer.parseInt(json.substring(idx, json.indexOf(",", idx)));
+            System.out.println("실제 결제금액: " + actualAmount);
+            
+            int expectedPrice = 101; // 나중에 resMapper.getPrice(dto.getResId())로 교체
+
+            if (actualAmount == expectedPrice) {
+                System.out.println("결제 검증 성공!");
+                // resMapper 결제완료 업데이트
+                // 결제 내역 DB 인서트
+            } else {
+                throw new RuntimeException("결제 금액 불일치");
+            }
+	        		
+	    } catch (Exception e) {
+	      
+	    	e.printStackTrace();
 	        throw new RuntimeException("결제 검증 중 오류 발생");
 	    }
 	}
+	
+	// 토큰 발급 메서드 추가
+    private String getAccessToken() throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        String body = "{\"imp_key\":\"0336653451438854\",\"imp_secret\":\"AQGsjN1oO4ULOJzIJYQ6XCKzWMV3d9OuBHVhJaEHUGDqz4em9b99h9n6VEakpeMFWhNr5wKWnhPZKSCZ\"}";
+        
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.iamport.kr/users/getToken"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(body))
+            .build();
+        
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String json = response.body();
+        int idx = json.indexOf("\"access_token\":\"") + 16;
+        return json.substring(idx, json.indexOf("\"", idx));
+    }
 	
 
 

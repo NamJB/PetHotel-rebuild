@@ -2,6 +2,7 @@ package com.pethotel.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,17 +21,17 @@ public class PaymentApiController {
 	}
 	
 	@PostMapping("/verify")
-	public ResponseEntity<?> verifyPayment(PaymentCheckDto dto) {
+	public ResponseEntity<?> verifyPayment(
+			@RequestBody PaymentCheckDto dto) {
 		
-	    try {
-	    
+		System.out.println("===== 컨트롤러 진입 =====");
+	    System.out.println("dto = " + dto);
+	    try {	    
 	    	paymentService.processPayment(dto);
 	    	
-	    	return ResponseEntity.ok(null);
-	    	
+	    	return ResponseEntity.ok("");	    	
 	    }
-	    catch(Exception e) {
-	    	
+	    catch(Exception e) {	    	
 	    	return ResponseEntity.status(500).body(e.getMessage());
 	    }
 		

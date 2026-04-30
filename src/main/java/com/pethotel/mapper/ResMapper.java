@@ -28,6 +28,10 @@ public interface ResMapper {
 	
     //나의 예약정보
   	public List<ResListResponseDto> getMyReservationList(Integer memberId);
+  	
+  	
+    //예약 금액 가져오기 
+  	public int getPrice(Integer resId);
 	
 	
 	
