@@ -65,7 +65,7 @@
    function loadBoardData(boardType) {
 	   
 	   $.ajax({
-		   url : "/api/board",
+		   url : "/api/board/",
 		   type : "GET",
 		   data : {boardType : boardType} ,
 		   success : function(data) {

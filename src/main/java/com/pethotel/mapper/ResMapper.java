@@ -16,7 +16,7 @@ public interface ResMapper {
 
 	//예약저장
 	public void resSave(ResSaveRequestDto rdto);
-    
+     
 	//펫예약 저장
 	public void petSave(ResSaveRequestDto rdto);
 	

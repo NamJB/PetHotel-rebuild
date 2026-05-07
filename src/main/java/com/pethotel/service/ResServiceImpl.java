@@ -27,7 +27,7 @@ public class ResServiceImpl implements ResService {
 	}
 		
 	@Override
-	@Transactional
+	@Transactional 
     public void saveReservation(ResSaveRequestDto rdto) {
 		
 		//날짜비교 

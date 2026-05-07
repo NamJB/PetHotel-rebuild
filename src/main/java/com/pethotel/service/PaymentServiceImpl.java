@@ -1,6 +1,5 @@
 package com.pethotel.service;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,13 +8,8 @@ import java.net.http.HttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.pethotel.dto.PaymentCheckDto;
 import com.pethotel.mapper.ResMapper;
-import com.siot.IamportRestClient.IamportClient;
-import com.siot.IamportRestClient.exception.IamportResponseException;
-import com.siot.IamportRestClient.response.IamportResponse;
-import com.siot.IamportRestClient.response.Payment;
 
 
 
@@ -27,9 +21,7 @@ public class PaymentServiceImpl implements PaymentService {
    
 	public PaymentServiceImpl(ResMapper resMapper) {
 		
-		
-		//this.iamportClient = new IamportClient("0336653451438854","AQGsjN1oO4ULOJzIJYQ6XCKzWMV3d9OuBHVhJaEHUGDqz4em9b99h9n6VEakpeMFWhNr5wKWnhPZKSCZ");
-		
+			
 		this.resMapper = resMapper;
 	}
 	

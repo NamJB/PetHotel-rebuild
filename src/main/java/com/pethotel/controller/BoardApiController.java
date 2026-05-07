@@ -35,7 +35,7 @@ public class BoardApiController {
 		this.boardService = boardService;
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public ResponseEntity<?> getList(
 			@RequestParam(value = "boardType", defaultValue = "ALL") String boardType){
 		
@@ -57,7 +57,7 @@ public class BoardApiController {
 	}
 	
 	//게시판 글쓰기 요청
-	@PostMapping
+	@PostMapping("/")
 	public ResponseEntity<?> postWrite(
 			@Valid @RequestBody BoardFormRequestDto bdto,
 			HttpSession session,

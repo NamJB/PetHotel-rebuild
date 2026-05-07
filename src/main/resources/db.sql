@@ -25,7 +25,7 @@ CREATE TABLE `member` (
 --게시판--
 CREATE TABLE board (
     board_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '게시글 고유 번호',
-    board_type VARCHAR(10) NOT NULL COMMENT 'B01: 공지사항, B02: 질문(QnA)','B03: 자유게시판'
+    board_type VARCHAR(10) NOT NULL COMMENT 'B01: 공지사항, B02: 질문(QnA),B03: 자유게시판'
     title VARCHAR(255) NOT NULL COMMENT '게시글 제목',
     content TEXT NOT NULL COMMENT '게시글 내용',
     writer_id INT NOT NULL COMMENT '작성자 회원 번호 (member 테이블과 연결)',
@@ -80,3 +80,29 @@ CREATE TABLE `pet` (
 
 ALTER TABLE pet ADD COLUMN note TEXT; --메모 추가 26
 ALTER TABLE pets ADD COLUMN is_deleted TINYINT(1) NOT NULL DEFAULT 0; 
+
+
+
+CREATE TABLE payment (
+
+    pay_id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '결제 PK',
+
+    res_id BIGINT NOT NULL COMMENT '예약 번호 FK',
+
+    member_id BIGINT NOT NULL COMMENT '결제한 회원 번호',
+
+    imp_uid VARCHAR(100) NOT NULL COMMENT '포트원 결제 고유번호',
+
+    merchant_uid VARCHAR(100) COMMENT '주문번호',
+
+    amount INT NOT NULL COMMENT '실제 결제 금액',
+
+    pay_method VARCHAR(30) COMMENT '결제 수단(card, kakaopay 등)',
+
+    pay_status VARCHAR(30) DEFAULT 'paid' COMMENT '결제 상태(paid, cancel 등)',
+
+    paid_at DATETIME COMMENT '실제 결제 완료 시간',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성 시간'
+
+);
