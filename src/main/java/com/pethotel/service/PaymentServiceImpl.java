@@ -103,14 +103,15 @@ public class PaymentServiceImpl implements PaymentService {
 	                0,
 	                ZoneOffset.ofHours(9)
 	            );
+	        	        
+	        Integer expectedPrice = resMapper.getAmount(checkdto.getResId());
 	        
-	        //결제금액 조회 지금은 고정
-	        Integer expectedPrice = 101;
-	        
-	        //결제 조회 if문
-	        
-	        
-	        
+	        //결제 if문
+	        if(expectedPrice == null) {
+	        	
+	        	throw new RuntimeException("예약금액 조회실패");
+	        }
+	        	                
 	        // 포트원 실제 결제금액과 DB 예약금액 비교
 	        if (!actualAmount.equals(expectedPrice)) {
 	            throw new RuntimeException("결제 금액 불일치");
@@ -142,11 +143,11 @@ public class PaymentServiceImpl implements PaymentService {
 	        // 결제완료 시간 저장
 	        paymentDto.setPaidAt(paidAt);
 	        
+	        //포트원결제내역 db insert
 	        paymentMapper.insertPayment(paymentDto);
-	        
 	        //resmapper로 예약상태 업데이트
-	        
-			
+	        resMapper.updatePaid(checkdto.getResId());
+	        		
 		}
 		catch(Exception e) {
 			 
@@ -154,10 +155,7 @@ public class PaymentServiceImpl implements PaymentService {
 			 
 			throw new RuntimeException("결제 검증 중 오류 발생");
 		}
-		        
-		
-		
-		
+		        		
 	}
 	
 		

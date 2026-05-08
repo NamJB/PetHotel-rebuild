@@ -31,7 +31,10 @@ public interface ResMapper {
   	
   	
     //예약 금액 가져오기 
-  	public int getPrice(Integer resId);
+  	public Integer getAmount(Integer resId);
+  	
+  	
+  	public void updatePaid(Integer resId);
 	
 	
 	

@@ -4,8 +4,8 @@
    
    <insert id = "resSave" useGeneratedKeys="true" keyProperty="resId">
       insert into reservation
-         (member_id,check_in,check_out)
-      values(#{memberId},#{checkIn},#{checkOut})   
+         (member_id,check_in,check_out,amount)
+      values(#{memberId},#{checkIn},#{checkOut},"101")   
    </insert>
    
   <insert id = "petSave">
@@ -62,16 +62,28 @@
       where r.member_id = #{memberId}
       order by r.res_id  desc       
    </select>
-   
+  
+  
+   <!-- cancel,update 나중에 하나로 통일하기  -->
    <update id = "cancelReservation">
       update 
          reservation set
-         status = "예약 취소"
-         where res_id = #{resId}
+            status = "CANCEL"
+      where res_id = #{resId}
    </update>
    
-   <select id = "getPrice">
-      
+   <update id = "updatePaid">
+      update
+         reservation set
+            status = "PAID"
+      where res_id = #{resId}
+   </update>
+   
+   <select id = "getAmount">
+      select 
+         amount 
+      from  reservation 
+      where res_id = #{resId}
    </select>
  
 </mapper>
