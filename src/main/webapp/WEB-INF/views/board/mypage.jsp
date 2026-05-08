@@ -326,7 +326,7 @@
 			         <td>\${list.nickName}</td>
 			         <td>\${list.status}</td>
 			         <td>\${list.createdAt}</td>
-			         <td><button>예약 취소</button></td>
+			         <td><a href = "/reservation/\${list.resId}">상세보기</a></td>
 			      </tr>`;			   
 		   });
 	   }

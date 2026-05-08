@@ -114,7 +114,8 @@ public class PaymentServiceImpl implements PaymentService {
 	        	                
 	        // 포트원 실제 결제금액과 DB 예약금액 비교
 	        if (!actualAmount.equals(expectedPrice)) {
-	            throw new RuntimeException("결제 금액 불일치");
+	            
+	        	throw new RuntimeException("결제 금액 불일치");
 	        }
 	        
 	        PaymentRequestDto paymentDto = new PaymentRequestDto();

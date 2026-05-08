@@ -16,14 +16,21 @@
          (#{resId},#{petId})
       </foreach>
   </insert>
-  <!-- 예약 생성일이랑 펫 생성일 구분해야함 -->
+  
   <resultMap id = "resDetailMap" type = "com.pethotel.dto.ResDetailResponseDto" >
      <id property = "resId" column ="res_id"/>
      <result property  = "checkIn" column = "check_in"/>
      <result property = "checkOut" column = "check_out"/>
-     <result property = "status" column = "status"/>
-     <result property = "memberId" column = "member_id"/>
+     <result property = "status" column = "status"/>     
+     <result property = "reservationCreatedAt" column = "reservation_created_at"/>
+     <result property = "reservationAmount" column = "reservation_amount"/>
+     
      <result property = "nickName" column = "nickname"/>
+     
+     <result property = "paymentAmount" column = "payment_amount"/>
+     <result property = "payMethod" column = "pay_method"/>
+     <result property = "payStatus" column = "pay_status"/>
+     <result property = "paidAt" column = "paid_at"/>
      
      <collection property = "pets" ofType = "com.pethotel.dto.PetListResponseDto">
         <id property = "petId" column = "pet_id"/>
@@ -32,21 +39,50 @@
         <result property ="type" column = "type"/>
         <result property ="gender" column = "gender"/>
         <result property ="note" column = "note"/>
-        <result property ="weight" column = "weight"/>
-        <result property ="createdAt" column = "created_at"/>
+        <result property ="weight" column = "weight"/>        
      </collection>
   </resultMap>
   
   
   <select id = "resDetail" resultMap = "resDetailMap">
      select 
-        r.*,
-        p.*,
+        r.res_id,       
+        r.check_in,
+        r.check_out,
+        r.created_at as reservation_created_at,
+        r.status,
+        r.amouut as reservation_amouut,
+        
+        
+        p.name,
+        p.age,
+        p.type,
+        p.gender,
+        p.note,
+        p.weight,
+        p.created_at as pet_created_at,
+        
+        
         m.nickname
+        
+        py.amount as payment_amount,
+        py.pay_method,
+        py.pay_status,
+        py.paid_at
+        
      from reservation r 
-     inner join reservation_pet rp on r.res_id = rp.res_id
-     inner join pet p on rp.pet_id = p.pet_id
-     inner join member m on r.member_id = m.member_id
+     
+     inner join reservation_pet rp 
+     on r.res_id = rp.res_id
+     
+     inner join pet p 
+     on rp.pet_id = p.pet_id
+     
+     inner join member m 
+     on r.member_id = m.member_id
+     
+     left join payment py
+     on r.res_id = py.res_id 
      where r.res_id = #{resId}
   </select>
   
