@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pethotel.dto.PaymentCheckDto;
 import com.pethotel.service.PaymentService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/payment")
 public class PaymentApiController {
@@ -22,12 +24,14 @@ public class PaymentApiController {
 	
 	@PostMapping("/verify")
 	public ResponseEntity<?> verifyPayment(
-			@RequestBody PaymentCheckDto dto) {
+			@RequestBody PaymentCheckDto dto
+			,HttpSession session) {
+		Integer memberId = (Integer) session.getAttribute("memberId");
 		
 		System.out.println("===== 컨트롤러 진입 =====");
 	    System.out.println("dto = " + dto);
 	    try {	    
-	    	paymentService.processPayment(dto);
+	    	paymentService.processPayment(dto,memberId);
 	    	
 	    	return ResponseEntity.ok("");	    	
 	    }
