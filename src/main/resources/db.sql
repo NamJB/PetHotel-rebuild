@@ -37,6 +37,9 @@ CREATE TABLE board (
 ALTER TABLE board 
 ADD COLUMN del_yn CHAR(1) DEFAULT 'N' NOT NULL COMMENT '삭제 여부 (Y:삭제, N:미삭제)';
 
+
+
+
 --예약
 
 CREATE TABLE `reservation` (
@@ -49,7 +52,13 @@ CREATE TABLE `reservation` (
   PRIMARY KEY (`res_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
 
+ALTER TABLE reservation
+ADD COLUMN amount INT NOT NULL COMMENT '예약 총 금액';
 
+ALTER TABLE reservation
+MODIFY status VARCHAR(30)
+NOT NULL DEFAULT 'PENDING_PAYMENT'
+COMMENT 'PENDING_PAYMENT: 결제대기, PAID: 결제완료, CANCEL: 예약취소, COMPLETED: 이용완료';
 
 
 

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pethotel.dto.PaymentCheckDto;
 import com.pethotel.dto.PaymentRequestDto;
+import com.pethotel.mapper.PaymentMapper;
 import com.pethotel.mapper.ResMapper;
 
 import tools.jackson.databind.JsonNode;
@@ -22,58 +23,21 @@ import tools.jackson.databind.ObjectMapper;
 @Service
 public class PaymentServiceImpl implements PaymentService { 
 	
-	//private IamportClient iamportClient;
+	
 	private final ResMapper resMapper;
+	private final PaymentMapper paymentMapper;
    
-	public PaymentServiceImpl(ResMapper resMapper) {
+	public PaymentServiceImpl(ResMapper resMapper,PaymentMapper paymentMapper) {
 		
+		this.paymentMapper = paymentMapper;
 			
 		this.resMapper = resMapper;
 	}
 	
 	@Override
 	@Transactional
-	public void processPayment(PaymentCheckDto checkdto) {
-	/*	
-		try {
-			
-			String token = getAccessToken();
-            System.out.println("토큰: " + token);
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.iamport.kr/payments/" + dto.getImpUid() + "?include_sandbox=true"))
-                .header("Authorization", token)
-                .GET()
-                .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("응답: " + response.body());
-            
-            
-            String json = response.body();
-            System.out.println("응답: " + json);
-            
-            int idx = json.indexOf("\"amount\":") + 9;
-            int actualAmount = Integer.parseInt(json.substring(idx, json.indexOf(",", idx)));
-            System.out.println("실제 결제금액: " + actualAmount);
-            
-            int expectedPrice = 101; // 나중에 resMapper.getPrice(dto.getResId())로 교체
-
-            if (actualAmount == expectedPrice) {
-                System.out.println("결제 검증 성공!");
-                // resMapper 결제완료 업데이트
-                // 결제 내역 DB 인서트
-            } else {
-                throw new RuntimeException("결제 금액 불일치");
-            }
-	        		
-	    } catch (Exception e) {
-	      
-	    	e.printStackTrace();
-	        throw new RuntimeException("결제 검증 중 오류 발생");
-	    }
-	    */
+	public void processPayment(PaymentCheckDto checkdto,Integer memberId) {
+	
 		
 		try {
 			//토큰호출
@@ -110,11 +74,11 @@ public class PaymentServiceImpl implements PaymentService {
 	        
 	        //결제 정보는 response    payment루트로
 	        JsonNode payment = root.get("response");
-	        
+	        System.out.println(payment);
 	        //response가 null인지 , 
 	        if(payment == null || payment.isNull()) {
 	        	
-	        	throw new RuntimeException();
+	        	throw new RuntimeException("금액 불일치");
 	        }
 	        
 	        
@@ -177,10 +141,18 @@ public class PaymentServiceImpl implements PaymentService {
 
 	        // 결제완료 시간 저장
 	        paymentDto.setPaidAt(paidAt);
+	        
+	        paymentMapper.insertPayment(paymentDto);
+	        
+	        //resmapper로 예약상태 업데이트
+	        
 			
 		}
 		catch(Exception e) {
-			
+			 
+			e.printStackTrace();
+			 
+			throw new RuntimeException("결제 검증 중 오류 발생");
 		}
 		        
 		

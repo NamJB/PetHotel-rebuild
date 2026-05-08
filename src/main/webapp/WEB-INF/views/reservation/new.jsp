@@ -189,8 +189,8 @@
 	    			contentType : "application/json",
 	    			data : JSON.stringify({
 	    				
-	    				imp_uid : rsp.imp_uid, //결제 고유번
-	    				merchant_uid : rsp.merchant_uid, //내가 생성한 주문번호
+	    				impUid : rsp.imp_uid, //결제 고유번호
+	    				merchantUid : rsp.merchant_uid, //내가 생성한 주문번호
 	    				amount : rsp.paid_amount, //실제결제된 금액
 	    				resId : resId
 	    			}),
