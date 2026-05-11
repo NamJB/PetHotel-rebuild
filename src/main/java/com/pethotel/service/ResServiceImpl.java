@@ -75,12 +75,16 @@ public class ResServiceImpl implements ResService {
         if(!memberId.equals(reservationMemberId)) {
     		
         	throw new RuntimeException("403 : 권한없음");
-    	}
+    	}        
+        
         String impUid= paymentMapper.getImpUid(resId);
         
-        paymentService.cancelPayment(impUid);
-		
-        paymentMapper.cancelStatus(resId);
+        if(impUid !=null && !impUid.isBlank()) {
+        	
+        	paymentService.cancelPayment(impUid);
+    		
+            paymentMapper.cancelStatus(resId);
+        }        
         
 		resMapper.cancelReservation(resId);
 	}

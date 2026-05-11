@@ -196,7 +196,7 @@
 	    			}),
 	    			success : function(data){
 	    			   alert("예약및 결제 완료");
-	    			   location.href = "/main/home";
+	    			   location.href = "/board/mypage?tab=reservation";
 	    			},
 	    			error: function(xhr) {
 	    				

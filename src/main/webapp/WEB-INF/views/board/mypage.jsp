@@ -47,7 +47,25 @@
 
   $(document).ready(function(){
 	//페이지 열면 디폴트로 나의 게시판 보여줌
-	$("#board-btn").trigger("click");
+	//$("#board-btn").trigger("click");
+	
+	const params =
+        new URLSearchParams(window.location.search);
+
+    const tab = params.get("tab");
+
+    if(tab == "reservation"){
+
+        $("#reservation-btn").trigger("click");
+
+    } else if(tab == "pet"){
+
+        $("#pet-btn").trigger("click");
+
+    } else {
+
+        $("#board-btn").trigger("click");
+    }
 	  
   })
 

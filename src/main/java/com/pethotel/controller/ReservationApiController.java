@@ -82,7 +82,7 @@ public class ReservationApiController {
 	}
 	
 	 //예약 취소 요청
-    @PatchMapping ("/{resId}/cancel")    
+    @PostMapping ("/{resId}/cancel")    
     public ResponseEntity<?> cancelReservation(@PathVariable("resId") Integer resId,
     		HttpSession session) {
     	

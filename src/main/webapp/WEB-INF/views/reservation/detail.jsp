@@ -55,12 +55,12 @@
    </c:if>
    
    
-   <c:if test = "${empty detail.payId}">
+   <c:if test = "${empty detail.payId and detail.status != 'CANCEL' }">
       <div><input type = "button" value = "결제하기" id = "pay-btn" data-resid = "${detail.resId}" > </div>
    </c:if>
    
    <div>
-    <c:if test = "${detail.status != '예약 취소'}">
+    <c:if test = "${detail.status != 'CANCEL'}">
        <input type = "button" class = "btn-cancel" onclick = "cancelReservation(${detail.resId})" value = "예약 취소">
     </c:if>
    </div>
@@ -76,7 +76,7 @@ function cancelReservation(resId) {
 	
 	$.ajax({
 		url : '/api/reservation/' + resId + '/cancel',
-		method : 'PATCH',
+		method : 'POST',
 		success :function(data) {
 			
 				alert("취소 완료!");				
@@ -143,7 +143,7 @@ function resquestPayment(resId){
     			   success : function(data) {		   
     				   		
     				   alert("결제완료");
-    				   location.href = "/board/mypage"
+    				   location.href = "/board/mypage?tab=reservation"
     			   },
     			   error : function(xhr){		   
     				   alert("예약확인중 오류"+ xhr.responseText);
