@@ -87,24 +87,19 @@ public class ReservationApiController {
     		HttpSession session) {
     	
     	Integer memberId = (Integer) session.getAttribute("memberId");
-    	
-    	if(memberId == null) {
-    		
-    		return ResponseEntity.status(401).body("로그인안함");
-    	}
-    	
-    	Integer reservationMemberId = resService.getReservationMemberId(resId);
-    	System.out.println(memberId);
-    	System.out.println(reservationMemberId);
-    	if(!memberId.equals(reservationMemberId)) {
-    		
-    		return ResponseEntity.status(403).body("권한에러");
-    	}
-    			
+    					
     	try {   		
-    		resService.cancelReservation(resId);
+    		resService.cancelReservation(resId,memberId);
     		
     		return ResponseEntity.ok("");   		
+    	}
+    	catch(RuntimeException e) {
+    		
+            String [] error = e.getMessage().split(":");
+    		
+    		int status = Integer.parseInt(error[0]);
+    		
+    		return ResponseEntity.status(status).body(error[1]);
     	}
     	catch(Exception e){
     		

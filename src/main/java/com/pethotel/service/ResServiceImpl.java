@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +16,24 @@ import com.pethotel.dto.ReservationResponseDto;
 import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResupdateDto;
+import com.pethotel.mapper.PaymentMapper;
 import com.pethotel.mapper.ResMapper;
 
 @Service
 public class ResServiceImpl implements ResService {
 
 	private final ResMapper resMapper;
+	private final PaymentService paymentService;
+	private final PaymentMapper paymentMapper;
 	
-	public ResServiceImpl(ResMapper resMapper) {
+	public ResServiceImpl(
+			ResMapper resMapper,
+			PaymentService paymentService,
+			PaymentMapper paymentMapper) {
 		
 		this.resMapper = resMapper;
+		this.paymentService = paymentService;
+		this.paymentMapper = paymentMapper;
 	}
 		
 	@Override
@@ -53,8 +62,26 @@ public class ResServiceImpl implements ResService {
 	}
 	
 	@Override
-	public void cancelReservation(int resId) {
+	@Transactional
+	public void cancelReservation(Integer resId,Integer memberId) {
 		
+        if(memberId == null) {    		
+        	
+        	throw new RuntimeException("401 : 로그인필요");   		
+    	}
+	    
+        Integer reservationMemberId = resMapper.getReservationMemberId(resId);
+	    
+        if(!memberId.equals(reservationMemberId)) {
+    		
+        	throw new RuntimeException("403 : 권한없음");
+    	}
+        String impUid= paymentMapper.getImpUid(resId);
+        
+        paymentService.cancelPayment(impUid);
+		
+        paymentMapper.cancelStatus(resId);
+        
 		resMapper.cancelReservation(resId);
 	}
 	  
@@ -72,11 +99,7 @@ public class ResServiceImpl implements ResService {
 		return resMapper.getMyReservationList(memberId);
 	}
     
-    @Override
-    public Integer getReservationMemberId(Integer resId) {
-    	
-    	return resMapper.getReservationMemberId(resId);
-    }
+    
     
     @Override
     public void getReservationInfo(
@@ -104,6 +127,7 @@ public class ResServiceImpl implements ResService {
     		throw new RuntimeException("409 : 이미 결제가 됐거나 취소된 예약");
     	}
  	
+    	//
     	
     }
     

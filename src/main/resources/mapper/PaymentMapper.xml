@@ -18,4 +18,17 @@
   </insert>
    
    
+   <select id = "getImpUid" resultType = "String">
+      select 
+         imp_uid as impUid
+      from payment 
+      where res_id =#{resId}
+   </select>
+   
+   <update id = "cancelStatus">
+      update payment set
+         pay_status = 'cancel'
+      where res_id = #{resId}
+   </update>
+   
 </mapper>

@@ -165,7 +165,7 @@
 	    	
 	    	pg: "uplus",
 	        pay_method : 'card',
-	        merchant_uid: "RES_" + resId, 
+	        merchant_uid: "RES_" + resId + "_" +  Date.now(), 
 	        name : '펫 숙박 예약 (테스트)',
 	        amount : 101, // 테스트용 100원
 	        buyer_email : 'njb3430@naver.com',

@@ -11,14 +11,12 @@ public interface ResService {
 
 	public void saveReservation(ResSaveRequestDto RDto);
 	
-	public void cancelReservation(int resId);		
+	public void cancelReservation(Integer resId,Integer memberId);		
 	
 	public ResDetailResponseDto resDetail(Integer resId,Integer memberId);
 	
 	public List<ResListResponseDto> getMyReservationList(Integer memberId);
-	
-	public Integer getReservationMemberId(Integer resid);
-	
+		
 	public void getReservationInfo(Integer resId,Integer memberId);
 	
 }

@@ -177,7 +177,43 @@ public class PaymentServiceImpl implements PaymentService {
         int idx = json.indexOf("\"access_token\":\"") + 16;
         return json.substring(idx, json.indexOf("\"", idx));
     }
+    
+    public void cancelPayment(String impUid) {
+     	
+    	try {
+    		
+    		String token = getAccessToken();
+    		
+    		HttpClient client = HttpClient.newHttpClient();
+    		
+        	String json = """
+        	        {
+        	            "imp_uid": "%s",
+        	            "reason": "예약 취소"
+        	        }
+        	        """.formatted(impUid);
+        	
+        	HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.iamport.kr/payments/cancel"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", token)
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
+
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());           
+
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("결제 취소 실패");
+            }
+		
+    	}catch(Exception e) {
+    		
+    		e.printStackTrace();
+			 
+     		throw new RuntimeException("결제 취소중 오류");
+    	}
 	
-
-
+    }
+	
 }
