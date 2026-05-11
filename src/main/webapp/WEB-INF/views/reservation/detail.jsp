@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <body>
 예약글 상세보기 입니다
   <!--   
@@ -55,7 +56,7 @@
    
    
    <c:if test = "${empty detail.payId}">
-      <div><input type = "button" value = "결제하기"> </div>
+      <div><input type = "button" value = "결제하기" id = "pay-btn" data-resid = "${detail.resId}" > </div>
    </c:if>
    
    <div>
@@ -88,6 +89,75 @@ function cancelReservation(resId) {
 		}				
 	});
 }
+
+$("#pay-btn").click(function(){
+	
+	let resId = $(this).data("resid");
+	
+	$.ajax({
+	   url : "/api/reservation/"+resId +"/ready",	
+	   type:"POST",
+	   success :function(data) {
+		   
+		   resquestPayment(resId);
+	   },
+	   error : function(xhr){
+		   alert("예약확인중 오류" + xhr.responseText);
+		   
+	   }
+	});
+	
+	
+});
+
+function resquestPayment(resId){
+	
+	var IMP = window.IMP;
+    IMP.init("imp36353532");
+    
+    IMP.request_pay({
+    	
+    	pg: "uplus",
+        pay_method : 'card',
+        merchant_uid: "RES_" + resId + "_" + Date.now(), 
+        name : '펫 숙박 예약 (테스트)',
+        amount : 101, // 테스트용 100원
+        buyer_email : 'njb3430@naver.com',
+        buyer_name : '남정범',
+        buyer_tel : '010-3430-6138'
+    },function(rsp) {
+    	
+    	if(rsp.success) {
+    		
+    		$.ajax({
+    			   url : '/payment/verify',
+    			   type:'POST',
+    			   contentType : "application/json",
+    			   data : JSON.stringify({
+    				   
+    				   impUid : rsp.imp_uid, //결제 고유번호
+	    			   merchantUid : rsp.merchant_uid, //내가 생성한 주문번호
+	    			   amount : rsp.paid_amount, //실제결제된 금액
+	    			   resId : resId
+    			   }),
+    			   success : function(data) {		   
+    				   		
+    				   alert("결제완료");
+    				   location.href = "/board/mypage"
+    			   },
+    			   error : function(xhr){		   
+    				   alert("예약확인중 오류"+ xhr.responseText);
+    			   }
+    			
+    		});
+    	}else{
+    		
+    		alert("결제 실패 " + rsp.error_msg);
+    	}
+    });
+  	
+}
+
 
 </script>   
 </body>

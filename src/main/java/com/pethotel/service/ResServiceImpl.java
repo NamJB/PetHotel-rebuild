@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.pethotel.dto.ResSaveRequestDto;
+import com.pethotel.dto.ReservationResponseDto;
 import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResupdateDto;
@@ -75,6 +76,35 @@ public class ResServiceImpl implements ResService {
     public Integer getReservationMemberId(Integer resId) {
     	
     	return resMapper.getReservationMemberId(resId);
+    }
+    
+    @Override
+    public void getReservationInfo(
+    		Integer resId,
+    		Integer memberId) {
+        if(resId == null ) {
+    		
+    		throw new RuntimeException("400 : 잘못된 요청 ");
+    	}
+    	
+    	ReservationResponseDto reservation =resMapper.getReservationInfo(resId);   
+    	System.out.println(reservation);
+    	if(reservation == null ) {
+    		
+    		throw new RuntimeException("404 : 예약이 존재하지않음");
+    	}
+    	
+    	if(!reservation.getMemberId().equals(memberId)) {
+    		
+    		throw new RuntimeException("403 : 권한이 없음" );
+    	}
+    	
+    	if(!reservation.getStatus().equals("PENDING_PAYMENT")) {
+    		
+    		throw new RuntimeException("409 : 이미 결제가 됐거나 취소된 예약");
+    	}
+ 	
+    	
     }
     
     

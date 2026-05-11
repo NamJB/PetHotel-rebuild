@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
+import com.pethotel.dto.ReservationResponseDto;
 import com.pethotel.service.ResService;
 
 import jakarta.servlet.http.HttpSession;
@@ -88,7 +89,7 @@ public class ReservationApiController {
     	Integer memberId = (Integer) session.getAttribute("memberId");
     	
     	if(memberId == null) {
-    		//리다이렉트 고치기
+    		
     		return ResponseEntity.status(401).body("로그인안함");
     	}
     	
@@ -112,5 +113,36 @@ public class ReservationApiController {
     		return ResponseEntity.status(500).body(e.getMessage());	
     	}
     	 	
+    }
+    
+    @PostMapping("/{resId}/ready")
+    public ResponseEntity<?> ready(
+    		@PathVariable("resId") Integer resId,
+    		HttpSession session){
+    	
+    	Integer memberId = (Integer) session.getAttribute("memberId");
+    		
+    	try {
+    		//나중에 페이먼트dto만들어서 값리턴해주기 지금은 하드코딩
+    		resService.getReservationInfo(resId,memberId);
+    		
+    		return ResponseEntity.ok("");	
+    		
+    	}
+    	catch(RuntimeException e) {
+    		
+    		String [] error = e.getMessage().split(":");
+    		
+    		int status = Integer.parseInt(error[0]);
+    		
+    		return ResponseEntity.status(status).body(error[1]);
+    	}
+    	
+    	catch(Exception e) {
+    		
+    		return ResponseEntity.status(500).body(e.getMessage());
+    	}
+    	
+    	
     }
 }

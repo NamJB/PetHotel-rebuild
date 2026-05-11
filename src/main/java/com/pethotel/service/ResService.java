@@ -5,6 +5,7 @@ import java.util.List;
 import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResSaveRequestDto;
+import com.pethotel.dto.ReservationResponseDto;
 
 public interface ResService {
 
@@ -17,6 +18,8 @@ public interface ResService {
 	public List<ResListResponseDto> getMyReservationList(Integer memberId);
 	
 	public Integer getReservationMemberId(Integer resid);
+	
+	public void getReservationInfo(Integer resId,Integer memberId);
 	
 }
 	

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.pethotel.dto.ResSaveRequestDto;
+import com.pethotel.dto.ReservationResponseDto;
 import com.pethotel.dto.ResDetailResponseDto;
 import com.pethotel.dto.ResListResponseDto;
 import com.pethotel.dto.ResupdateDto;
@@ -27,7 +28,7 @@ public interface ResMapper {
     //예약취소(staus업데이트)
     public void cancelReservation(int resId);
 	
-    //나의 예약정보
+    //나의 예약정보리스트
   	public List<ResListResponseDto> getMyReservationList(Integer memberId);
   	
   	
@@ -39,6 +40,9 @@ public interface ResMapper {
   	
   	//예약 사용자id불러오기
     public Integer getReservationMemberId(Integer resId);
+    
+    //예약된 정보 가져오기
+    public ReservationResponseDto getReservationInfo(Integer resId);
 	
 	
 	

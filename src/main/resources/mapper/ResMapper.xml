@@ -129,4 +129,13 @@
       from reservation
       where res_id =#{resId}
    </select>
+   
+   <select id = "getReservationInfo" resultType = "com.pethotel.dto.ReservationResponseDto">
+      select 
+         member_id as memberId,
+         res_id as resId,
+         status
+      from reservation
+      where res_id = #{resId}
+   </select>
 </mapper>
