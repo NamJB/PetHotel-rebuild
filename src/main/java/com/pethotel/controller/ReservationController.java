@@ -57,41 +57,21 @@ public class ReservationController {
 		return "reservation/new";
 	}
 	
-    //예약 취소 요청
-    @PatchMapping ("/{resId}/cancel")
-    @ResponseBody
-    public String cancelReservation(@PathVariable("resId") int resId,HttpSession session) {
-    	
-    	Integer memberId = (Integer) session.getAttribute("memberId");
-    	
-    	if(memberId == null) {
-    		//리다이렉트 고치기
-    		return "redirect:/user/login";
-    	}
-    			
-    	try {   		
-    		resService.cancelReservation(resId);
-    		return "success";   		
-    	}
-    	catch(Exception e){
-    		e.printStackTrace();
-    		return "fail";	
-    	}
-    	 	
-    }
+   
      
     
 	//마이페이지 예약글 상세보기 뷰반환
     @GetMapping("/{resId}")
-	public String resDetail(@PathVariable("resId") int resId,
+	public String resDetail(
+			@PathVariable("resId") Integer resId,
 			Model model,
 			HttpSession session) {
 			
 	   Integer memberId = (Integer) session.getAttribute("memberId");
 	   
-	   ResDetailResponseDto detail = resService.resDetail(resId);
+	   ResDetailResponseDto detail = resService.resDetail(resId,memberId);
 	   
-	   if(detail.getMemberId()!= memberId) {
+	   if(detail == null) {
 		  
 		   return "redirect:/user/mypage";
 	   }

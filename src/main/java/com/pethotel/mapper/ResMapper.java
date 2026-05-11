@@ -3,8 +3,7 @@ package com.pethotel.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
-
+import org.apache.ibatis.annotations.Param;
 
 import com.pethotel.dto.ResSaveRequestDto;
 import com.pethotel.dto.ResDetailResponseDto;
@@ -21,7 +20,9 @@ public interface ResMapper {
 	public void petSave(ResSaveRequestDto rdto);
 	
 	//사용자의 예약정보와 펫정보 가져오기
-    public ResDetailResponseDto resDetail(int resId); 
+    public ResDetailResponseDto resDetail(
+    		@Param("resId") Integer resId,
+    		@Param("memberId") Integer memberId); 
       
     //예약취소(staus업데이트)
     public void cancelReservation(int resId);
@@ -35,6 +36,9 @@ public interface ResMapper {
   	
   	
   	public void updatePaid(Integer resId);
+  	
+  	//예약 사용자id불러오기
+    public Integer getReservationMemberId(Integer resId);
 	
 	
 	

@@ -12,9 +12,11 @@ public interface ResService {
 	
 	public void cancelReservation(int resId);		
 	
-	public ResDetailResponseDto resDetail(int resId);
+	public ResDetailResponseDto resDetail(Integer resId,Integer memberId);
 	
 	public List<ResListResponseDto> getMyReservationList(Integer memberId);
+	
+	public Integer getReservationMemberId(Integer resid);
 	
 }
 	

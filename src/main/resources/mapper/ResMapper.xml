@@ -27,6 +27,7 @@
      
      <result property = "nickName" column = "nickname"/>
      
+     <result property = "payId" column = "pay_id"/>
      <result property = "paymentAmount" column = "payment_amount"/>
      <result property = "payMethod" column = "pay_method"/>
      <result property = "payStatus" column = "pay_status"/>
@@ -51,20 +52,18 @@
         r.check_out,
         r.created_at as reservation_created_at,
         r.status,
-        r.amouut as reservation_amouut,
-        
-        
+        r.amount as reservation_amount,
+              
         p.name,
         p.age,
         p.type,
         p.gender,
         p.note,
-        p.weight,
-        p.created_at as pet_created_at,
+        p.weight,       
+           
+        m.nickname,
         
-        
-        m.nickname
-        
+        py.pay_id,
         py.amount as payment_amount,
         py.pay_method,
         py.pay_status,
@@ -82,8 +81,10 @@
      on r.member_id = m.member_id
      
      left join payment py
-     on r.res_id = py.res_id 
+     on r.res_id = py.res_id
+      
      where r.res_id = #{resId}
+     and r.member_id =#{memberId}
   </select>
   
   <select id = "getMyReservationList" resultType = "com.pethotel.dto.ResListResponseDto">
@@ -121,5 +122,11 @@
       from  reservation 
       where res_id = #{resId}
    </select>
- 
+   
+   <select id = "getReservationMemberId" resultType = "Integer">
+      select 
+         member_id
+      from reservation
+      where res_id =#{resId}
+   </select>
 </mapper>

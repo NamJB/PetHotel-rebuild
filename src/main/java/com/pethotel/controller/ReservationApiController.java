@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pethotel.dto.ResListResponseDto;
@@ -76,4 +79,38 @@ public class ReservationApiController {
 		}	
 						
 	}
+	
+	 //예약 취소 요청
+    @PatchMapping ("/{resId}/cancel")    
+    public ResponseEntity<?> cancelReservation(@PathVariable("resId") Integer resId,
+    		HttpSession session) {
+    	
+    	Integer memberId = (Integer) session.getAttribute("memberId");
+    	
+    	if(memberId == null) {
+    		//리다이렉트 고치기
+    		return ResponseEntity.status(401).body("로그인안함");
+    	}
+    	
+    	Integer reservationMemberId = resService.getReservationMemberId(resId);
+    	System.out.println(memberId);
+    	System.out.println(reservationMemberId);
+    	if(!memberId.equals(reservationMemberId)) {
+    		
+    		return ResponseEntity.status(403).body("권한에러");
+    	}
+    			
+    	try {   		
+    		resService.cancelReservation(resId);
+    		
+    		return ResponseEntity.ok("");   		
+    	}
+    	catch(Exception e){
+    		
+    		e.printStackTrace();
+    		
+    		return ResponseEntity.status(500).body(e.getMessage());	
+    	}
+    	 	
+    }
 }

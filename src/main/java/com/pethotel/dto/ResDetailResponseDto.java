@@ -19,8 +19,9 @@ public class ResDetailResponseDto {
     private String reservationCreatedAt; //예약한날짜
 	private Integer reservationAmount; //결제해야할 금액
 	
-	private String nickname; // 유저 닉네임
+	private String nickName; // 유저 닉네임
 	
+	private Integer payId; //결제 고유번호 	
 	private Integer paymentAmount; //결제된 금액
 	private String payMethod; //결제 수단
 	private String payStatus; //결제 상태

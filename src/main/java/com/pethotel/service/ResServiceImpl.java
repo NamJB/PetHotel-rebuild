@@ -59,9 +59,9 @@ public class ResServiceImpl implements ResService {
 	  
     
     @Override
-	public ResDetailResponseDto resDetail(int resId) {
+	public ResDetailResponseDto resDetail(Integer resId,Integer memberId) {
 		
-		return resMapper.resDetail(resId);
+		return resMapper.resDetail(resId,memberId);
 		
 	}
     
@@ -70,6 +70,14 @@ public class ResServiceImpl implements ResService {
 		
 		return resMapper.getMyReservationList(memberId);
 	}
+    
+    @Override
+    public Integer getReservationMemberId(Integer resId) {
+    	
+    	return resMapper.getReservationMemberId(resId);
+    }
+    
+    
 	
 }
 

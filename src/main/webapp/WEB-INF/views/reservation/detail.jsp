@@ -31,7 +31,7 @@
    <div>체크인:${detail.checkIn}</div>
    <div>체크아웃${detail.checkOut}</div>
    <div>에약상태:<span class = "res-status">${detail.status}</span></div>
-   <div>예약한 날짜 ${detail.createdAt}</div>  
+   <div>예약한 날짜 ${detail.reservationCreatedAt}</div>  
    
    
    <c:forEach var = "p" items = "${detail.pets}">
@@ -45,6 +45,18 @@
    </c:forEach>
      
    
+   
+   <c:if test = "${not empty detail.payId}">
+      <div>결제 금액:${detail.paymentAmount}원</div>
+      <div>결제 수단 : ${detail.payMethod}</div>
+      <div>결제 상태 : ${detail.payStatus}</div>
+      <div>결제된 날짜 : ${detail.paidAt}</div>
+   </c:if>
+   
+   
+   <c:if test = "${empty detail.payId}">
+      <div><input type = "button" value = "결제하기"> </div>
+   </c:if>
    
    <div>
     <c:if test = "${detail.status != '예약 취소'}">
@@ -62,26 +74,18 @@ function cancelReservation(resId) {
 	}
 	
 	$.ajax({
-		url : '/reservation/' + resId + '/cancel',
+		url : '/api/reservation/' + resId + '/cancel',
 		method : 'PATCH',
 		success :function(data) {
-			if(data.trim() === "success") {
-				alert("취소 완료!");
-				
+			
+				alert("취소 완료!");				
 				$(".res-status").text("예약 취소");
-				$(".btn-cancel").hide();
-			}
-			else if(data.trim()=== "fail"){
-				
-				alert("서버오류 다시시도");
-			}
+				$(".btn-cancel").hide();		
 		},
 		error:function(xhr) {
 			
-			alert("에러발생:" + xhr.status);
-		}
-		
-		
+			alert("에러발생:" + xhr.responseText);
+		}				
 	});
 }
 
