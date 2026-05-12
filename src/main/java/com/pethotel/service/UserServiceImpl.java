@@ -3,6 +3,7 @@ package com.pethotel.service;
 import java.util.List;
 
 import org.springframework.jdbc.support.CustomSQLExceptionTranslatorRegistrar;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,12 @@ import com.pethotel.mapper.UserMapper;
 public class UserServiceImpl implements UserService{
 
 	private final UserMapper userMapper;
+	private final PasswordEncoder passwordEncoder;
 	
-	public UserServiceImpl(UserMapper userMapper) {
+	public UserServiceImpl(UserMapper userMapper,PasswordEncoder passwordEncoder) {
 		
 		this.userMapper = userMapper;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@Override
@@ -28,6 +31,10 @@ public class UserServiceImpl implements UserService{
 	public void postMember(MemberRequestDto mdto) {
 			
 		this.idCheck(mdto.getUserId());
+		
+		String encodedPwd = passwordEncoder.encode(mdto.getPwd());
+		
+		mdto.setPwd(encodedPwd);
 			
 	    userMapper.postMember(mdto);		
 			
@@ -44,9 +51,16 @@ public class UserServiceImpl implements UserService{
 			throw new RuntimeException("아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
 		
-		return user;
+		boolean result = passwordEncoder.matches(ldto.getPwd(), user.getPwd());
 		
-		
+		if(result) {
+			return user;
+		}
+		else {
+			
+			throw new RuntimeException("오류");
+		}
+	
 	}
 	
 	

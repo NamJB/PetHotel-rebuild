@@ -43,7 +43,7 @@ public class UserController {
 	
 	//회원가입 요청
 	@PostMapping("/member")
-	public ResponseEntity<String> postMember(
+	public ResponseEntity<?> postMember(
 			@Valid @RequestBody MemberRequestDto mdto,
 			BindingResult bindingResult) {
 		

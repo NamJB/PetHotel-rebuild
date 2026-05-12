@@ -11,12 +11,13 @@
      select 
        userid as userId,
        username as userName,
+       pwd,
        phone,
        member_id as memberId,
        nickname as nickName 
      from member 
      where userid = #{userId} 
-     and pwd = #{pwd}
+     
    </select>
   
    <select id = "checkUserId" resultType = "int">

@@ -19,6 +19,8 @@ public class MemberResponseDto {
 	
 	private String nickName;
 	
+	private String pwd;
+	
 	
 	
 }

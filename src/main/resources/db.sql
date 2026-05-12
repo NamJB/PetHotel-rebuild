@@ -17,7 +17,9 @@ CREATE TABLE `member` (
   `role` varchar(20) DEFAULT 'USER',
   `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 |
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+ALTER TABLE member
+MODIFY pwd VARCHAR(255) NOT NULL; |
 
 
 
