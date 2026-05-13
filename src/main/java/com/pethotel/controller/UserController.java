@@ -83,7 +83,7 @@ public class UserController {
 	//로그인 요청
 	@PostMapping("/login")
 	@ResponseBody
-	public ResponseEntity<String> loginUser(@Valid @RequestBody LoginDto ldto,
+	public ResponseEntity<?> loginUser(@Valid @RequestBody LoginDto ldto,
 			BindingResult bindingResult,
 			HttpSession session,
 			Model model) {
