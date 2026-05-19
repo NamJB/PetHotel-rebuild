@@ -18,10 +18,15 @@ CREATE TABLE `member` (
   `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`member_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+
 ALTER TABLE member
 MODIFY pwd VARCHAR(255) NOT NULL;
+
 ALTER TABLE member
-MODIFY member_id BIGINT NOT NULL AUTO_INCREMENT; |
+MODIFY member_id BIGINT NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE member
+ADD CONSTRAINT uk_member_userid UNIQUE (userid); |
 
 
 
@@ -59,6 +64,8 @@ CREATE TABLE `reservation` (
   `status` varchar(20) DEFAULT '완료',
   PRIMARY KEY (`res_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
+
+
 
 ALTER TABLE reservation
 ADD COLUMN amount INT NOT NULL COMMENT '예약 총 금액';
@@ -144,3 +151,6 @@ ALTER TABLE payment
 MODIFY pay_id BIGINT NOT NULL AUTO_INCREMENT,
 MODIFY res_id BIGINT NOT NULL,
 MODIFY member_id BIGINT NOT NULL;
+
+ALTER TABLE payment
+ADD CONSTRAINT uk_payment_imp_uid UNIQUE (imp_uid);
