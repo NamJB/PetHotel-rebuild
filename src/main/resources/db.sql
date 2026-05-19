@@ -50,6 +50,11 @@ ALTER TABLE board
 MODIFY board_id BIGINT NOT NULL AUTO_INCREMENT,
 MODIFY writer_id BIGINT NOT NULL;
 
+ALTER TABLE board
+ADD CONSTRAINT fk_board_member
+FOREIGN KEY (writer_id)
+REFERENCES member(member_id);
+
 
 
 
@@ -65,8 +70,6 @@ CREATE TABLE `reservation` (
   PRIMARY KEY (`res_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
 
-
-
 ALTER TABLE reservation
 ADD COLUMN amount INT NOT NULL COMMENT '예약 총 금액';
 
@@ -78,6 +81,11 @@ COMMENT 'PENDING_PAYMENT: 결제대기, PAID: 결제완료, CANCEL: 예약취소
 ALTER TABLE reservation
 MODIFY res_id BIGINT NOT NULL AUTO_INCREMENT,
 MODIFY member_id BIGINT NOT NULL;
+
+ALTER TABLE reservation
+ADD CONSTRAINT fk_reservation_member
+FOREIGN KEY (member_id)
+REFERENCES member(member_id);
 
 
 
@@ -95,6 +103,18 @@ ALTER TABLE reservation_pet
 MODIFY respet_id BIGINT NOT NULL AUTO_INCREMENT,
 MODIFY res_id BIGINT NOT NULL,
 MODIFY pet_id BIGINT NOT NULL;
+
+
+ALTER TABLE reservation_pet
+ADD CONSTRAINT fk_reservation_pet_reservation
+FOREIGN KEY (res_id)
+REFERENCES reservation(res_id);
+
+ALTER TABLE reservation_pet
+ADD CONSTRAINT fk_reservation_pet_pet
+FOREIGN KEY (pet_id)
+REFERENCES pet(pet_id);
+
 
 
 
@@ -118,6 +138,11 @@ ALTER TABLE pet ADD COLUMN is_deleted TINYINT(1) NOT NULL DEFAULT 0;
 ALTER TABLE pet
 MODIFY pet_id BIGINT NOT NULL AUTO_INCREMENT,
 MODIFY member_id BIGINT NOT NULL;
+
+ALTER TABLE pet
+ADD CONSTRAINT fk_pet_member
+FOREIGN KEY (member_id)
+REFERENCES member(member_id);
  
 
 
@@ -154,3 +179,13 @@ MODIFY member_id BIGINT NOT NULL;
 
 ALTER TABLE payment
 ADD CONSTRAINT uk_payment_imp_uid UNIQUE (imp_uid);
+
+ALTER TABLE payment
+ADD CONSTRAINT fk_payment_reservation
+FOREIGN KEY (res_id)
+REFERENCES reservation(res_id);
+
+ALTER TABLE payment
+ADD CONSTRAINT fk_payment_member
+FOREIGN KEY (member_id)
+REFERENCES member(member_id);
