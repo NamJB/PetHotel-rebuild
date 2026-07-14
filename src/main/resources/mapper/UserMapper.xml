@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pethotel.user.mapper.UserMapper">
+<mapper namespace="com.pethotel.mapper.UserMapper">
    
    <insert id = "postMember">     
      insert into member(userid,pwd,username,nickname,phone) 
      values (#{userId},#{pwd},#{userName},#{nickName},#{phone})
    </insert>
    
-   <select id = "loginUser" resultType = "com.pethotel.user.dto.MemberResponseDto">
+   <select id = "loginUser" resultType = "com.pethotel.dto.MemberResponseDto">
      select 
        userid as userId,
        username as userName,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pethotel.payment.mapper.PaymentMapper">
-  <insert id = "insertPayment" parameterType = "com.pethotel.payment.dto.PaymentRequestDto">
+<mapper namespace="com.pethotel.mapper.PaymentMapper">
+  <insert id = "insertPayment" parameterType = "com.pethotel.dto.PaymentRequestDto">
     insert into payment
      (res_id,member_id,
      imp_uid,merchant_uid,
