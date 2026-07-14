@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pethotel.mapper.PetMapper">
-   <insert id = "add" parameterType = "com.pethotel.dto.PetListRequestDto">
+<mapper namespace="com.pethotel.pet.mapper.PetMapper">
+   <insert id = "add" parameterType = "com.pethotel.pet.dto.PetListRequestDto">
       insert into 
       pet(member_id,name,type,age,weight,gender,note)
       values
@@ -14,7 +14,7 @@
          #{note})    
    </insert>
    
-   <select id = "petList" resultType = "com.pethotel.dto.PetListResponseDto">
+   <select id = "petList" resultType = "com.pethotel.pet.dto.PetListResponseDto">
       select 
          pet_id as petId,
          age,
@@ -30,7 +30,7 @@
       order by petId desc;
    </select>
    
-   <select id = "petDetail" resultType = "com.pethotel.dto.PetUpdateResponseDto">
+   <select id = "petDetail" resultType = "com.pethotel.pet.dto.PetUpdateResponseDto">
       select 
          pet_id as petId,
          age,
@@ -43,7 +43,7 @@
       where pet_id = #{petId}     
    </select>
    
-   <update id = "petUpdate" parameterType = "com.pethotel.dto.PetUpdateRequestDto">
+   <update id = "petUpdate" parameterType = "com.pethotel.pet.dto.PetUpdateRequestDto">
       update pet set 
          name = #{name},
          type = #{type},
@@ -60,7 +60,7 @@
       where pet_id = #{petId}
    </update>
    
-   <select id = "petResList" resultType = "com.pethotel.dto.PetListResponseDto">
+   <select id = "petResList" resultType = "com.pethotel.pet.dto.PetListResponseDto">
       select
          pet_id as petId,
          name,
