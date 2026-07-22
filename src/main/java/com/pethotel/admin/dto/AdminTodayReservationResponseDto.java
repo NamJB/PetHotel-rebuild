@@ -1,0 +1,18 @@
+package com.pethotel.admin.dto;
+
+import java.util.List;
+
+import lombok.Data;
+/*
+ *오늘의 날짜로 보내 오늘 체크인 하는 사람,체크아웃하는 사람 구분.
+ * 
+ * 
+ * */
+
+@Data
+public class AdminTodayReservationResponseDto {
+
+	private List<AdminReservationDto> checkIns;
+	
+	private List<AdminReservationDto> checkOuts;
+}

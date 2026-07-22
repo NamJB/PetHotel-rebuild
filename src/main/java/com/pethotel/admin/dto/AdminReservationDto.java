@@ -14,5 +14,11 @@ public class AdminReservationDto {
 	private LocalDate checkIn;
 	
 	private LocalDate checkOut;
-	
+	/*
+	 * 
+	 * nickname
+	 *
+	 * checkin,checkout,pet count,notice?,price,등등
+	 * 
+	 * */
 }
