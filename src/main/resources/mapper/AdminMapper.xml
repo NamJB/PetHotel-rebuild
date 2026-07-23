@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pethotel.admin.mapper.AdminMapper">
+
+<select id = "getReservationTodayCheckIns" 
+resultType = "com.pethotel.admin.dto.AdminReservationDto">
+   
+   select m.nickname 
+   from reservation r 
+   inner join member m
+   on r.member_id = m.member_id
+   where r.check_in = #{today}
+   
+</select>
+
+<select id = "getReservationTodayCheckOuts" 
+resultType = "com.pethotel.admin.dto.AdminReservationDto">
+
+   select m.nickname
+   from reservation r
+   inner join member m
+   on r.member_id = m.member_id
+   where r.check_out = #{today} 
+   
+</select>
+  
+
+</mapper>
