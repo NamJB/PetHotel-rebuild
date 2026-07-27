@@ -23,6 +23,16 @@ resultType = "com.pethotel.admin.dto.AdminReservationDto">
    where r.check_out = #{today} 
    
 </select>
+
+<select id = "getCheckDashboard" 
+resultType = "com.pethotel.admin.dto.AdminDashboardResponseDto">
+   select 
+      (select count(*) from reservation
+      where check_in = #{today}) as checkInCnt,
+      
+      (select count(*) from reservation
+      where check_out = #{today}) as checkOutCnt
+</select>
   
 
 </mapper>

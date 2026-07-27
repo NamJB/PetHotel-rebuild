@@ -13,6 +13,7 @@
  관리자페이지 
  
 <div>오늘 예약 </div>
+<div id = "todayDashboard"></div>
 
 <h3>체크인리스트 </h3>
 <div id = "checkInList"></div>
@@ -25,6 +26,7 @@
   $(document).ready(function() {
 	 
 	  todayReservation();
+	  todayDashboard();
 	  
   });
  /* 
@@ -73,9 +75,7 @@
 					     `;
 				  });
 			  }
-			   
-			  
-			  
+			   		  
 			  $("#checkInList").html(checkInHtml);
 			  $("#checkOutList").html(checkOutHtml);			  
 		  },
@@ -83,6 +83,32 @@
 			  
 			  alert(xhr.responseText);
 		  }
+	  });
+  }
+  function todayDashboard() {
+	  	  	  
+	  $.ajax({
+		  
+		  url:"/api/admin/reservation/dashboard",
+		  type: "GET",
+		  success: function(data){
+			  
+			  let dashboardHtml = `
+			     <div>오늘 체크인: \${data.checkInCnt}건</div>
+			     <div>오늘 체크아웃: \${data.checkOutCnt}건</div>
+			     <div>예약건수 :</div>
+			     <div>투숙중? : </div>
+			  `;
+			  $("#todayDashboard").html(dashboardHtml);
+			  //console.log(dashboardHtml);
+			  //console.log(data.checkInCnt);
+			  //console.log(data.checkOutCnt);
+		  },
+		  error : function(xhr){
+			  
+			  alert(xhr.responseText);
+			  
+		  }		  
 	  });
   }
 </script>

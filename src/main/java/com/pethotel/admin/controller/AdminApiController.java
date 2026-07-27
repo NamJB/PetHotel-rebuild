@@ -25,5 +25,12 @@ public class AdminApiController {
 				
 		return ResponseEntity.ok(adminService.getReservationToday());
 	}
+	
+	@GetMapping("/reservation/dashboard")
+	public ResponseEntity<?> dashboard(){
+		
+		
+		return ResponseEntity.ok(adminService.getDashboard());
+	}
 
 }

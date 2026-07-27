@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.pethotel.admin.dto.AdminDashboardResponseDto;
 import com.pethotel.admin.dto.AdminReservationDto;
 import com.pethotel.admin.dto.AdminTodayReservationResponseDto;
 import com.pethotel.admin.mapper.AdminMapper;
@@ -40,6 +41,15 @@ public class AdminServiceImpl implements AdminService {
 		// todo : db연동 전 임시데이터 나중엔 today만 보내서 db연결후 
 		// 오늘체크인 예약,오늘 체크아웃인 예약 따로 표기예정,현재 투숙? 하고있는 예약은 보여줄지말지 고민중 
 
+		return response;
+	}
+	
+	public AdminDashboardResponseDto getDashboard() {
+		
+		LocalDate today = LocalDate.now();		
+		
+		AdminDashboardResponseDto response =adminMapper.getCheckDashboard(today);
+				
 		return response;
 	}
 }
