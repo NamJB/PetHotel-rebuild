@@ -32,16 +32,15 @@ public class AdminServiceImpl implements AdminService {
 	    // 오늘 날짜 넣어서오늘 체크아웃 하는 예약 가져오기 
 	    List<AdminReservationDto> checkOuts = adminMapper.getReservationTodayCheckOuts(today);
 		
-	    //리턴 해주기위해 하나로 합쳐주기 
-	    AdminTodayReservationResponseDto response = new AdminTodayReservationResponseDto();
-	    
-	    response.setCheckIns(checkIns);
-	    response.setCheckOuts(checkOuts);
+	    ;
 	    
 		// todo : db연동 전 임시데이터 나중엔 today만 보내서 db연결후 
 		// 오늘체크인 예약,오늘 체크아웃인 예약 따로 표기예정,현재 투숙? 하고있는 예약은 보여줄지말지 고민중 
 
-		return response;
+		return AdminTodayReservationResponseDto.builder()
+				.checkIns(checkIns)
+				.checkOuts(checkOuts)
+				.build();
 	}
 	
 	public AdminDashboardResponseDto getDashboard() {
