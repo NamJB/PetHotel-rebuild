@@ -77,7 +77,8 @@
 			  }
 			   		  
 			  $("#checkInList").html(checkInHtml);
-			  $("#checkOutList").html(checkOutHtml);			  
+			  $("#checkOutList").html(checkOutHtml);			
+			  todayDashboard();
 		  },
 		  error : function(xhr) {
 			  
