@@ -21,6 +21,9 @@
 <h3>체크아웃리스트</h3>
 <div id ="checkOutList"></div>
 
+<h3>이용중인 리스트 </h3>
+<div id = "stayList"></div>
+
 
 <script>
   $(document).ready(function() {
@@ -46,6 +49,7 @@
 			  
 			  let checkInHtml = "";
 			  let checkOutHtml = "";
+			  let stayReservationHtml = "";
 			  
 			  //체크인 출력 
 			  if(data.checkIns.length == 0) {
@@ -58,8 +62,9 @@
 				  data.checkIns.forEach(function(item){
 						
 					  checkInHtml += `
-					     <div>${item.nickname}</div>
+					     <div>\${item.nickname}</div>
 					     `;
+					     console.log(item.nickname);
 				  });
 			  }
 			  //체크아웃 출력
@@ -71,13 +76,26 @@
 				  data.checkOuts.forEach(function(item){
 					  
 					  checkOutHtml += `
-					     <div>${item.nickname}</div>
+					     <div>\${item.nickname}</div>
+					     `;
+				  });
+			  }
+			  if(data.stayReservation.length == 0 ){
+				  
+				  stayReservationHtml = "<div>이용중인 예약이 없습니다 </div>";				     
+			  }
+			  else{
+				  
+				  data.stayReservation.forEach(function(item){
+					  stayReservationHtml += `
+					     <div>\${item.nickname}</div>
 					     `;
 				  });
 			  }
 			   		  
 			  $("#checkInList").html(checkInHtml);
-			  $("#checkOutList").html(checkOutHtml);			
+			  $("#checkOutList").html(checkOutHtml);
+			  $("#stayList").html(stayReservationHtml);
 			  todayDashboard();
 		  },
 		  error : function(xhr) {

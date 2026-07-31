@@ -74,12 +74,13 @@ CREATE TABLE `reservation` (
   `check_in` date NOT NULL COMMENT '체크인 날짜',
   `check_out` date NOT NULL COMMENT '체크아웃 날짜',
   `amount` int(11) NOT NULL COMMENT '예약 총 금액',
-  `status` varchar(30) NOT NULL DEFAULT 'PENDING_PAYMENT' COMMENT 'PENDING_PAYMENT: 결제대기, PAID: 결제완료, CANCEL: 예약취소, COMPLETED: 이용완료',
+  `reservation_status` varchar(20) DEFAULT NULL COMMENT '예약 상태 (CONFIRMED: 예약확정, CANCELLED: 예약취소)',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '예약 생성일시',
+  `stay_status` varchar(20) NOT NULL DEFAULT 'NOT_STARTED' COMMENT '투숙 상태 (NOT_STARTED: 입실전, CHECKED_IN: 이용중, CHECKED_OUT: 퇴실완료)',
   PRIMARY KEY (`res_id`),
   KEY `fk_reservation_member` (`member_id`),
   CONSTRAINT `fk_reservation_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 

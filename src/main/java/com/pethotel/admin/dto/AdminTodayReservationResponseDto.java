@@ -24,4 +24,6 @@ public class AdminTodayReservationResponseDto {
 	private List<AdminReservationDto> checkIns;
 	
 	private List<AdminReservationDto> checkOuts;
+	
+	private List<AdminReservationDto> stayReservation;
 }

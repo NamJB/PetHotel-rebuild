@@ -20,8 +20,18 @@ resultType = "com.pethotel.admin.dto.AdminReservationDto">
    from reservation r
    inner join member m
    on r.member_id = m.member_id
-   where r.check_out = #{today} 
+   where r.check_out = #{today}
+   and stay_status = "CHECKED_IN" 
    
+</select>
+
+<select id = "getStayReservation" 
+resultType = "com.pethotel.admin.dto.AdminReservationDto">
+   select m.nickname
+   from reservation r
+   inner join member m
+   on r.member_id = m.member_id
+   where r.stay_status = "CHECKED_IN"
 </select>
 
 <select id = "getCheckDashboard" 

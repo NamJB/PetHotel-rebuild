@@ -17,6 +17,9 @@ public interface AdminMapper {
 	//오늘 체크아웃하는 예약들
 	public List<AdminReservationDto> getReservationTodayCheckOuts(LocalDate today);
 	
+	//현재 이용중인 예약들
+	public List<AdminReservationDto> getStayReservation(LocalDate today);
+	
 	//대시보드 
 	public AdminDashboardResponseDto getCheckDashboard(LocalDate today);
 	
